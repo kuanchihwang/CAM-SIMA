@@ -62,7 +62,16 @@ all:
 	@echo '    `make libmpas-clean ESM="CESM" LIBROOT="..."`'
 
 .PHONY: libmpas-prepare
-libmpas-prepare: libmpas-archiver-script.txt libmpas-preview
+libmpas-prepare: libmpas-apply-patch libmpas-archiver-script.txt libmpas-preview
+
+# Apply patches.
+.PHONY: libmpas-apply-patch
+libmpas-apply-patch:
+	@for file in *.patch; do \
+		if patch --dry-run --forward --input="$${file}" --strip=2; then \
+			patch --forward --input="$${file}" --strip=2; \
+		fi; \
+	done
 
 # Combine multiple static libraries into `libmpas.a` via archiver/MRI script. This requires GNU or GNU-like archiver (`ar`) program.
 libmpas-archiver-script.txt:
@@ -75,7 +84,7 @@ libmpas-archiver-script.txt:
 	@echo "end"                         >> $(@)
 
 .PHONY: libmpas-preview
-libmpas-preview:
+libmpas-preview: libmpas-apply-patch libmpas-archiver-script.txt
 	@echo "Previewing build options for $(LIBROOT)/libmpas.a:"
 	@echo "AR = $(AR)"
 	@echo "ARFLAGS = $(ARFLAGS)"
