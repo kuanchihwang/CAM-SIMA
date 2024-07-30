@@ -2,8 +2,10 @@ module stepon
     ! Modules from CAM-SIMA.
     use camsrfexch, only: cam_out_t
     use dyn_comp, only: dyn_import_t, dyn_export_t, dyn_run
+    use dyn_coupling, only: dynamics_to_physics_coupling, physics_to_dynamics_coupling
     use physics_types, only: physics_state, physics_tend
     use runtime_obj, only: runtime_options
+    use time_manager, only: get_step_size
 
     ! Modules from CESM Share.
     use shr_kind_mod, only: kind_r8 => shr_kind_r8
@@ -33,6 +35,10 @@ contains
         type(physics_tend),    intent(inout) :: phys_tend
         type(dyn_import_t),    intent(in)    :: dyn_in
         type(dyn_export_t),    intent(in)    :: dyn_out
+
+        dtime_phys = get_step_size()
+
+        call dynamics_to_physics_coupling()
     end subroutine stepon_timestep_init
 
     ! Called by `cam_run2` in `src/control/cam_comp.F90`.
@@ -42,6 +48,8 @@ contains
         type(physics_tend),    intent(inout) :: phys_tend
         type(dyn_import_t),    intent(in)    :: dyn_in
         type(dyn_export_t),    intent(in)    :: dyn_out
+
+        call physics_to_dynamics_coupling()
     end subroutine stepon_run2
 
     ! Called by `cam_run3` in `src/control/cam_comp.F90`.
