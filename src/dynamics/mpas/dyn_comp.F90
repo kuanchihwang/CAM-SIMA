@@ -51,7 +51,7 @@ module dyn_comp
     public :: dyn_readnl
     public :: dyn_init
     public :: dyn_run
-    ! public :: dyn_final
+    public :: dyn_final
 
     public :: dyn_debug_print
     public :: dyn_exchange_constituent_state
@@ -969,9 +969,63 @@ contains
         call mpas_dynamical_core % run()
     end subroutine dyn_run
 
-    ! Not used for now. Intended to be called by `stepon_final` in `src/dynamics/mpas/stepon.F90`.
-    ! subroutine dyn_final()
-    ! end subroutine dyn_final
+    !> Finalize MPAS dynamical core as well as its framework.
+    !> (KCW, 2024-10-04)
+    subroutine dyn_final()
+        character(*), parameter :: subname = 'dyn_comp::dyn_final'
+
+        call dyn_dump_variable()
+
+        ! After this point, do not access anything under MPAS dynamical core or runtime errors will ensue.
+        call mpas_dynamical_core % final()
+    end subroutine dyn_final
+
+    subroutine dyn_dump_variable()
+        use pio, only: pio_createfile, pio_closefile, pio_clobber, pio_noerr
+        use shr_pio_mod, only: shr_pio_getioformat, shr_pio_getiotype
+
+        integer :: ierr
+        integer :: pio_ioformat, pio_iotype
+        real(kind_r8), pointer :: surface_pressure(:)
+        type(file_desc_t), pointer :: pio_file
+        type(iosystem_desc_t), pointer :: pio_iosystem
+
+        nullify(surface_pressure)
+        nullify(pio_file)
+        nullify(pio_iosystem)
+
+        call mpas_dynamical_core % get_variable_pointer(surface_pressure, 'diag', 'surface_pressure')
+
+        surface_pressure(1:ncells_solve) = phys_state % ps(:)
+
+        nullify(surface_pressure)
+
+        call mpas_dynamical_core % exchange_halo('surface_pressure')
+
+        allocate(pio_file)
+
+        pio_iosystem => shr_pio_getiosys(atm_id)
+
+        pio_ioformat = shr_pio_getioformat(atm_id)
+        pio_ioformat = iand(pio_ioformat, pio_clobber)
+
+        pio_iotype = shr_pio_getiotype(atm_id)
+
+        ierr = pio_createfile(pio_iosystem, pio_file, pio_iotype, 'dyn_dump_variable.nc', pio_ioformat)
+
+        if (ierr /= pio_noerr) then
+            call endrun('pio_createfile', 'dyn_dump_variable', __LINE__)
+        end if
+
+        call mpas_dynamical_core % read_write_stream(pio_file, 'w', 'invariant+input+restart+output')
+
+        call pio_closefile(pio_file)
+
+        deallocate(pio_file)
+
+        nullify(pio_file)
+        nullify(pio_iosystem)
+    end subroutine dyn_dump_variable
 
     !> Helper function for reversing the order of elements in `array`.
     !> (KCW, 2024-07-17)
