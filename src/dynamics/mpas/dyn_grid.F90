@@ -11,7 +11,7 @@ module dyn_grid
         ncells, ncells_solve, nedges, nedges_solve, nvertices, nvertices_solve, nvertlevels, &
         ncells_global, nedges_global, nvertices_global, ncells_max, nedges_max, &
         sphere_radius
-    use dynconst, only: constant_pi => pi, rad_to_deg, dynconst_init
+    use dynconst, only: constant_p0 => pref, constant_pi => pi, rad_to_deg, dynconst_init
     use physics_column_type, only: kind_pcol, physics_column_t
     use physics_grid, only: phys_decomp, phys_grid_init
     use ref_pres, only: ref_pres_init
@@ -173,7 +173,7 @@ contains
         allocate(p_ref_int(pverp), stat=ierr)
         call check_allocate(ierr, subname, 'p_ref_int(pverp)', 'dyn_grid', __LINE__)
 
-        call std_atm_pres(zw, p_ref_int)
+        call std_atm_pres(zw, p_ref_int, user_specified_ps=constant_p0)
 
         allocate(p_ref_mid(pver), stat=ierr)
         call check_allocate(ierr, subname, 'p_ref_mid(pver)', 'dyn_grid', __LINE__)
