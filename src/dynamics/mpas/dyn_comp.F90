@@ -609,7 +609,7 @@ contains
             ! Module(s) from CAM-SIMA.
             use cam_abortutils, only: check_allocate
             use dyn_tests_utils, only: vc_height
-            use dynconst, only: constant_p0 => pref, constant_rd => rair, constant_rv => rh2o
+            use dynconst, only: constant_g => gravit, constant_p0 => pref, constant_rd => rair, constant_rv => rh2o
             use inic_analytic, only: dyn_set_inic_col
             use vert_coord, only: pver
 
@@ -682,24 +682,63 @@ contains
 
                 ! Piecewise integrate hypsometric equation to derive `p_mid_col(1)`.
                 ! The formulation used here is exact.
-                p_mid_col(1) = p_by_hypsometric_equation( &
-                    p_sfc(i), &
-                    real(zgrid(1, i), kind_r8), &
-                    tm_mid_col(1) / (1.0_kind_r8 + qv_mid_col(1)), &
-                    0.5_kind_r8 * real(zgrid(2, i) + zgrid(1, i), kind_r8))
+
+                ! ------------------------------------------------------------
+                ! [CAM-SIMA IMPLEMENTATION]
+                !
+                ! p_mid_col(1) = p_by_hypsometric_equation( &
+                !     p_sfc(i), &
+                !     real(zgrid(1, i), kind_r8), &
+                !     tm_mid_col(1) / (1.0_kind_r8 + qv_mid_col(1)), &
+                !     0.5_kind_r8 * real(zgrid(2, i) + zgrid(1, i), kind_r8))
+                ! ------------------------------------------------------------
+
+                ! ------------------------------------------------------------
+                ! [CAM IMPLEMENTATION]
+                !
+                p_mid_col(1) = p_sfc(i) / &
+                    (1.0_kind_r8 + 0.5_kind_r8 * real(zgrid(2, i) - zgrid(1, i), kind_r8) * &
+                    constant_g / (constant_rd * tm_mid_col(1) / (1.0_kind_r8 + qv_mid_col(1))))
+
+                ! The following alternate form will agree with the CAM-SIMA implementation.
+                ! p_mid_col(1) = p_sfc(i) / &
+                !     exp(0.5_kind_r8 * real(zgrid(2, i) - zgrid(1, i), kind_r8) * &
+                !     constant_g / (constant_rd * tm_mid_col(1) / (1.0_kind_r8 + qv_mid_col(1))))
+                ! ------------------------------------------------------------
 
                 ! Piecewise integrate hypsometric equation to derive subsequent `p_mid_col(k)`.
                 ! The formulation used here is exact.
                 do k = 2, pver
-                    p_mid_col(k) = p_by_hypsometric_equation( &
-                        p_by_hypsometric_equation( &
-                            p_mid_col(k - 1), &
-                            0.5_kind_r8 * real(zgrid(k, i) + zgrid(k - 1, i), kind_r8), &
-                            tm_mid_col(k - 1) / (1.0_kind_r8 + qv_mid_col(k - 1)), &
-                            real(zgrid(k, i), kind_r8)), &
-                        real(zgrid(k, i), kind_r8), &
-                        tm_mid_col(k) / (1.0_kind_r8 + qv_mid_col(k)), &
-                        0.5_kind_r8 * real(zgrid(k + 1, i) + zgrid(k, i), kind_r8))
+                    ! ------------------------------------------------------------
+                    ! [CAM-SIMA IMPLEMENTATION]
+                    !
+                    ! p_mid_col(k) = p_by_hypsometric_equation( &
+                    !     p_by_hypsometric_equation( &
+                    !         p_mid_col(k - 1), &
+                    !         0.5_kind_r8 * real(zgrid(k, i) + zgrid(k - 1, i), kind_r8), &
+                    !         tm_mid_col(k - 1) / (1.0_kind_r8 + qv_mid_col(k - 1)), &
+                    !         real(zgrid(k, i), kind_r8)), &
+                    !     real(zgrid(k, i), kind_r8), &
+                    !     tm_mid_col(k) / (1.0_kind_r8 + qv_mid_col(k)), &
+                    !     0.5_kind_r8 * real(zgrid(k + 1, i) + zgrid(k, i), kind_r8))
+                    ! ------------------------------------------------------------
+
+                    ! ------------------------------------------------------------
+                    ! [CAM IMPLEMENTATION]
+                    !
+                    p_mid_col(k) = p_mid_col(k - 1) * &
+                        (1.0_kind_r8 - 0.5_kind_r8 * real(zgrid(k,     i) - zgrid(k - 1, i), kind_r8) * &
+                        constant_g / (constant_rd * tm_mid_col(k - 1) / (1.0_kind_r8 + qv_mid_col(k - 1)))) / &
+                        (1.0_kind_r8 + 0.5_kind_r8 * real(zgrid(k + 1, i) - zgrid(k,     i), kind_r8) * &
+                        constant_g / (constant_rd * tm_mid_col(k    ) / (1.0_kind_r8 + qv_mid_col(k    ))))
+
+                    ! The following alternate form will agree with the CAM-SIMA implementation.
+                    ! p_mid_col(k) = p_mid_col(k - 1) * &
+                    !     exp(-0.5_kind_r8 * real(zgrid(k,     i) - zgrid(k - 1, i), kind_r8) * &
+                    !     constant_g / (constant_rd * tm_mid_col(k - 1) / (1.0_kind_r8 + qv_mid_col(k - 1)))) / &
+                    !     exp(0.5_kind_r8 * real(zgrid(k + 1, i) - zgrid(k,     i), kind_r8) * &
+                    !     constant_g / (constant_rd * tm_mid_col(k    ) / (1.0_kind_r8 + qv_mid_col(k    ))))
+                    ! ------------------------------------------------------------
                 end do
 
                 rho(:, i) = real(p_mid_col(:) / (constant_rd * tm_mid_col(:)), kind_dyn_mpas)
@@ -727,8 +766,8 @@ contains
         subroutine set_mpas_state_rho_base_theta_base()
             ! Module(s) from CAM-SIMA.
             use cam_abortutils, only: check_allocate
-            use dynconst, only: constant_p0 => pref, constant_rd => rair
-            use vert_coord, only: pver
+            use dynconst, only: constant_g => gravit, constant_p0 => pref, constant_rd => rair
+            use vert_coord, only: pver, pverp
 
             character(*), parameter :: subname = 'dyn_comp::set_analytic_initial_condition::set_mpas_state_rho_base_theta_base'
             integer :: i, k
@@ -755,15 +794,49 @@ contains
 
             ! Set `rho_base` and `theta_base` column by column. This way, peak memory usage can be reduced.
             do i = 1, ncells_solve
-                do k = 1, pver
+                ! ------------------------------------------------------------
+                ! [CAM-SIMA IMPLEMENTATION]
+                !
+                ! do k = 1, pver
                     ! Derive `p_base` by hypsometric equation.
                     ! The formulation used here is exact and identical to MPAS.
-                    p_base(k) = p_by_hypsometric_equation( &
-                        constant_p0, &
-                        0.0_kind_r8, &
-                        t_base, &
-                        0.5_kind_r8 * real(zgrid(k + 1, i) + zgrid(k, i), kind_r8))
+                !     p_base(k) = p_by_hypsometric_equation( &
+                !         constant_p0, &
+                !         0.0_kind_r8, &
+                !         t_base, &
+                !         0.5_kind_r8 * real(zgrid(k + 1, i) + zgrid(k, i), kind_r8))
+                ! end do
+                ! ------------------------------------------------------------
+
+                ! ------------------------------------------------------------
+                ! [CAM IMPLEMENTATION]
+                !
+                p_base(pver) = constant_p0 * &
+                    exp(-zgrid(pverp, i) * constant_g / (constant_rd * t_base)) / &
+                    (1.0_kind_r8 - 0.5_kind_r8 * (zgrid(pverp, i) - zgrid(pver, i)) * &
+                    constant_g / (constant_rd * t_base))
+
+                ! The following alternate form will agree with the CAM-SIMA implementation.
+                ! p_base(pver) = constant_p0 * &
+                !     exp(-zgrid(pverp, i) * constant_g / (constant_rd * t_base)) / &
+                !     exp(-0.5_kind_r8 * (zgrid(pverp, i) - zgrid(pver, i)) * &
+                !     constant_g / (constant_rd * t_base))
+
+                do k = pver - 1, 1, -1
+                    p_base(k) = p_base(k + 1) * &
+                        (1.0_kind_r8 + 0.5_kind_r8 * (zgrid(k + 2, i) - zgrid(k + 1, i)) * &
+                        constant_g / (constant_rd * t_base)) / &
+                        (1.0_kind_r8 - 0.5_kind_r8 * (zgrid(k + 1, i) - zgrid(k,     i)) * &
+                        constant_g / (constant_rd * t_base))
+
+                    ! The following alternate form will agree with the CAM-SIMA implementation.
+                    ! p_base(k) = p_base(k + 1) * &
+                    !     exp(0.5_kind_r8 * (zgrid(k + 2, i) - zgrid(k + 1, i)) * &
+                    !     constant_g / (constant_rd * t_base)) / &
+                    !     exp(-0.5_kind_r8 * (zgrid(k + 1, i) - zgrid(k,     i)) * &
+                    !     constant_g / (constant_rd * t_base))
                 end do
+                ! ------------------------------------------------------------
 
                 rho_base(:, i) = real(p_base(:) / (constant_rd * t_base * real(zz(:, i), kind_r8)), kind_dyn_mpas)
                 theta_base(:, i) = real(theta_by_poisson_equation(p_base, t_base, constant_p0), kind_dyn_mpas)
