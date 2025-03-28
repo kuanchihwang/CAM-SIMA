@@ -1597,5 +1597,78 @@
       <initial_value>.true.</initial_value>
       <initial_value dyn="SE,MPAS"> .false. </initial_value>
     </variable>
+
+    <!-- CAM with MMM "convection-permitting" physics suite (EXPERIMENTAL) -->
+    <!-- Variables for "bl_gwdo" physics scheme -->
+    <variable local_name="var"
+              standard_name="standard_deviation_of_subgrid_orography"
+              units="m" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="oc1"
+              standard_name="convexity_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="oa2d1"
+              standard_name="eastward_asymmetry_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="oa2d2"
+              standard_name="northward_asymmetry_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="oa2d3"
+              standard_name="northeastward_asymmetry_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="oa2d4"
+              standard_name="southeastward_asymmetry_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="ol2d1"
+              standard_name="eastward_dimensionless_effective_length_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="ol2d2"
+              standard_name="northward_dimensionless_effective_length_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="ol2d3"
+              standard_name="northeastward_dimensionless_effective_length_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="ol2d4"
+              standard_name="southeastward_dimensionless_effective_length_of_subgrid_orography"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
   </file>
 </registry>
