@@ -55,6 +55,12 @@
   type = real | kind = kind_phys
   dimensions = ()
   protected = True
+[ latsub ]
+  standard_name = latent_heat_of_sublimation_of_water_at_0c
+  units = J kg-1
+  type = real | kind = kind_phys
+  dimensions = ()
+  protected = True
 [ pi ]
   standard_name = pi_constant
   units = 1
