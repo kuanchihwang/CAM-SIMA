@@ -2441,6 +2441,7 @@ contains
         class(mpas_dynamical_core_type), intent(in) :: self
 
         character(*), parameter :: subname = 'dyn_mpas_subdriver::dyn_mpas_compute_unit_vector'
+        real(rkind), parameter :: pi = acos(-1.0_rkind) ! Pi in native precision.
         integer :: i
         integer, pointer :: ncells
         real(rkind), pointer :: latcell(:), loncell(:)
@@ -2466,6 +2467,12 @@ contains
         call self % get_variable_pointer(north, 'mesh', 'north')
 
         call self % debug_print(log_level_info, 'Computing unit vectors')
+
+        ! Make sure longitude values are within the range of [0, 2 * pi) according to MPAS mesh specifications.
+        ! Although stand-alone MPAS can still accept longitude values outside this range without issues, CAM-SIMA is less
+        ! tolerant about it. Note that there is a distinction between the `mod` and `modulo` intrinsic procedures.
+        ! The former uses truncated division, while the latter uses floored division.
+        loncell(:) = modulo(loncell, 2.0_rkind * pi)
 
         do i = 1, ncells
             east(1, i) = -sin(loncell(i))
