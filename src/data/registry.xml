@@ -1670,5 +1670,20 @@
       <dimensions>horizontal_dimension</dimensions>
       <initial_value>0.0_kind_phys</initial_value>
     </variable>
+    <!-- Variables for "sf_mynn" physics scheme -->
+    <variable local_name="mavail"
+              standard_name="surface_moisture_availability"
+              units="1" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>0.0_kind_phys</initial_value>
+    </variable>
+    <variable local_name="tsk"
+              standard_name="skin_temperature_at_surface"
+              units="K" type="real" kind="kind_phys"
+              access="public" allocatable="allocatable">
+      <dimensions>horizontal_dimension</dimensions>
+      <initial_value>273.15_kind_phys</initial_value>
+    </variable>
   </file>
 </registry>
