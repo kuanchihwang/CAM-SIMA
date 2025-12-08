@@ -286,7 +286,7 @@
   dimensions = ()
   protected = True
 [ cpvir ]
-  standard_name = ratio_of_specific_heat_of_water_vapor_to_specific_heat_of_dry_air
+  standard_name = ratio_of_specific_heat_of_water_vapor_to_specific_heat_of_dry_air_minus_one
   units = 1
   type = real | kind = kind_phys
   dimensions = ()
