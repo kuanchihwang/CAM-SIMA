@@ -1,0 +1,1281 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>dyn_mpas_compute_cell_relative_vorticity – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      dyn_mpas_compute_cell_relative_vorticity
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+            <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> Kuan-Chih Wang</li>
+            <li class="list-inline-item" id="meta-date"><i class="fa fa-calendar-o"></i> 2025-04-12</li>
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 0.9% of total for procedures.">35 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_mpas_subdriver.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_mpas_subdriver.f90.html'>dyn_mpas_subdriver.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_mpas_subdriver.html'>dyn_mpas_subdriver</a></li>
+            <li class="breadcrumb-item active" aria-current="page">dyn_mpas_compute_cell_relative_vorticity</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-areacell~3">areacell</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-cerr~16">cerr</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-i~19">i</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-ierr~19">ierr</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-k~4">k</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-kiteareasonvertex">kiteareasonvertex</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-kiteforcell">kiteforcell</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-ncellssolve">ncellssolve</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-nedgesoncell">nedgesoncell</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-nvertlevels~2">nvertlevels</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-subname~34">subname</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-verticesoncell">verticesoncell</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#variable-vorticity">vorticity</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/dyn_mpas_compute_cell_relative_vorticity.html#src">dyn_mpas_compute_cell_relative_vorticity</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2>private  subroutine dyn_mpas_compute_cell_relative_vorticity(self, cell_relative_vorticity)  
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item"><a href='../module/dyn_mpas_procedures.html'>dyn_mpas_procedures</a></li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph Pages: 1 -->
+<svg id="procdyn_mpas_compute_cell_relative_vorticityUsesGraph" width="566pt" height="32pt"
+ viewBox="0.00 0.00 566.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 561.79,-28.27 561.79,4 -4,4"/>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph_node1" class="node">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity</title>
+<polygon fill="none" stroke="black" points="557.79,-24.27 166.02,-24.27 166.02,0 557.79,0 557.79,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_compute_cell_relative_vorticity</text>
+</g>
+<!-- module~dyn_mpas_procedures -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph_node2" class="node">
+<title>module~dyn_mpas_procedures</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph_node2"><a xlink:href="../module/dyn_mpas_procedures.html" xlink:title="dyn_mpas_procedures">
+<polygon fill="#337ab7" stroke="#337ab7" points="130.02,-24.27 0,-24.27 0,0 130.02,0 130.02,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="65.01" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_procedures</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;module~dyn_mpas_procedures -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~UsesGraph_edge1" class="edge">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M165.85,-12.13C157.6,-12.13 149.57,-12.13 141.88,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="142.01,-8.64 132.01,-12.14 142.01,-15.64 142.01,-8.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>MPAS uses staggered C-grid for spatial discretization, where relative
+vorticities are located at vertex points because wind vectors are located at
+edge points. However, physics schemes that use relative vorticities as input
+usually want them at cell points instead.
+This subroutine computes the relative vorticity at each cell point from its
+surrounding vertex points and returns the results.</p>
+
+        <h3>Type Bound</h3>
+        <p><a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a></p>
+
+      <h3>Arguments</h3>
+          <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-self~13"></span>
+              class(<a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cell_relative_vorticity"></span>
+              real(kind=rkind),
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>cell_relative_vorticity</strong>(:,:)</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph Pages: 1 -->
+<svg id="procdyn_mpas_compute_cell_relative_vorticityCallsGraph" width="641pt" height="211pt"
+ viewBox="0.00 0.00 641.00 211.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph" class="graph" transform="scale(0.392685 0.392685) rotate(0) translate(4 532.27)">
+<title>proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-532.27 1628.35,-532.27 1628.35,4 -4,4"/>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node1" class="node">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity</title>
+<polygon fill="none" stroke="black" points="391.77,-234.27 0,-234.27 0,-210 391.77,-210 391.77,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="195.88" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_compute_cell_relative_vorticity</text>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node2" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node2"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="705.54,-276.27 427.77,-276.27 427.77,-252 705.54,-252 705.54,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="566.65" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge1" class="edge">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M307.78,-234.76C350.61,-239.64 399.77,-245.24 443.6,-250.23"/>
+<polygon fill="#000000" stroke="#000000" points="443.08,-253.7 453.41,-251.35 443.87,-246.74 443.08,-253.7"/>
+</g>
+<!-- proc~regrid_from_vertex_to_cell -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node3" class="node">
+<title>proc~regrid_from_vertex_to_cell</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node3"><a xlink:href="../proc/regrid_from_vertex_to_cell.html" xlink:title="regrid_from_vertex_to_cell">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="642.16,-234.27 491.14,-234.27 491.14,-210 642.16,-210 642.16,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="566.65" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">regrid_from_vertex_to_cell</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;proc~regrid_from_vertex_to_cell -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge2" class="edge">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;proc~regrid_from_vertex_to_cell</title>
+<path fill="none" stroke="#000000" d="M392.07,-222.13C422.77,-222.13 453.07,-222.13 479.55,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="479.53,-225.64 489.53,-222.14 479.53,-218.64 479.53,-225.64"/>
+</g>
+<!-- proc~stringify -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node4" class="node">
+<title>proc~stringify</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node4"><a xlink:href="../proc/stringify.html" xlink:title="stringify">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="593.79,-192.27 539.52,-192.27 539.52,-168 593.79,-168 593.79,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="566.65" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;proc~stringify -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge3" class="edge">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M307.78,-209.51C382.56,-200.99 476.62,-190.28 527.95,-184.43"/>
+<polygon fill="#000000" stroke="#000000" points="528.1,-187.93 537.64,-183.33 527.31,-180.98 528.1,-187.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node5" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node5"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1096.56,-360.27 741.54,-360.27 741.54,-336 1096.56,-336 1096.56,-360.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-344.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge4" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M595.96,-276.68C629.87,-291.16 688.74,-314.61 741.54,-327.13 751.79,-329.57 762.45,-331.73 773.22,-333.64"/>
+<polygon fill="#000000" stroke="#000000" points="772.54,-337.07 782.98,-335.29 773.7,-330.17 772.54,-337.07"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node6" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node6"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1096.56,-108.27 741.54,-108.27 741.54,-84 1096.56,-84 1096.56,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge5" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M693.88,-251.66C698,-249.16 701.9,-246.33 705.54,-243.13 749.26,-204.65 697.2,-154.9 741.54,-117.14 742.34,-116.46 743.14,-115.79 743.96,-115.14"/>
+<polygon fill="#000000" stroke="#000000" points="745.68,-118.22 751.81,-109.58 741.63,-112.5 745.68,-118.22"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node7" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node7"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.06,-486.27 743.04,-486.27 743.04,-462 1095.06,-462 1095.06,-486.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-470.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge6" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M574.7,-276.62C595.18,-311.58 658.57,-410.71 741.54,-453.13 744.5,-454.65 747.53,-456.07 750.61,-457.41"/>
+<polygon fill="#000000" stroke="#000000" points="749.27,-460.65 759.86,-461.09 751.85,-454.14 749.27,-460.65"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node8" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node8"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.06,-444.27 743.04,-444.27 743.04,-420 1095.06,-420 1095.06,-444.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-428.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge7" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M577.83,-276.75C602.38,-306.18 668.31,-379.3 741.54,-411.13 745.64,-412.92 749.84,-414.57 754.12,-416.09"/>
+<polygon fill="#000000" stroke="#000000" points="752.87,-419.36 763.47,-419.15 755.05,-412.71 752.87,-419.36"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node9" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node9"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.06,-66.27 743.04,-66.27 743.04,-42 1095.06,-42 1095.06,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-50.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge8" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M694.76,-251.58C698.58,-249.09 702.19,-246.29 705.54,-243.13 761.13,-190.78 685.1,-126.57 741.54,-75.14 742.18,-74.55 742.83,-73.98 743.49,-73.41"/>
+<polygon fill="#000000" stroke="#000000" points="745.34,-76.4 751.18,-67.55 741.1,-70.83 745.34,-76.4"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node10" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node10"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.06,-24.27 743.04,-24.27 743.04,0 1095.06,0 1095.06,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-8.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge9" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M695.23,-251.55C698.89,-249.07 702.34,-246.27 705.54,-243.13 773.12,-176.8 672.88,-98.35 741.54,-33.14 742.05,-32.65 742.56,-32.18 743.08,-31.71"/>
+<polygon fill="#000000" stroke="#000000" points="745.02,-34.63 750.65,-25.66 740.66,-29.16 745.02,-34.63"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node11" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node11"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.06,-528.27 743.04,-528.27 743.04,-504 1095.06,-504 1095.06,-528.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-512.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge10" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M572.76,-276.7C589.75,-316.73 648.64,-441.7 741.54,-495.13 743.77,-496.42 746.04,-497.64 748.34,-498.8"/>
+<polygon fill="#000000" stroke="#000000" points="746.75,-501.92 757.3,-502.9 749.66,-495.55 746.75,-501.92"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-402.27 742.29,-402.27 742.29,-378 1095.81,-378 1095.81,-402.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-386.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge11" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M582.82,-276.42C611.71,-299.08 677.5,-347.14 741.54,-369.13 747.62,-371.22 753.87,-373.11 760.24,-374.81"/>
+<polygon fill="#000000" stroke="#000000" points="759.02,-378.12 769.57,-377.15 760.72,-371.33 759.02,-378.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-318.27 742.29,-318.27 742.29,-294 1095.81,-294 1095.81,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge12" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.01,-276.77C694.92,-279.53 719.05,-282.44 741.54,-285.13 760.58,-287.42 780.78,-289.83 800.45,-292.17"/>
+<polygon fill="#000000" stroke="#000000" points="799.79,-295.62 810.14,-293.33 800.62,-288.67 799.79,-295.62"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-276.27 742.29,-276.27 742.29,-252 1095.81,-252 1095.81,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge13" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M705.89,-264.13C714.05,-264.13 722.32,-264.13 730.63,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="730.46,-267.64 740.46,-264.14 730.46,-260.64 730.46,-267.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-234.27 742.29,-234.27 742.29,-210 1095.81,-210 1095.81,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge14" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M672.01,-251.5C694.92,-248.74 719.05,-245.83 741.54,-243.13 760.58,-240.85 780.78,-238.44 800.45,-236.1"/>
+<polygon fill="#000000" stroke="#000000" points="800.62,-239.6 810.14,-234.94 799.79,-232.65 800.62,-239.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-192.27 742.29,-192.27 742.29,-168 1095.81,-168 1095.81,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge15" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M687.19,-251.53C693.55,-249.15 699.72,-246.37 705.54,-243.13 727.04,-231.2 719.85,-212.71 741.54,-201.13 744.25,-199.69 747.02,-198.32 749.84,-197.03"/>
+<polygon fill="#000000" stroke="#000000" points="750.97,-200.35 758.84,-193.27 748.27,-193.89 750.97,-200.35"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="1095.81,-150.27 742.29,-150.27 742.29,-126 1095.81,-126 1095.81,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="919.05" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge16" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M692.42,-251.57C697.02,-249.12 701.42,-246.32 705.54,-243.13 737.66,-218.28 709.01,-183.46 741.54,-159.13 742.72,-158.25 743.92,-157.39 745.14,-156.56"/>
+<polygon fill="#000000" stroke="#000000" points="746.78,-159.66 753.47,-151.45 743.11,-153.69 746.78,-159.66"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node18" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1353.7,-234.27 1228.18,-234.27 1228.18,-210 1353.7,-210 1353.7,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.94" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge17" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1083.34,-335.62C1087.94,-333.09 1092.36,-330.28 1096.56,-327.13 1129.09,-302.81 1100.21,-267.69 1132.56,-243.13 1156.21,-225.18 1187.82,-218.62 1216.5,-217.04"/>
+<polygon fill="#000000" stroke="#000000" points="1216.35,-220.55 1226.23,-216.71 1216.12,-213.55 1216.35,-220.55"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node19" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1355.95,-423.27 1225.93,-423.27 1225.93,-399 1355.95,-399 1355.95,-423.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.94" y="-407.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge18" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1039.43,-360.77C1058.58,-363.25 1078.15,-366.05 1096.56,-369.13 1140.66,-376.53 1189.9,-387.26 1227.66,-396.03"/>
+<polygon fill="#000000" stroke="#000000" points="1226.49,-399.34 1237.02,-398.21 1228.08,-392.53 1226.49,-399.34"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node21" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node21"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1449.33,-276.27 1132.56,-276.27 1132.56,-252 1449.33,-252 1449.33,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.94" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge19" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1050.67,-335.53C1066.21,-333.16 1081.79,-330.39 1096.56,-327.13 1149.67,-315.44 1208.88,-295.02 1247.62,-280.6"/>
+<polygon fill="#000000" stroke="#000000" points="1248.43,-284.03 1256.56,-277.23 1245.97,-277.48 1248.43,-284.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge20" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1064.55,-108.75C1075.49,-111.09 1086.27,-113.86 1096.56,-117.14 1160.12,-137.35 1226.93,-178.83 1262.99,-203.16"/>
+<polygon fill="#000000" stroke="#000000" points="1260.84,-205.93 1271.07,-208.69 1264.79,-200.15 1260.84,-205.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge21" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1085.06,-108.7C1089.07,-111.23 1092.92,-114.03 1096.56,-117.14 1140.9,-154.9 1088.49,-205.06 1132.56,-243.13 1133.36,-243.82 1134.17,-244.5 1134.99,-245.16"/>
+<polygon fill="#000000" stroke="#000000" points="1132.74,-247.86 1142.93,-250.76 1136.78,-242.13 1132.74,-247.86"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge22" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1086.26,-461.56C1089.87,-459.02 1093.32,-456.22 1096.56,-453.13 1165.22,-387.92 1064.37,-308.84 1132.56,-243.13 1154.56,-221.93 1187.02,-215.16 1216.75,-214.28"/>
+<polygon fill="#000000" stroke="#000000" points="1216.49,-217.79 1226.47,-214.23 1216.45,-210.79 1216.49,-217.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge23" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1066.07,-461.56C1076.5,-459.2 1086.76,-456.42 1096.56,-453.13 1114.12,-447.25 1115.04,-438.14 1132.56,-432.13 1158.46,-423.25 1187.95,-418.1 1214.34,-415.13"/>
+<polygon fill="#000000" stroke="#000000" points="1214.36,-418.64 1223.94,-414.13 1213.64,-411.68 1214.36,-418.64"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node20" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1367.2,-465.27 1214.68,-465.27 1214.68,-441 1367.2,-441 1367.2,-465.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1290.94" y="-449.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge24" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1095.52,-464.17C1132.9,-462.05 1170.8,-459.9 1203.09,-458.07"/>
+<polygon fill="#000000" stroke="#000000" points="1202.97,-461.58 1212.76,-457.52 1202.58,-454.59 1202.97,-461.58"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge25" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1081.64,-461.59C1086.81,-459.09 1091.8,-456.29 1096.56,-453.13 1123.45,-435.33 1111.6,-414.65 1132.56,-390.13 1170.76,-345.46 1226.56,-305.18 1260.44,-282.75"/>
+<polygon fill="#000000" stroke="#000000" points="1262.07,-285.87 1268.53,-277.47 1258.24,-280.01 1262.07,-285.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge26" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1085.72,-419.63C1089.51,-417.08 1093.14,-414.25 1096.56,-411.13 1153,-359.7 1076.49,-294.97 1132.56,-243.13 1154.91,-222.48 1187.25,-215.73 1216.81,-214.74"/>
+<polygon fill="#000000" stroke="#000000" points="1216.5,-218.24 1226.46,-214.64 1216.42,-211.24 1216.5,-218.24"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge27" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1095.52,-442.1C1132.9,-444.22 1170.8,-446.37 1203.09,-448.2"/>
+<polygon fill="#000000" stroke="#000000" points="1202.58,-451.68 1212.76,-448.75 1202.97,-444.69 1202.58,-451.68"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge28" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1071.62,-419.54C1080.18,-417.16 1088.55,-414.37 1096.56,-411.13 1115.67,-403.41 1218.34,-321.78 1265.83,-283.61"/>
+<polygon fill="#000000" stroke="#000000" points="1267.77,-286.53 1273.37,-277.54 1263.38,-281.08 1267.77,-286.53"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge29" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1071.62,-66.73C1080.18,-69.11 1088.55,-71.9 1096.56,-75.14 1169.06,-104.44 1237.99,-168.42 1270.49,-201.46"/>
+<polygon fill="#000000" stroke="#000000" points="1267.78,-203.7 1277.25,-208.45 1272.81,-198.83 1267.78,-203.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge30" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1085.72,-66.64C1089.51,-69.19 1093.14,-72.02 1096.56,-75.14 1153,-126.57 1076.49,-191.3 1132.56,-243.13 1133.21,-243.73 1133.86,-244.32 1134.52,-244.89"/>
+<polygon fill="#000000" stroke="#000000" points="1132.25,-247.56 1142.34,-250.81 1136.48,-241.98 1132.25,-247.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge31" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1075.73,-24.74C1082.9,-27.16 1089.88,-29.94 1096.56,-33.14 1178.16,-72.17 1246.47,-159.5 1275.28,-200.33"/>
+<polygon fill="#000000" stroke="#000000" points="1272.3,-202.17 1280.87,-208.4 1278.05,-198.19 1272.3,-202.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge32" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1086.26,-24.71C1089.87,-27.25 1093.32,-30.05 1096.56,-33.14 1165.22,-98.35 1064.37,-177.43 1132.56,-243.13 1133.07,-243.63 1133.59,-244.11 1134.11,-244.59"/>
+<polygon fill="#000000" stroke="#000000" points="1131.84,-247.26 1141.85,-250.73 1136.19,-241.77 1131.84,-247.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge33" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1081.64,-503.59C1086.81,-501.09 1091.8,-498.29 1096.56,-495.13 1123.45,-477.33 1105.8,-450.13 1132.56,-432.13 1156.28,-416.18 1186.61,-409.7 1214.31,-407.65"/>
+<polygon fill="#000000" stroke="#000000" points="1214.27,-411.15 1224.07,-407.12 1213.89,-404.16 1214.27,-411.15"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge34" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1084.45,-503.55C1088.67,-501.03 1092.72,-498.24 1096.56,-495.13 1134.94,-464.14 1104.18,-430.49 1132.56,-390.13 1165.83,-342.84 1221.69,-304.12 1257.14,-282.6"/>
+<polygon fill="#000000" stroke="#000000" points="1258.89,-285.63 1265.7,-277.51 1255.32,-279.61 1258.89,-285.63"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge35" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1085.06,-377.57C1089.07,-375.04 1092.92,-372.24 1096.56,-369.13 1140.9,-331.37 1088.49,-281.21 1132.56,-243.13 1155.3,-223.49 1187.22,-216.76 1216.37,-215.52"/>
+<polygon fill="#000000" stroke="#000000" points="1216.36,-219.02 1226.29,-215.33 1216.23,-212.03 1216.36,-219.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge36" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1096.06,-400.13C1137.72,-402.49 1179.99,-404.89 1214.39,-406.85"/>
+<polygon fill="#000000" stroke="#000000" points="1214.04,-410.33 1224.22,-407.4 1214.44,-403.34 1214.04,-410.33"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge37" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1064.55,-377.52C1075.49,-375.18 1086.27,-372.41 1096.56,-369.13 1160.12,-348.92 1226.93,-307.44 1262.99,-283.11"/>
+<polygon fill="#000000" stroke="#000000" points="1264.79,-286.12 1271.07,-277.58 1260.84,-280.34 1264.79,-286.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge38" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1077.86,-293.59C1084.31,-291.13 1090.57,-288.33 1096.56,-285.13 1118.25,-273.56 1110.95,-254.87 1132.56,-243.13 1157.9,-229.38 1188.8,-223.36 1216.49,-221.05"/>
+<polygon fill="#000000" stroke="#000000" points="1216.48,-224.56 1226.23,-220.39 1216.01,-217.57 1216.48,-224.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge39" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1031.28,-293.51C1074.24,-288.63 1123.55,-283.03 1167.51,-278.04"/>
+<polygon fill="#000000" stroke="#000000" points="1167.82,-281.52 1177.36,-276.92 1167.03,-274.57 1167.82,-281.52"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge40" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1031.28,-251.51C1091.24,-244.7 1163.56,-236.49 1216.47,-230.48"/>
+<polygon fill="#000000" stroke="#000000" points="1216.75,-233.97 1226.29,-229.36 1215.96,-227.01 1216.75,-233.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge41" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1096.06,-264.13C1104.38,-264.13 1112.73,-264.13 1121.03,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="1120.81,-267.64 1130.81,-264.14 1120.81,-260.64 1120.81,-267.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge42" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1096.06,-222.13C1138.56,-222.13 1181.69,-222.13 1216.45,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="1216.39,-225.64 1226.39,-222.14 1216.39,-218.64 1216.39,-225.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge43" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1031.28,-234.76C1074.24,-239.64 1123.55,-245.24 1167.51,-250.23"/>
+<polygon fill="#000000" stroke="#000000" points="1167.03,-253.7 1177.36,-251.35 1167.82,-246.75 1167.03,-253.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge44" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1031.28,-192.76C1091.24,-199.57 1163.56,-207.78 1216.47,-213.79"/>
+<polygon fill="#000000" stroke="#000000" points="1215.96,-217.26 1226.29,-214.91 1216.75,-210.3 1215.96,-217.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1077.86,-192.68C1084.31,-195.14 1090.57,-197.94 1096.56,-201.13 1118.25,-212.71 1110.95,-231.4 1132.56,-243.13 1135.25,-244.6 1138,-245.97 1140.81,-247.26"/>
+<polygon fill="#000000" stroke="#000000" points="1139.2,-250.38 1149.77,-251 1141.89,-243.92 1139.2,-250.38"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1050.67,-150.74C1066.21,-153.11 1081.79,-155.88 1096.56,-159.13 1149.67,-170.83 1208.88,-191.25 1247.62,-205.67"/>
+<polygon fill="#000000" stroke="#000000" points="1245.97,-208.79 1256.56,-209.04 1248.43,-202.24 1245.97,-208.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1083.34,-150.65C1087.94,-153.18 1092.36,-155.99 1096.56,-159.13 1129.09,-183.46 1100.21,-218.58 1132.56,-243.13 1133.73,-244.03 1134.93,-244.89 1136.14,-245.72"/>
+<polygon fill="#000000" stroke="#000000" points="1134.11,-248.59 1144.47,-250.82 1137.76,-242.61 1134.11,-248.59"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_node22" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="1624.35,-276.27 1485.33,-276.27 1485.33,-252 1624.35,-252 1624.35,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1554.84" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~dyn_mpas_compute_cell_relative_vorticity~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1449.58,-264.13C1457.71,-264.13 1465.69,-264.13 1473.4,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="1473.36,-267.64 1483.36,-264.14 1473.36,-260.64 1473.36,-267.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocdyn_mpas_compute_cell_relative_vorticityCallsGraph = svgPanZoom('#procdyn_mpas_compute_cell_relative_vorticityCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-areacell~3"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>areacell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cerr~16"></span>
+              character(len=strkind),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cerr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i~19"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ierr~19"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ierr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-k~4"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>k</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-kiteareasonvertex"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>kiteareasonvertex</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-kiteforcell"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>kiteforcell</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ncellssolve"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>ncellssolve</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-nedgesoncell"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>nedgesoncell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-nvertlevels~2"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>nvertlevels</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~34"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_mpas_subdriver::dyn_mpas_compute_cell_relative_vorticity&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-verticesoncell"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>verticesoncell</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-vorticity"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>vorticity</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">dyn_mpas_compute_cell_relative_vorticity</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">cell_relative_vorticity</span><span class="p">)</span>
+<span class="w">        </span><span class="c">! Module(s) from MPAS.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_mpas_procedures</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">stringify</span>
+
+<span class="w">        </span><span class="k">class</span><span class="p">(</span><span class="n">mpas_dynamical_core_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">self</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">out</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cell_relative_vorticity</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_mpas_subdriver::dyn_mpas_compute_cell_relative_vorticity&#39;</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="n">strkind</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncellssolve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">kiteforcell</span><span class="p">(:,</span><span class="w"> </span><span class="p">:),</span><span class="w"> </span><span class="n">nedgesoncell</span><span class="p">(:),</span><span class="w"> </span><span class="n">verticesoncell</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">areacell</span><span class="p">(:),</span><span class="w"> </span><span class="n">kiteareasonvertex</span><span class="p">(:,</span><span class="w"> </span><span class="p">:),</span><span class="w"> </span><span class="n">vorticity</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">ncellssolve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">kiteforcell</span><span class="p">,</span><span class="w"> </span><span class="n">nedgesoncell</span><span class="p">,</span><span class="w"> </span><span class="n">verticesoncell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="n">kiteareasonvertex</span><span class="p">,</span><span class="w"> </span><span class="n">vorticity</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Input.</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">ncellssolve</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dim&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nCellsSolve&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">nvertlevels</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dim&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nVertLevels&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">kiteforcell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;kiteForCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">nedgesoncell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nEdgesOnCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">verticesoncell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;verticesOnCell&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;areaCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">kiteareasonvertex</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;kiteAreasOnVertex&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">vorticity</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;diag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;vorticity&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Output.</span>
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">cell_relative_vorticity</span><span class="p">(</span><span class="n">nvertlevels</span><span class="p">,</span><span class="w"> </span><span class="n">ncellssolve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ierr</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">model_error</span><span class="p">(</span><span class="s1">&#39;Failed to allocate cell_relative_vorticity&#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nb">new_line</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;Allocation returned with &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">stringify</span><span class="p">([</span><span class="n">ierr</span><span class="p">])</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39;: &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)),</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="k">        do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncellssolve</span>
+<span class="w">            </span><span class="k">do </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span>
+<span class="w">                </span><span class="n">cell_relative_vorticity</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">regrid_from_vertex_to_cell</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                    </span><span class="n">nedgesoncell</span><span class="p">,</span><span class="w"> </span><span class="n">verticesoncell</span><span class="p">,</span><span class="w"> </span><span class="n">kiteforcell</span><span class="p">,</span><span class="w"> </span><span class="n">kiteareasonvertex</span><span class="p">,</span><span class="w"> </span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                    </span><span class="n">vorticity</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end do</span>
+<span class="k">        end do</span>
+
+<span class="k">        nullify</span><span class="p">(</span><span class="n">ncellssolve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">kiteforcell</span><span class="p">,</span><span class="w"> </span><span class="n">nedgesoncell</span><span class="p">,</span><span class="w"> </span><span class="n">verticesoncell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="n">kiteareasonvertex</span><span class="p">,</span><span class="w"> </span><span class="n">vorticity</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">dyn_mpas_compute_cell_relative_vorticity</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

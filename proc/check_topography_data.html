@@ -1,0 +1,1632 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>check_topography_data – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      check_topography_data
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 1.3% of total for procedures.">51 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_comp_impl.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_comp_impl.f90.html'>dyn_comp_impl.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_comp_impl.html'>dyn_comp_impl</a></li>
+            <li class="breadcrumb-item active" aria-current="page">check_topography_data</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-cerr~5">cerr</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-error_tolerance">error_tolerance</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-ierr~5">ierr</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-subname~10">subname</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-success">success</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-surface_geometric_height">surface_geometric_height</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-surface_geopotential">surface_geopotential</a>
+            <a class="list-group-item" href="../proc/check_topography_data.html#variable-zgrid">zgrid</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/check_topography_data.html#src">check_topography_data</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2> subroutine check_topography_data(pio_file)  
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">cam_field_read</li>
+                  <li class="list-inline-item"><a href='../module/dyn_mpas_procedures.html'>dyn_mpas_procedures</a></li>
+                  <li class="list-inline-item">pio</li>
+                  <li class="list-inline-item">cam_logfile</li>
+                  <li class="list-inline-item">dynconst</li>
+                  <li class="list-inline-item">cam_abortutils</li>
+                  <li class="list-inline-item">shr_kind_mod</li>
+                  <li class="list-inline-item"><a href='../module/dyn_grid.html'>dyn_grid</a></li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~check_topography_data~~UsesGraph Pages: 1 -->
+<svg id="proccheck_topography_dataUsesGraph" width="641pt" height="272pt"
+ viewBox="0.00 0.00 641.00 272.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~check_topography_data~~UsesGraph" class="graph" transform="scale(0.833442 0.833442) rotate(0) translate(4 322.27)">
+<title>proc~~check_topography_data~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-322.27 765.1,-322.27 765.1,4 -4,4"/>
+<!-- proc~check_topography_data -->
+<g id="proc~~check_topography_data~~UsesGraph_node1" class="node">
+<title>proc~check_topography_data</title>
+<polygon fill="none" stroke="black" points="761.1,-171.27 622.08,-171.27 622.08,-147 761.1,-147 761.1,-171.27"/>
+<text xml:space="preserve" text-anchor="middle" x="691.59" y="-155.53" font-family="Helvetica,sans-Serif" font-size="10.50">check_topography_data</text>
+</g>
+<!-- cam_abortutils -->
+<g id="proc~~check_topography_data~~UsesGraph_node2" class="node">
+<title>cam_abortutils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="566.2,-318.27 475.93,-318.27 475.93,-294 566.2,-294 566.2,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_abortutils</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;cam_abortutils -->
+<g id="proc~~check_topography_data~~UsesGraph_edge1" class="edge">
+<title>proc~check_topography_data&#45;&gt;cam_abortutils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M683.65,-171.49C668.93,-196.58 632.13,-253.79 586.08,-285.13 583.22,-287.08 580.17,-288.86 577.01,-290.47"/>
+<polygon fill="#000000" stroke="#000000" points="575.71,-287.22 568.02,-294.51 578.58,-293.61 575.71,-287.22"/>
+</g>
+<!-- cam_field_read -->
+<g id="proc~~check_topography_data~~UsesGraph_node3" class="node">
+<title>cam_field_read</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="567.33,-276.27 474.81,-276.27 474.81,-252 567.33,-252 567.33,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_field_read</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;cam_field_read -->
+<g id="proc~~check_topography_data~~UsesGraph_edge2" class="edge">
+<title>proc~check_topography_data&#45;&gt;cam_field_read</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M678.16,-171.67C659.62,-189.74 622.91,-223.16 586.08,-243.13 583.42,-244.58 580.65,-245.94 577.82,-247.23"/>
+<polygon fill="#000000" stroke="#000000" points="576.65,-243.92 568.75,-250.98 579.33,-250.39 576.65,-243.92"/>
+</g>
+<!-- cam_logfile -->
+<g id="proc~~check_topography_data~~UsesGraph_node4" class="node">
+<title>cam_logfile</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="557.58,-234.27 484.56,-234.27 484.56,-210 557.58,-210 557.58,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_logfile</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;cam_logfile -->
+<g id="proc~~check_topography_data~~UsesGraph_edge3" class="edge">
+<title>proc~check_topography_data&#45;&gt;cam_logfile</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M661.06,-171.6C640.23,-180.24 611.62,-191.83 586.08,-201.13 580.38,-203.21 574.36,-205.31 568.39,-207.34"/>
+<polygon fill="#000000" stroke="#000000" points="567.58,-203.92 559.2,-210.4 569.79,-210.56 567.58,-203.92"/>
+</g>
+<!-- dynconst -->
+<g id="proc~~check_topography_data~~UsesGraph_node5" class="node">
+<title>dynconst</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="550.83,-192.27 491.31,-192.27 491.31,-168 550.83,-168 550.83,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dynconst</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;dynconst -->
+<g id="proc~~check_topography_data~~UsesGraph_edge4" class="edge">
+<title>proc~check_topography_data&#45;&gt;dynconst</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M622.05,-167.68C601.71,-170.21 580.12,-172.9 562.22,-175.13"/>
+<polygon fill="#000000" stroke="#000000" points="562.03,-171.63 552.54,-176.34 562.9,-178.57 562.03,-171.63"/>
+</g>
+<!-- module~dyn_grid -->
+<g id="proc~~check_topography_data~~UsesGraph_node6" class="node">
+<title>module~dyn_grid</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node6"><a xlink:href="../module/dyn_grid.html" xlink:title="dyn_grid">
+<polygon fill="#337ab7" stroke="#337ab7" points="549.7,-150.27 492.43,-150.27 492.43,-126 549.7,-126 549.7,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_grid</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;module~dyn_grid -->
+<g id="proc~~check_topography_data~~UsesGraph_edge5" class="edge">
+<title>proc~check_topography_data&#45;&gt;module~dyn_grid</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M622.05,-150.59C601.42,-148.02 579.48,-145.29 561.43,-143.04"/>
+<polygon fill="#000000" stroke="#000000" points="562.04,-139.59 551.68,-141.83 561.17,-146.54 562.04,-139.59"/>
+</g>
+<!-- module~dyn_mpas_procedures -->
+<g id="proc~~check_topography_data~~UsesGraph_node7" class="node">
+<title>module~dyn_mpas_procedures</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node7"><a xlink:href="../module/dyn_mpas_procedures.html" xlink:title="dyn_mpas_procedures">
+<polygon fill="#337ab7" stroke="#337ab7" points="586.08,-108.27 456.06,-108.27 456.06,-84 586.08,-84 586.08,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_procedures</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;module~dyn_mpas_procedures -->
+<g id="proc~~check_topography_data~~UsesGraph_edge6" class="edge">
+<title>proc~check_topography_data&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M661.06,-146.67C640.23,-138.03 611.62,-126.44 586.08,-117.13 581.69,-115.54 577.11,-113.92 572.51,-112.34"/>
+<polygon fill="#000000" stroke="#000000" points="573.85,-109.1 563.25,-109.21 571.61,-115.73 573.85,-109.1"/>
+</g>
+<!-- pio -->
+<g id="proc~~check_topography_data~~UsesGraph_node8" class="node">
+<title>pio</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="548.07,-66.27 494.07,-66.27 494.07,-42 548.07,-42 548.07,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">pio</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;pio -->
+<g id="proc~~check_topography_data~~UsesGraph_edge7" class="edge">
+<title>proc~check_topography_data&#45;&gt;pio</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M678.16,-146.6C659.62,-128.53 622.91,-95.11 586.08,-75.13 577.75,-70.62 568.28,-66.85 559.22,-63.82"/>
+<polygon fill="#000000" stroke="#000000" points="560.52,-60.56 549.93,-60.93 558.44,-67.24 560.52,-60.56"/>
+</g>
+<!-- shr_kind_mod -->
+<g id="proc~~check_topography_data~~UsesGraph_node9" class="node">
+<title>shr_kind_mod</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="563.58,-24.27 478.56,-24.27 478.56,0 563.58,0 563.58,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">shr_kind_mod</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;shr_kind_mod -->
+<g id="proc~~check_topography_data~~UsesGraph_edge8" class="edge">
+<title>proc~check_topography_data&#45;&gt;shr_kind_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M683.65,-146.78C668.93,-121.69 632.13,-64.48 586.08,-33.13 582.43,-30.65 578.47,-28.44 574.36,-26.48"/>
+<polygon fill="#000000" stroke="#000000" points="575.93,-23.35 565.35,-22.7 573.22,-29.8 575.93,-23.35"/>
+</g>
+<!-- cam_grid_support -->
+<g id="proc~~check_topography_data~~UsesGraph_node10" class="node">
+<title>cam_grid_support</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="420.06,-171.27 313.29,-171.27 313.29,-147 420.06,-147 420.06,-171.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-155.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_grid_support</text>
+</g>
+<!-- module~dyn_grid&#45;&gt;cam_grid_support -->
+<g id="proc~~check_topography_data~~UsesGraph_edge9" class="edge">
+<title>module~dyn_grid&#45;&gt;cam_grid_support</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M492.12,-141.99C475.15,-144.33 452.75,-147.41 431.64,-150.32"/>
+<polygon fill="#000000" stroke="#000000" points="431.35,-146.83 421.92,-151.66 432.31,-153.76 431.35,-146.83"/>
+</g>
+<!-- module~dyn_comp -->
+<g id="proc~~check_topography_data~~UsesGraph_node11" class="node">
+<title>module~dyn_comp</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node11"><a xlink:href="../module/dyn_comp.html" xlink:title="dyn_comp">
+<polygon fill="#337ab7" stroke="#337ab7" points="399.81,-129.27 333.54,-129.27 333.54,-105 399.81,-105 399.81,-129.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-113.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_grid&#45;&gt;module~dyn_comp -->
+<g id="proc~~check_topography_data~~UsesGraph_edge10" class="edge">
+<title>module~dyn_grid&#45;&gt;module~dyn_comp</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M492.12,-134.28C469.51,-131.17 437.28,-126.73 411.29,-123.15"/>
+<polygon fill="#000000" stroke="#000000" points="412.09,-119.72 401.71,-121.82 411.14,-126.66 412.09,-119.72"/>
+</g>
+<!-- module~dyn_mpas_subdriver -->
+<g id="proc~~check_topography_data~~UsesGraph_node12" class="node">
+<title>module~dyn_mpas_subdriver</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node12"><a xlink:href="../module/dyn_mpas_subdriver.html" xlink:title="dyn_mpas_subdriver">
+<polygon fill="#337ab7" stroke="#337ab7" points="277.29,-129.27 156.27,-129.27 156.27,-105 277.29,-105 277.29,-129.27"/>
+<text xml:space="preserve" text-anchor="middle" x="216.78" y="-113.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_subdriver</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver -->
+<g id="proc~~check_topography_data~~UsesGraph_edge11" class="edge">
+<title>module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M333.22,-117.13C320.08,-117.13 304.36,-117.13 288.81,-117.13"/>
+<polygon fill="#000000" stroke="#000000" points="289.08,-113.64 279.08,-117.14 289.08,-120.64 289.08,-113.64"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="proc~~check_topography_data~~UsesGraph_node13" class="node">
+<title>iso_fortran_env</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node13"><a xlink:href="https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-fortran-env-module.html" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="106.77,-192.27 13.5,-192.27 13.5,-168 106.77,-168 106.77,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env -->
+<g id="proc~~check_topography_data~~UsesGraph_edge12" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-129.62C169.82,-138.26 143.67,-149.85 120.27,-159.13 116.45,-160.65 112.47,-162.18 108.47,-163.67"/>
+<polygon fill="#000000" stroke="#000000" points="107.49,-160.3 99.3,-167.03 109.9,-166.88 107.49,-160.3"/>
+</g>
+<!-- mpas_derived_types -->
+<g id="proc~~check_topography_data~~UsesGraph_node14" class="node">
+<title>mpas_derived_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="120.27,-150.27 0,-150.27 0,-126 120.27,-126 120.27,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_derived_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types -->
+<g id="proc~~check_topography_data~~UsesGraph_edge13" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-125.25C148.13,-126.32 140.02,-127.42 132,-128.51"/>
+<polygon fill="#000000" stroke="#000000" points="131.7,-125.02 122.27,-129.83 132.65,-131.96 131.7,-125.02"/>
+</g>
+<!-- mpas_kind_types -->
+<g id="proc~~check_topography_data~~UsesGraph_node15" class="node">
+<title>mpas_kind_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="111.27,-108.27 9,-108.27 9,-84 111.27,-84 111.27,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_kind_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types -->
+<g id="proc~~check_topography_data~~UsesGraph_edge14" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-109.02C145.14,-107.54 133.8,-106 122.9,-104.52"/>
+<polygon fill="#000000" stroke="#000000" points="123.61,-101.09 113.23,-103.21 122.67,-108.02 123.61,-101.09"/>
+</g>
+<!-- mpi -->
+<g id="proc~~check_topography_data~~UsesGraph_node16" class="node">
+<title>mpi</title>
+<g id="a_proc~~check_topography_data~~UsesGraph_node16"><a xlink:href="https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node467.htm" xlink:title="mpi">
+<polygon fill="#337ab7" stroke="#337ab7" points="87.13,-66.27 33.13,-66.27 33.13,-42 87.13,-42 87.13,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpi</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpi -->
+<g id="proc~~check_topography_data~~UsesGraph_edge15" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpi</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-104.65C169.82,-96.01 143.67,-84.42 120.27,-75.13 113.21,-72.33 105.61,-69.5 98.28,-66.86"/>
+<polygon fill="#000000" stroke="#000000" points="99.51,-63.58 88.91,-63.54 97.17,-70.18 99.51,-63.58"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panproccheck_topography_dataUsesGraph = svgPanZoom('#proccheck_topography_dataUsesGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>Check for consistency in topography data. The presence of topography file is inferred from the <code>pio_file</code> pointer.
+If topography file is used, check that the "PHIS" variable, which denotes surface geopotential,
+is consistent with the surface geometric height in MPAS.
+Otherwise, if topography file is not used, check that the surface geometric height in MPAS is zero.
+(KCW, 2024-05-10)</p>
+
+
+      <h3>Arguments</h3>
+          <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-pio_file~2"></span>
+              type(file_desc_t),
+            </td>
+<td>intent(in),</td>
+              <td></td>            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>pio_file</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~check_topography_data~~CallsGraph Pages: 1 -->
+<svg id="proccheck_topography_dataCallsGraph" width="641pt" height="347pt"
+ viewBox="0.00 0.00 641.00 347.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~check_topography_data~~CallsGraph" class="graph" transform="scale(0.464627 0.464627) rotate(0) translate(4 742.27)">
+<title>proc~~check_topography_data~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-742.27 1375.6,-742.27 1375.6,4 -4,4"/>
+<!-- proc~check_topography_data -->
+<g id="proc~~check_topography_data~~CallsGraph_node1" class="node">
+<title>proc~check_topography_data</title>
+<polygon fill="none" stroke="black" points="139.02,-612.27 0,-612.27 0,-588 139.02,-588 139.02,-612.27"/>
+<text xml:space="preserve" text-anchor="middle" x="69.51" y="-596.53" font-family="Helvetica,sans-Serif" font-size="10.50">check_topography_data</text>
+</g>
+<!-- cam_read_field -->
+<g id="proc~~check_topography_data~~CallsGraph_node2" class="node">
+<title>cam_read_field</title>
+<polygon fill="#777777" stroke="#777777" points="360.16,-738.27 267.64,-738.27 267.64,-714 360.16,-714 360.16,-738.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-722.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_read_field</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;cam_read_field -->
+<g id="proc~~check_topography_data~~CallsGraph_edge1" class="edge">
+<title>proc~check_topography_data&#45;&gt;cam_read_field</title>
+<path fill="none" stroke="#000000" d="M78.83,-612.71C94.6,-635.4 131.21,-682.91 175.02,-705.13 199.85,-717.73 230.19,-723.25 256.09,-725.5"/>
+<polygon fill="#000000" stroke="#000000" points="255.52,-728.97 265.75,-726.2 256.02,-721.99 255.52,-728.97"/>
+</g>
+<!-- check_allocate -->
+<g id="proc~~check_topography_data~~CallsGraph_node3" class="node">
+<title>check_allocate</title>
+<polygon fill="#777777" stroke="#777777" points="359.41,-696.27 268.39,-696.27 268.39,-672 359.41,-672 359.41,-696.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-680.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_allocate</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;check_allocate -->
+<g id="proc~~check_topography_data~~CallsGraph_edge2" class="edge">
+<title>proc~check_topography_data&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M86.5,-612.54C106.18,-627.13 141.15,-650.89 175.02,-663.13 200.99,-672.52 231.18,-677.71 256.68,-680.58"/>
+<polygon fill="#000000" stroke="#000000" points="256.23,-684.05 266.53,-681.59 256.94,-677.09 256.23,-684.05"/>
+</g>
+<!-- endrun -->
+<g id="proc~~check_topography_data~~CallsGraph_node4" class="node">
+<title>endrun</title>
+<polygon fill="#777777" stroke="#777777" points="340.9,-654.27 286.9,-654.27 286.9,-630 340.9,-630 340.9,-654.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-638.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">endrun</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;endrun -->
+<g id="proc~~check_topography_data~~CallsGraph_edge3" class="edge">
+<title>proc~check_topography_data&#45;&gt;endrun</title>
+<path fill="none" stroke="#000000" d="M130.66,-612.72C145.16,-615.62 160.62,-618.59 175.02,-621.13 208.82,-627.1 247.47,-632.9 275.23,-636.89"/>
+<polygon fill="#000000" stroke="#000000" points="274.52,-640.32 284.91,-638.26 275.51,-633.39 274.52,-640.32"/>
+</g>
+<!-- interface~almost_equal -->
+<g id="proc~~check_topography_data~~CallsGraph_node5" class="node">
+<title>interface~almost_equal</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node5"><a xlink:href="../interface/almost_equal.html" xlink:title="almost_equal">
+<polygon fill="#a7506f" stroke="#a7506f" points="355.29,-612.27 272.52,-612.27 272.52,-588 355.29,-588 355.29,-612.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-596.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">almost_equal</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;interface~almost_equal -->
+<g id="proc~~check_topography_data~~CallsGraph_edge4" class="edge">
+<title>proc~check_topography_data&#45;&gt;interface~almost_equal</title>
+<path fill="none" stroke="#000000" d="M139.32,-600.13C178.1,-600.13 225.73,-600.13 261.28,-600.13"/>
+<polygon fill="#000000" stroke="#000000" points="260.86,-603.64 270.86,-600.14 260.86,-596.64 260.86,-603.64"/>
+</g>
+<!-- interface~dyn_debug_print -->
+<g id="proc~~check_topography_data~~CallsGraph_node6" class="node">
+<title>interface~dyn_debug_print</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node6"><a xlink:href="../interface/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#a7506f" stroke="#a7506f" points="363.91,-570.27 263.89,-570.27 263.89,-546 363.91,-546 363.91,-570.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-554.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~check_topography_data~~CallsGraph_edge5" class="edge">
+<title>proc~check_topography_data&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M130.66,-587.55C145.16,-584.65 160.62,-581.68 175.02,-579.13 200.34,-574.67 228.38,-570.29 252.52,-566.7"/>
+<polygon fill="#000000" stroke="#000000" points="252.79,-570.2 262.18,-565.28 251.77,-563.27 252.79,-570.2"/>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_node7" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node7"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="452.79,-318.27 175.02,-318.27 175.02,-294 452.79,-294 452.79,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge6" class="edge">
+<title>proc~check_topography_data&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M80.93,-587.5C118.61,-541.8 248.11,-384.72 295.42,-327.34"/>
+<polygon fill="#000000" stroke="#000000" points="297.9,-329.83 301.57,-319.89 292.5,-325.38 297.9,-329.83"/>
+</g>
+<!-- pio_file_is_open -->
+<g id="proc~~check_topography_data~~CallsGraph_node8" class="node">
+<title>pio_file_is_open</title>
+<polygon fill="#777777" stroke="#777777" points="361.66,-276.27 266.14,-276.27 266.14,-252 361.66,-252 361.66,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="313.9" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">pio_file_is_open</text>
+</g>
+<!-- proc~check_topography_data&#45;&gt;pio_file_is_open -->
+<g id="proc~~check_topography_data~~CallsGraph_edge7" class="edge">
+<title>proc~check_topography_data&#45;&gt;pio_file_is_open</title>
+<path fill="none" stroke="#000000" d="M70.38,-587.72C70.62,-539.97 78.35,-366.69 175.02,-285.13 196.72,-266.83 227.47,-260.88 254.42,-259.82"/>
+<polygon fill="#000000" stroke="#000000" points="254.25,-263.32 264.19,-259.67 254.14,-256.33 254.25,-263.32"/>
+</g>
+<!-- proc~almost_equal_real32 -->
+<g id="proc~~check_topography_data~~CallsGraph_node9" class="node">
+<title>proc~almost_equal_real32</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node9"><a xlink:href="../proc/almost_equal_real32.html" xlink:title="almost_equal_real32">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="727.18,-654.27 605.41,-654.27 605.41,-630 727.18,-630 727.18,-654.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-638.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">almost_equal_real32</text>
+</a>
+</g>
+</g>
+<!-- interface~almost_equal&#45;&gt;proc~almost_equal_real32 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge8" class="edge">
+<title>interface~almost_equal&#45;&gt;proc~almost_equal_real32</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M355.66,-605.08C390.9,-609.35 443.2,-615.67 488.79,-621.13 523.46,-625.29 561.97,-629.88 594.15,-633.7"/>
+<polygon fill="#000000" stroke="#000000" points="593.4,-637.13 603.75,-634.84 594.23,-630.18 593.4,-637.13"/>
+</g>
+<!-- proc~almost_equal_real64 -->
+<g id="proc~~check_topography_data~~CallsGraph_node10" class="node">
+<title>proc~almost_equal_real64</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node10"><a xlink:href="../proc/almost_equal_real64.html" xlink:title="almost_equal_real64">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="727.18,-612.27 605.41,-612.27 605.41,-588 727.18,-588 727.18,-612.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-596.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">almost_equal_real64</text>
+</a>
+</g>
+</g>
+<!-- interface~almost_equal&#45;&gt;proc~almost_equal_real64 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge9" class="edge">
+<title>interface~almost_equal&#45;&gt;proc~almost_equal_real64</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M355.79,-600.13C414.13,-600.13 522.16,-600.13 593.89,-600.13"/>
+<polygon fill="#000000" stroke="#000000" points="593.56,-603.64 603.56,-600.14 593.56,-596.64 593.56,-603.64"/>
+</g>
+<!-- proc~dyn_debug_print -->
+<g id="proc~~check_topography_data~~CallsGraph_node11" class="node">
+<title>proc~dyn_debug_print</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node11"><a xlink:href="../proc/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="716.31,-570.27 616.29,-570.27 616.29,-546 716.31,-546 716.31,-570.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-554.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print -->
+<g id="proc~~check_topography_data~~CallsGraph_edge10" class="edge">
+<title>interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M364.36,-558.13C427.4,-558.13 536.35,-558.13 604.42,-558.13"/>
+<polygon fill="#000000" stroke="#000000" points="604.3,-561.64 614.3,-558.14 604.3,-554.64 604.3,-561.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~check_topography_data~~CallsGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.81,-444.27 488.79,-444.27 488.79,-420 843.81,-420 843.81,-444.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-428.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge11" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M330.07,-318.42C358.96,-341.08 424.75,-389.14 488.79,-411.13 494.87,-413.22 501.12,-415.11 507.49,-416.81"/>
+<polygon fill="#000000" stroke="#000000" points="506.27,-420.12 516.82,-419.15 507.97,-413.33 506.27,-420.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~check_topography_data~~CallsGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.81,-150.27 488.79,-150.27 488.79,-126 843.81,-126 843.81,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge12" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M441.13,-293.66C445.25,-291.16 449.15,-288.33 452.79,-285.13 496.51,-246.65 444.45,-196.9 488.79,-159.13 489.59,-158.46 490.39,-157.79 491.21,-157.14"/>
+<polygon fill="#000000" stroke="#000000" points="492.93,-160.22 499.06,-151.58 488.88,-154.5 492.93,-160.22"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~check_topography_data~~CallsGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="842.31,-486.27 490.29,-486.27 490.29,-462 842.31,-462 842.31,-486.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-470.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge13" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M325.08,-318.75C349.63,-348.18 415.56,-421.3 488.79,-453.13 492.89,-454.92 497.09,-456.57 501.37,-458.09"/>
+<polygon fill="#000000" stroke="#000000" points="500.12,-461.36 510.72,-461.15 502.3,-454.71 500.12,-461.36"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~check_topography_data~~CallsGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="842.31,-360.27 490.29,-360.27 490.29,-336 842.31,-336 842.31,-360.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-344.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge14" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M419.26,-318.77C442.17,-321.53 466.3,-324.44 488.79,-327.13 507.83,-329.42 528.03,-331.83 547.7,-334.17"/>
+<polygon fill="#000000" stroke="#000000" points="547.04,-337.62 557.39,-335.33 547.87,-330.67 547.04,-337.62"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~check_topography_data~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="842.31,-108.27 490.29,-108.27 490.29,-84 842.31,-84 842.31,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge15" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M442.01,-293.58C445.83,-291.09 449.44,-288.29 452.79,-285.13 508.38,-232.78 432.35,-168.57 488.79,-117.13 489.43,-116.55 490.08,-115.98 490.74,-115.41"/>
+<polygon fill="#000000" stroke="#000000" points="492.59,-118.4 498.43,-109.55 488.35,-112.83 492.59,-118.4"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~check_topography_data~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="842.31,-66.27 490.29,-66.27 490.29,-42 842.31,-42 842.31,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge16" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M442.48,-293.55C446.14,-291.07 449.59,-288.27 452.79,-285.13 520.37,-218.8 420.13,-140.35 488.79,-75.13 489.3,-74.65 489.81,-74.18 490.33,-73.71"/>
+<polygon fill="#000000" stroke="#000000" points="492.27,-76.63 497.9,-67.66 487.91,-71.16 492.27,-76.63"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~check_topography_data~~CallsGraph_node18" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node18"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="842.31,-528.27 490.29,-528.27 490.29,-504 842.31,-504 842.31,-528.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-512.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge17" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M321.95,-318.62C342.43,-353.58 405.82,-452.71 488.79,-495.13 491.75,-496.65 494.78,-498.07 497.86,-499.41"/>
+<polygon fill="#000000" stroke="#000000" points="496.52,-502.65 507.11,-503.09 499.1,-496.14 496.52,-502.65"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~check_topography_data~~CallsGraph_node19" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node19"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-402.27 489.54,-402.27 489.54,-378 843.06,-378 843.06,-402.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-386.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge18" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M343.21,-318.68C377.12,-333.16 435.99,-356.61 488.79,-369.13 499.04,-371.57 509.7,-373.73 520.47,-375.64"/>
+<polygon fill="#000000" stroke="#000000" points="519.79,-379.07 530.23,-377.29 520.95,-372.17 519.79,-379.07"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~check_topography_data~~CallsGraph_node20" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node20"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-24.27 489.54,-24.27 489.54,0 843.06,0 843.06,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge19" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M442.59,-293.66C446.22,-291.15 449.64,-288.32 452.79,-285.13 532.42,-204.77 407.86,-112.19 488.79,-33.13 489.29,-32.65 489.8,-32.16 490.31,-31.69"/>
+<polygon fill="#000000" stroke="#000000" points="492.28,-34.6 497.8,-25.55 487.85,-29.18 492.28,-34.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~check_topography_data~~CallsGraph_node21" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node21"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-318.27 489.54,-318.27 489.54,-294 843.06,-294 843.06,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge20" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M453.14,-306.13C461.3,-306.13 469.57,-306.13 477.88,-306.13"/>
+<polygon fill="#000000" stroke="#000000" points="477.71,-309.64 487.71,-306.14 477.71,-302.64 477.71,-309.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~check_topography_data~~CallsGraph_node22" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node22"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-276.27 489.54,-276.27 489.54,-252 843.06,-252 843.06,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge21" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M419.26,-293.5C442.17,-290.74 466.3,-287.83 488.79,-285.13 507.83,-282.85 528.03,-280.44 547.7,-278.1"/>
+<polygon fill="#000000" stroke="#000000" points="547.87,-281.6 557.39,-276.94 547.04,-274.65 547.87,-281.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~check_topography_data~~CallsGraph_node23" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node23"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-234.27 489.54,-234.27 489.54,-210 843.06,-210 843.06,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge22" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M434.44,-293.53C440.8,-291.15 446.97,-288.37 452.79,-285.13 474.29,-273.2 467.1,-254.71 488.79,-243.13 491.5,-241.69 494.27,-240.32 497.09,-239.03"/>
+<polygon fill="#000000" stroke="#000000" points="498.22,-242.35 506.09,-235.27 495.52,-235.89 498.22,-242.35"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~check_topography_data~~CallsGraph_node24" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node24"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="843.06,-192.27 489.54,-192.27 489.54,-168 843.06,-168 843.06,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="666.3" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~check_topography_data~~CallsGraph_edge23" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M439.67,-293.57C444.27,-291.12 448.67,-288.32 452.79,-285.13 484.91,-260.28 456.26,-225.46 488.79,-201.13 489.97,-200.25 491.17,-199.39 492.39,-198.56"/>
+<polygon fill="#000000" stroke="#000000" points="494.03,-201.66 500.72,-193.45 490.36,-195.69 494.03,-201.66"/>
+</g>
+<!-- stringify -->
+<g id="proc~~check_topography_data~~CallsGraph_node29" class="node">
+<title>stringify</title>
+<polygon fill="#777777" stroke="#777777" points="1065.33,-570.27 1011.06,-570.27 1011.06,-546 1065.33,-546 1065.33,-570.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1038.19" y="-554.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</g>
+<!-- proc~dyn_debug_print&#45;&gt;stringify -->
+<g id="proc~~check_topography_data~~CallsGraph_edge24" class="edge">
+<title>proc~dyn_debug_print&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M716.8,-558.13C791.64,-558.13 931.99,-558.13 999.3,-558.13"/>
+<polygon fill="#000000" stroke="#000000" points="999.09,-561.64 1009.09,-558.14 999.09,-554.64 999.09,-561.64"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_node25" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1100.95,-234.27 975.43,-234.27 975.43,-210 1100.95,-210 1100.95,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1038.19" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge25" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M832.97,-419.63C836.76,-417.08 840.39,-414.25 843.81,-411.13 900.25,-359.7 823.74,-294.97 879.81,-243.13 902.16,-222.48 934.5,-215.73 964.06,-214.74"/>
+<polygon fill="#000000" stroke="#000000" points="963.75,-218.24 973.71,-214.64 963.67,-211.24 963.75,-218.24"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~check_topography_data~~CallsGraph_node26" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1103.2,-465.27 973.18,-465.27 973.18,-441 1103.2,-441 1103.2,-465.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1038.19" y="-449.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~check_topography_data~~CallsGraph_edge26" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M844.12,-442.17C885.51,-444.52 927.44,-446.9 961.6,-448.84"/>
+<polygon fill="#000000" stroke="#000000" points="961.18,-452.33 971.37,-449.4 961.58,-445.34 961.18,-452.33"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_node28" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~check_topography_data~~CallsGraph_node28"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1196.58,-276.27 879.81,-276.27 879.81,-252 1196.58,-252 1196.58,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1038.19" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge27" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M828.89,-419.59C834.06,-417.09 839.05,-414.29 843.81,-411.13 870.7,-393.33 856.68,-370.61 879.81,-348.13 911.48,-317.37 956.69,-294.82 990.53,-280.87"/>
+<polygon fill="#000000" stroke="#000000" points="991.7,-284.17 999.69,-277.21 989.1,-277.68 991.7,-284.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge28" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M797.92,-150.74C813.46,-153.11 829.04,-155.88 843.81,-159.13 896.92,-170.83 956.13,-191.25 994.87,-205.67"/>
+<polygon fill="#000000" stroke="#000000" points="993.22,-208.79 1003.81,-209.04 995.68,-202.24 993.22,-208.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge29" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M830.59,-150.65C835.19,-153.18 839.61,-155.99 843.81,-159.13 876.34,-183.46 847.46,-218.58 879.81,-243.13 880.98,-244.03 882.18,-244.89 883.39,-245.72"/>
+<polygon fill="#000000" stroke="#000000" points="881.36,-248.59 891.72,-250.82 885.01,-242.61 881.36,-248.59"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge30" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M833.51,-461.56C837.12,-459.02 840.57,-456.22 843.81,-453.13 912.47,-387.92 811.62,-308.84 879.81,-243.13 901.81,-221.93 934.27,-215.16 964,-214.28"/>
+<polygon fill="#000000" stroke="#000000" points="963.74,-217.79 973.72,-214.23 963.7,-210.79 963.74,-217.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~check_topography_data~~CallsGraph_edge31" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M842.77,-464.17C884.51,-461.8 926.89,-459.4 961.38,-457.44"/>
+<polygon fill="#000000" stroke="#000000" points="961.47,-460.94 971.26,-456.88 961.08,-453.95 961.47,-460.94"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~check_topography_data~~CallsGraph_node27" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1114.45,-381.27 961.93,-381.27 961.93,-357 1114.45,-357 1114.45,-381.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1038.19" y="-365.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~check_topography_data~~CallsGraph_edge32" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M813.32,-461.56C823.75,-459.2 834.01,-456.42 843.81,-453.13 861.37,-447.25 863.17,-440.27 879.81,-432.13 916.24,-414.34 959.04,-397.45 990.8,-385.65"/>
+<polygon fill="#000000" stroke="#000000" points="991.95,-388.96 1000.12,-382.22 989.53,-382.39 991.95,-388.96"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge33" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M831.7,-461.55C835.92,-459.03 839.97,-456.24 843.81,-453.13 882.19,-422.14 847.82,-385.69 879.81,-348.13 907.35,-315.79 950.56,-293.99 984.74,-280.73"/>
+<polygon fill="#000000" stroke="#000000" points="985.92,-284.02 994.07,-277.24 983.48,-277.46 985.92,-284.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge34" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M830.59,-335.62C835.19,-333.09 839.61,-330.28 843.81,-327.13 876.34,-302.81 847.46,-267.69 879.81,-243.13 903.46,-225.18 935.07,-218.62 963.75,-217.04"/>
+<polygon fill="#000000" stroke="#000000" points="963.6,-220.55 973.48,-216.71 963.37,-213.55 963.6,-220.55"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~check_topography_data~~CallsGraph_edge35" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M842.77,-358.1C880.15,-360.22 918.05,-362.37 950.34,-364.2"/>
+<polygon fill="#000000" stroke="#000000" points="949.83,-367.68 960.01,-364.75 950.22,-360.69 949.83,-367.68"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge36" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M797.92,-335.53C813.46,-333.16 829.04,-330.39 843.81,-327.13 896.92,-315.44 956.13,-295.02 994.87,-280.6"/>
+<polygon fill="#000000" stroke="#000000" points="995.68,-284.03 1003.81,-277.23 993.22,-277.48 995.68,-284.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge37" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M811.8,-108.75C822.74,-111.09 833.52,-113.86 843.81,-117.13 907.37,-137.35 974.18,-178.83 1010.24,-203.16"/>
+<polygon fill="#000000" stroke="#000000" points="1008.09,-205.93 1018.32,-208.69 1012.04,-200.15 1008.09,-205.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge38" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M832.31,-108.7C836.32,-111.23 840.17,-114.03 843.81,-117.13 888.15,-154.9 835.74,-205.06 879.81,-243.13 880.61,-243.82 881.42,-244.5 882.24,-245.16"/>
+<polygon fill="#000000" stroke="#000000" points="879.99,-247.86 890.18,-250.76 884.03,-242.13 879.99,-247.86"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge39" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M818.87,-66.73C827.43,-69.11 835.8,-71.9 843.81,-75.13 916.31,-104.44 985.24,-168.42 1017.74,-201.46"/>
+<polygon fill="#000000" stroke="#000000" points="1015.03,-203.7 1024.5,-208.45 1020.06,-198.83 1015.03,-203.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge40" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M832.97,-66.64C836.76,-69.19 840.39,-72.02 843.81,-75.13 900.25,-126.57 823.74,-191.3 879.81,-243.13 880.46,-243.73 881.11,-244.32 881.77,-244.89"/>
+<polygon fill="#000000" stroke="#000000" points="879.5,-247.56 889.59,-250.81 883.73,-241.98 879.5,-247.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~check_topography_data~~CallsGraph_edge41" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M786.68,-503.5C805.83,-501.02 825.4,-498.22 843.81,-495.13 887.91,-487.74 937.15,-477.01 974.91,-468.24"/>
+<polygon fill="#000000" stroke="#000000" points="975.33,-471.74 984.27,-466.06 973.74,-464.93 975.33,-471.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge42" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M832.46,-503.75C836.43,-501.17 840.23,-498.31 843.81,-495.13 894.18,-450.55 838.55,-401.26 879.81,-348.13 905.55,-314.99 948.13,-293.4 982.51,-280.42"/>
+<polygon fill="#000000" stroke="#000000" points="983.25,-283.87 991.47,-277.18 980.87,-277.29 983.25,-283.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge43" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M832.31,-377.57C836.32,-375.04 840.17,-372.24 843.81,-369.13 888.15,-331.37 835.74,-281.21 879.81,-243.13 902.55,-223.49 934.47,-216.76 963.62,-215.52"/>
+<polygon fill="#000000" stroke="#000000" points="963.61,-219.02 973.54,-215.33 963.48,-212.03 963.61,-219.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~check_topography_data~~CallsGraph_edge44" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M786.68,-402.77C805.83,-405.25 825.4,-408.05 843.81,-411.13 887.91,-418.53 937.15,-429.26 974.91,-438.03"/>
+<polygon fill="#000000" stroke="#000000" points="973.74,-441.34 984.27,-440.21 975.33,-434.53 973.74,-441.34"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M813.32,-377.56C823.75,-375.2 834.01,-372.42 843.81,-369.13 861.37,-363.25 863.64,-357.16 879.81,-348.13 921.84,-324.67 970.85,-298.73 1002.87,-281.98"/>
+<polygon fill="#000000" stroke="#000000" points="1004.46,-285.1 1011.7,-277.36 1001.22,-278.89 1004.46,-285.1"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M822.98,-24.74C830.15,-27.16 837.13,-29.94 843.81,-33.13 925.41,-72.17 993.72,-159.5 1022.53,-200.33"/>
+<polygon fill="#000000" stroke="#000000" points="1019.55,-202.17 1028.12,-208.4 1025.3,-198.19 1019.55,-202.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M833.51,-24.71C837.12,-27.25 840.57,-30.05 843.81,-33.13 912.47,-98.35 811.62,-177.43 879.81,-243.13 880.32,-243.63 880.84,-244.11 881.36,-244.59"/>
+<polygon fill="#000000" stroke="#000000" points="879.09,-247.26 889.1,-250.73 883.44,-241.77 879.09,-247.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M825.11,-293.59C831.56,-291.13 837.82,-288.33 843.81,-285.13 865.5,-273.56 858.2,-254.87 879.81,-243.13 905.15,-229.38 936.05,-223.36 963.74,-221.05"/>
+<polygon fill="#000000" stroke="#000000" points="963.73,-224.56 973.48,-220.39 963.26,-217.57 963.73,-224.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge49" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M778.53,-293.51C821.49,-288.63 870.8,-283.03 914.76,-278.04"/>
+<polygon fill="#000000" stroke="#000000" points="915.07,-281.52 924.61,-276.92 914.28,-274.57 915.07,-281.52"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge50" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M778.53,-251.51C838.49,-244.7 910.81,-236.49 963.72,-230.48"/>
+<polygon fill="#000000" stroke="#000000" points="964,-233.97 973.54,-229.36 963.21,-227.01 964,-233.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge51" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M843.31,-264.13C851.63,-264.13 859.98,-264.13 868.28,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="868.06,-267.64 878.06,-264.14 868.06,-260.64 868.06,-267.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge52" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M843.31,-222.13C885.81,-222.13 928.94,-222.13 963.7,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="963.64,-225.64 973.64,-222.14 963.64,-218.64 963.64,-225.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge53" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M778.53,-234.76C821.49,-239.64 870.8,-245.24 914.76,-250.23"/>
+<polygon fill="#000000" stroke="#000000" points="914.28,-253.7 924.61,-251.35 915.07,-246.75 914.28,-253.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~check_topography_data~~CallsGraph_edge54" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M778.53,-192.76C838.49,-199.57 910.81,-207.78 963.72,-213.79"/>
+<polygon fill="#000000" stroke="#000000" points="963.21,-217.26 973.54,-214.91 964,-210.3 963.21,-217.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~check_topography_data~~CallsGraph_edge55" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M825.11,-192.68C831.56,-195.14 837.82,-197.94 843.81,-201.13 865.5,-212.71 858.2,-231.4 879.81,-243.13 882.5,-244.6 885.25,-245.97 888.06,-247.26"/>
+<polygon fill="#000000" stroke="#000000" points="886.45,-250.38 897.02,-251 889.14,-243.92 886.45,-250.38"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~check_topography_data~~CallsGraph_node30" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="1371.6,-276.27 1232.58,-276.27 1232.58,-252 1371.6,-252 1371.6,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1302.09" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~check_topography_data~~CallsGraph_edge56" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1196.83,-264.13C1204.96,-264.13 1212.94,-264.13 1220.65,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="1220.61,-267.64 1230.61,-264.14 1220.61,-260.64 1220.61,-267.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panproccheck_topography_dataCallsGraph = svgPanZoom('#proccheck_topography_dataCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~check_topography_data~~CalledByGraph Pages: 1 -->
+<svg id="proccheck_topography_dataCalledByGraph" width="327pt" height="32pt"
+ viewBox="0.00 0.00 327.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~check_topography_data~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~check_topography_data~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 323.02,-28.27 323.02,4 -4,4"/>
+<!-- proc~check_topography_data -->
+<g id="proc~~check_topography_data~~CalledByGraph_node1" class="node">
+<title>proc~check_topography_data</title>
+<polygon fill="none" stroke="black" points="319.02,-24.27 180,-24.27 180,0 319.02,0 319.02,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="249.51" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">check_topography_data</text>
+</g>
+<!-- proc~dyn_init -->
+<g id="proc~~check_topography_data~~CalledByGraph_node2" class="node">
+<title>proc~dyn_init</title>
+<g id="a_proc~~check_topography_data~~CalledByGraph_node2"><a xlink:href="../proc/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="144,-24.27 90,-24.27 90,0 144,0 144,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="117" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~check_topography_data -->
+<g id="proc~~check_topography_data~~CalledByGraph_edge1" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~check_topography_data</title>
+<path fill="none" stroke="#000000" d="M144.41,-12.13C151.61,-12.13 159.8,-12.13 168.35,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="168.23,-15.64 178.23,-12.14 168.23,-8.64 168.23,-15.64"/>
+</g>
+<!-- interface~dyn_init -->
+<g id="proc~~check_topography_data~~CalledByGraph_node3" class="node">
+<title>interface~dyn_init</title>
+<g id="a_proc~~check_topography_data~~CalledByGraph_node3"><a xlink:href="../interface/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_init&#45;&gt;proc~dyn_init -->
+<g id="proc~~check_topography_data~~CalledByGraph_edge2" class="edge">
+<title>interface~dyn_init&#45;&gt;proc~dyn_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M54.4,-12.13C61.89,-12.13 70.18,-12.13 78.2,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="78.1,-15.64 88.1,-12.14 78.1,-8.64 78.1,-15.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cerr~5"></span>
+              character(len=len_cx),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cerr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-error_tolerance"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>error_tolerance</strong></td>
+<td> =</td>
+                <td>1.0e-3_kind_r8</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ierr~5"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ierr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~10"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_comp::check_topography_data&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-success"></span>
+              logical,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>success</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-surface_geometric_height"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>surface_geometric_height</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-surface_geopotential"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>surface_geopotential</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-zgrid"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>zgrid</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">check_topography_data</span><span class="p">(</span><span class="n">pio_file</span><span class="p">)</span>
+<span class="w">        </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_abortutils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">check_allocate</span><span class="p">,</span><span class="w"> </span><span class="n">endrun</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_field_read</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">cam_read_field</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debug_output</span><span class="p">,</span><span class="w"> </span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">debugout_none</span><span class="p">,</span><span class="w"> </span><span class="n">debugout_verbose</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dynconst</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">constant_g</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">gravit</span>
+<span class="w">        </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_r8</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_r8</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                </span><span class="n">len_cx</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_cx</span>
+<span class="w">        </span><span class="c">! Module(s) from external libraries.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">pio</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">file_desc_t</span><span class="p">,</span><span class="w"> </span><span class="n">pio_file_is_open</span>
+<span class="w">        </span><span class="c">! Module(s) from MPAS.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_mpas_procedures</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">almost_equal</span>
+
+<span class="w">        </span><span class="k">type</span><span class="p">(</span><span class="n">file_desc_t</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">pio_file</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_comp::check_topography_data&#39;</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="n">len_cx</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">        </span><span class="kt">logical</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">success</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">error_tolerance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1.0E-3_kind_r8</span><span class="w"> </span><span class="c">! Error tolerance for consistency check.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">surface_geometric_height</span><span class="p">(:)</span><span class="w">    </span><span class="c">! Computed from topography file.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">surface_geopotential</span><span class="p">(:)</span><span class="w">        </span><span class="c">! Read from topography file.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">zgrid</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span><span class="w">                  </span><span class="c">! From MPAS. Geometric height (m) at layer interfaces.</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; entered&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">zgrid</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">zgrid</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;zgrid&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nb">associated</span><span class="p">(</span><span class="n">pio_file</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Topography file is used for consistency check&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">pio_file_is_open</span><span class="p">(</span><span class="n">pio_file</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                call </span><span class="n">endrun</span><span class="p">(</span><span class="s1">&#39;Invalid PIO file descriptor&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end if</span>
+
+<span class="k">            allocate</span><span class="p">(</span><span class="n">surface_geopotential</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;surface_geopotential(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_comp&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">surface_geometric_height</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;surface_geometric_height(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_comp&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="n">surface_geopotential</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0_kind_r8</span>
+<span class="w">            </span><span class="n">surface_geometric_height</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0_kind_r8</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">cam_read_field</span><span class="p">(</span><span class="s1">&#39;PHIS&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">pio_file</span><span class="p">,</span><span class="w"> </span><span class="n">surface_geopotential</span><span class="p">,</span><span class="w"> </span><span class="n">success</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">gridname</span><span class="o">=</span><span class="s1">&#39;cam_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">timelevel</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">log_output</span><span class="o">=</span><span class="p">(</span><span class="n">debug_output</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">debugout_none</span><span class="p">))</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">success</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                call </span><span class="n">endrun</span><span class="p">(</span><span class="s1">&#39;Failed to find variable &quot;PHIS&quot;&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end if</span>
+
+<span class="k">            </span><span class="n">surface_geometric_height</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">surface_geopotential</span><span class="p">(:)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">constant_g</span>
+
+<span class="w">            </span><span class="c">! Surface geometric height in MPAS should match the values in topography file.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="k">all</span><span class="p">(</span><span class="n">almost_equal</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="kt">real</span><span class="p">(</span><span class="n">zgrid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="n">surface_geometric_height</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">relative_tolerance</span><span class="o">=</span><span class="n">error_tolerance</span><span class="p">)))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                call </span><span class="n">endrun</span><span class="p">(</span><span class="s1">&#39;Surface geometric height in MPAS is not consistent with topography data&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end if</span>
+
+<span class="k">            deallocate</span><span class="p">(</span><span class="n">surface_geopotential</span><span class="p">)</span>
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">surface_geometric_height</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Topography file is not used for consistency check&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Surface geometric height in MPAS should be zero.</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="k">all</span><span class="p">(</span><span class="n">almost_equal</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="kt">real</span><span class="p">(</span><span class="n">zgrid</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0_kind_r8</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="n">relative_tolerance</span><span class="o">=</span><span class="n">error_tolerance</span><span class="p">)))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                call </span><span class="n">endrun</span><span class="p">(</span><span class="s1">&#39;Surface geometric height in MPAS is not zero&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="err">__</span><span class="n">LINE__</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end if</span>
+<span class="k">        end if</span>
+
+<span class="k">        nullify</span><span class="p">(</span><span class="n">zgrid</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; completed&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">check_topography_data</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

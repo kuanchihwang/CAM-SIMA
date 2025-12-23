@@ -1,0 +1,3470 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>dyn_mpas_procedures – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      dyn_mpas_procedures
+      <small>Module</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 9.1% of total for modules and submodules.">411 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_mpas_procedures.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_mpas_procedures.f90.html'>dyn_mpas_procedures.F90</a></li>
+            <li class="breadcrumb-item active" aria-current="page">dyn_mpas_procedures</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#inters-0"
+         aria-expanded="false" aria-controls="inters-0">
+         <h4 class="card-header bg-primary text-white">Interfaces</h4>
+      </a>
+      <div id="inters-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-almost_divisible">almost_divisible</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-almost_equal">almost_equal</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-clamp">clamp</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-dzu_of_dzw">dzu_of_dzw</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-dzw_of_rdzw">dzw_of_rdzw</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-tokenize">tokenize</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-zu_of_dzw">zu_of_dzw</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#interface-zw_of_dzw">zw_of_dzw</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#funcs-0"
+         aria-expanded="false" aria-controls="funcs-0">
+         <h4 class="card-header bg-primary text-white">Functions</h4>
+      </a>
+      <div id="funcs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-almost_divisible_real32">almost_divisible_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-almost_divisible_real64">almost_divisible_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-almost_equal_real32">almost_equal_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-almost_equal_real64">almost_equal_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-clamp_int32">clamp_int32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-clamp_int64">clamp_int64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-clamp_real32">clamp_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-clamp_real64">clamp_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-dzu_of_dzw_real32">dzu_of_dzw_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-dzu_of_dzw_real64">dzu_of_dzw_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-dzw_of_rdzw_real32">dzw_of_rdzw_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-dzw_of_rdzw_real64">dzw_of_rdzw_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-index_unique">index_unique</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-stringify">stringify</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-zu_of_dzw_real32">zu_of_dzw_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-zu_of_dzw_real64">zu_of_dzw_real64</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-zw_of_dzw_real32">zw_of_dzw_real32</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-zw_of_dzw_real64">zw_of_dzw_real64</a>
+        </div>
+      </div>
+    </div>
+
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#subs-0"
+         aria-expanded="false" aria-controls="subs-0">
+         <h4 class="card-header bg-primary text-white">Subroutines</h4>
+      </a>
+      <div id="subs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-split">split</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-tokenize_into_first_last">tokenize_into_first_last</a>
+            <a class="list-group-item" href="../module/dyn_mpas_procedures.html#proc-tokenize_into_tokens_separator">tokenize_into_tokens_separator</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <p>This module provides standardized procedures (i.e., functions and subroutines) that serve as
+reusable building blocks for larger and more complex functionalities elsewhere. Specifically,
+procedures in this module are intended to be used by the MPAS subdriver and therefore are
+compiled into the MPAS library ahead of CAM-SIMA.</p>
+<p>Computational procedures implement formulas that are universal in atmospheric sciences. They
+should be designated as <code>elemental</code> where possible to aid compiler optimizations, such as
+vectorization.
+Utility procedures implement simple and well-defined operations that can be easily tested.</p>
+<br>      
+          <div class="card">
+      <h3 class="card-header card-title bg-light">Used by</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: module~~dyn_mpas_procedures~~UsedByGraph Pages: 1 -->
+<svg id="moduledyn_mpas_proceduresUsedByGraph" width="566pt" height="1167pt"
+ viewBox="0.00 0.00 566.00 1167.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="module~~dyn_mpas_procedures~~UsedByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 1162.69)">
+<title>module~~dyn_mpas_procedures~~UsedByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-1162.69 561.79,-1162.69 561.79,4 -4,4"/>
+<!-- module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node1" class="node">
+<title>module~dyn_mpas_procedures</title>
+<polygon fill="none" stroke="black" points="130.02,-591.44 0,-591.44 0,-567.17 130.02,-567.17 130.02,-591.44"/>
+<text xml:space="preserve" text-anchor="middle" x="65.01" y="-575.71" font-family="Helvetica,sans-Serif" font-size="10.50">dyn_mpas_procedures</text>
+</g>
+<!-- none~update_shared_variables -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node2" class="node">
+<title>none~update_shared_variables</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node2"><a xlink:href="../proc/dynamics_to_physics_coupling.html#proc-update_shared_variables" xlink:title="update_shared_variables">
+<polygon fill="#d9534f" stroke="#d9534f" points="434.04,-1158.44 289.77,-1158.44 289.77,-1134.17 434.04,-1134.17 434.04,-1158.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-1142.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">update_shared_variables</text>
+</a>
+</g>
+</g>
+<!-- none~update_shared_variables&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge1" class="edge">
+<title>none~update_shared_variables&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M289.3,-1157.93C248.18,-1160.36 198.43,-1155.41 166.02,-1125.31 87.97,-1052.82 70.14,-698.35 66.73,-602.98"/>
+<polygon fill="#000000" stroke="#000000" points="70.24,-603.14 66.4,-593.26 63.24,-603.37 70.24,-603.14"/>
+</g>
+<!-- proc~check_topography_data -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node3" class="node">
+<title>proc~check_topography_data</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node3"><a xlink:href="../proc/check_topography_data.html" xlink:title="check_topography_data">
+<polygon fill="#d9534f" stroke="#d9534f" points="431.41,-1116.44 292.39,-1116.44 292.39,-1092.17 431.41,-1092.17 431.41,-1116.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-1100.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_topography_data</text>
+</a>
+</g>
+</g>
+<!-- proc~check_topography_data&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge2" class="edge">
+<title>proc~check_topography_data&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M292.29,-1115.58C250.71,-1118.34 199.41,-1113.86 166.02,-1083.31 93.81,-1017.23 71.91,-694.1 67.13,-603.16"/>
+<polygon fill="#000000" stroke="#000000" points="70.63,-603.03 66.63,-593.22 63.64,-603.38 70.63,-603.03"/>
+</g>
+<!-- proc~dyn_mpas_check_variable_status -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node4" class="node">
+<title>proc~dyn_mpas_check_variable_status</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node4"><a xlink:href="../proc/dyn_mpas_check_variable_status.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_check_variable_status">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-1074.44 189.64,-1074.44 189.64,-1050.17 534.16,-1050.17 534.16,-1074.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-1058.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_check_variable_status</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_check_variable_status&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge3" class="edge">
+<title>proc~dyn_mpas_check_variable_status&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.36,-1057.17C180.97,-1052.91 173.1,-1047.68 166.02,-1041.31 99.5,-981.48 73.74,-688.41 67.57,-602.82"/>
+<polygon fill="#000000" stroke="#000000" points="71.07,-602.79 66.89,-593.05 64.09,-603.27 71.07,-602.79"/>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node5" class="node">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node5"><a xlink:href="../proc/dyn_mpas_compute_cell_relative_vorticity.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_compute_cell_relative_vorticity">
+<polygon fill="#d9534f" stroke="#d9534f" points="557.79,-1032.44 166.02,-1032.44 166.02,-1008.17 557.79,-1008.17 557.79,-1032.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-1016.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_compute_cell_relative_vorticity</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge4" class="edge">
+<title>proc~dyn_mpas_compute_cell_relative_vorticity&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M177.29,-1007.93C173.36,-1005.33 169.59,-1002.46 166.02,-999.31 105.29,-945.81 75.85,-683.71 68.13,-603.01"/>
+<polygon fill="#000000" stroke="#000000" points="71.63,-602.81 67.21,-593.18 64.66,-603.46 71.63,-602.81"/>
+</g>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node6" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node6"><a xlink:href="../proc/dyn_mpas_debug_print.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="507.54,-990.44 216.27,-990.44 216.27,-966.17 507.54,-966.17 507.54,-990.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-974.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_debug_print&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge5" class="edge">
+<title>proc~dyn_mpas_debug_print&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M215.89,-982.49C197.62,-977.57 180.35,-969.62 166.02,-957.31 110.9,-909.96 78.03,-677.46 68.74,-602.59"/>
+<polygon fill="#000000" stroke="#000000" points="72.27,-602.61 67.59,-593.11 65.32,-603.46 72.27,-602.61"/>
+</g>
+<!-- proc~dyn_mpas_define_scalar -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node7" class="node">
+<title>proc~dyn_mpas_define_scalar</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node7"><a xlink:href="../proc/dyn_mpas_define_scalar.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_define_scalar">
+<polygon fill="#d9534f" stroke="#d9534f" points="511.29,-948.44 212.52,-948.44 212.52,-924.17 511.29,-924.17 511.29,-948.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-932.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_define_scalar</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_define_scalar&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge6" class="edge">
+<title>proc~dyn_mpas_define_scalar&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M212.29,-938.99C195.42,-934.08 179.49,-926.52 166.02,-915.31 116.61,-874.16 80.63,-672.01 69.57,-602.69"/>
+<polygon fill="#000000" stroke="#000000" points="73.09,-602.54 68.09,-593.2 66.17,-603.62 73.09,-602.54"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node8" class="node">
+<title>proc~dyn_mpas_exchange_halo</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node8"><a xlink:href="../proc/dyn_mpas_exchange_halo.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_exchange_halo">
+<polygon fill="#d9534f" stroke="#d9534f" points="515.79,-906.44 208.02,-906.44 208.02,-882.17 515.79,-882.17 515.79,-906.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-890.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_exchange_halo</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge7" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M207.79,-895.01C192.67,-890.19 178.37,-883.2 166.02,-873.31 80.53,-804.86 67.74,-659.92 66.11,-602.98"/>
+<polygon fill="#000000" stroke="#000000" points="69.61,-603.09 65.93,-593.16 62.61,-603.22 69.61,-603.09"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_c0 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node9" class="node">
+<title>proc~dyn_mpas_get_variable_value_c0</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node9"><a xlink:href="../proc/dyn_mpas_get_variable_value_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.91,-864.44 188.89,-864.44 188.89,-840.17 534.91,-840.17 534.91,-864.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-848.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_c0</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_c0&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge8" class="edge">
+<title>proc~dyn_mpas_get_variable_value_c0&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.7,-844.88C180.69,-841.15 173.06,-836.66 166.02,-831.31 91.6,-774.72 72.46,-654.24 67.61,-603.08"/>
+<polygon fill="#000000" stroke="#000000" points="71.13,-603.1 66.81,-593.42 64.15,-603.68 71.13,-603.1"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_c1 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node10" class="node">
+<title>proc~dyn_mpas_get_variable_value_c1</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node10"><a xlink:href="../proc/dyn_mpas_get_variable_value_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.91,-822.44 188.89,-822.44 188.89,-798.17 534.91,-798.17 534.91,-822.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-806.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_c1</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_c1&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge9" class="edge">
+<title>proc~dyn_mpas_get_variable_value_c1&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.65,-802.1C180.7,-798.56 173.1,-794.33 166.02,-789.31 102.49,-744.26 77.92,-647.89 69.67,-603.1"/>
+<polygon fill="#000000" stroke="#000000" points="73.14,-602.68 68.01,-593.42 66.25,-603.86 73.14,-602.68"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i0 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node11" class="node">
+<title>proc~dyn_mpas_get_variable_value_i0</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node11"><a xlink:href="../proc/dyn_mpas_get_variable_value_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="533.41,-780.44 190.39,-780.44 190.39,-756.17 533.41,-756.17 533.41,-780.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-764.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_i0</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i0&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge10" class="edge">
+<title>proc~dyn_mpas_get_variable_value_i0&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M190.15,-759.68C181.72,-756.27 173.61,-752.18 166.02,-747.31 112.92,-713.23 84.2,-640.07 72.46,-602.54"/>
+<polygon fill="#000000" stroke="#000000" points="75.87,-601.74 69.66,-593.16 69.16,-603.74 75.87,-601.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i1 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_value_i1</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_value_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="533.41,-738.44 190.39,-738.44 190.39,-714.17 533.41,-714.17 533.41,-738.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-722.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_i1</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i1&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge11" class="edge">
+<title>proc~dyn_mpas_get_variable_value_i1&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.92,-716.08C181.64,-713.06 173.62,-709.5 166.02,-705.31 123.07,-681.65 91.99,-631.18 76.71,-601.8"/>
+<polygon fill="#000000" stroke="#000000" points="79.92,-600.39 72.3,-593.02 73.66,-603.53 79.92,-600.39"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i2 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_value_i2</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_value_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="533.41,-696.44 190.39,-696.44 190.39,-672.17 533.41,-672.17 533.41,-696.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-680.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_i2</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i2&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge12" class="edge">
+<title>proc~dyn_mpas_get_variable_value_i2&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M190.1,-671.94C181.84,-669.47 173.77,-666.61 166.02,-663.31 132.92,-649.2 102.42,-620.3 84.03,-600.37"/>
+<polygon fill="#000000" stroke="#000000" points="86.75,-598.17 77.47,-593.06 81.54,-602.84 86.75,-598.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i3 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_value_i3</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_value_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="533.41,-654.44 190.39,-654.44 190.39,-630.17 533.41,-630.17 533.41,-654.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-638.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_i3</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_i3&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge13" class="edge">
+<title>proc~dyn_mpas_get_variable_value_i3&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M205.39,-629.68C191.98,-627.34 178.71,-624.58 166.02,-621.31 143.51,-615.5 119.45,-605.53 100.57,-596.76"/>
+<polygon fill="#000000" stroke="#000000" points="102.28,-593.69 91.75,-592.56 99.28,-600.02 102.28,-593.69"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_l0 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_value_l0</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_value_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="533.41,-612.44 190.39,-612.44 190.39,-588.17 533.41,-588.17 533.41,-612.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-596.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_l0</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_l0&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge14" class="edge">
+<title>proc~dyn_mpas_get_variable_value_l0&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M190.22,-588.15C173.27,-586.95 156.74,-585.77 141.55,-584.69"/>
+<polygon fill="#000000" stroke="#000000" points="141.95,-581.21 131.73,-583.99 141.46,-588.19 141.95,-581.21"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r0 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_value_r0</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_value_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-570.44 189.64,-570.44 189.64,-546.17 534.16,-546.17 534.16,-570.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-554.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r0</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r0&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge15" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r0&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.36,-570.52C172.7,-571.71 156.46,-572.87 141.53,-573.93"/>
+<polygon fill="#000000" stroke="#000000" points="141.61,-570.42 131.89,-574.62 142.11,-577.4 141.61,-570.42"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r1 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_value_r1</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_value_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-528.44 189.64,-528.44 189.64,-504.17 534.16,-504.17 534.16,-528.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-512.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r1</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r1&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge16" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r1&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M205.39,-528.94C191.98,-531.27 178.71,-534.04 166.02,-537.31 143.51,-543.12 119.45,-553.09 100.57,-561.86"/>
+<polygon fill="#000000" stroke="#000000" points="99.28,-558.6 91.75,-566.06 102.28,-564.92 99.28,-558.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r2 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node18" class="node">
+<title>proc~dyn_mpas_get_variable_value_r2</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node18"><a xlink:href="../proc/dyn_mpas_get_variable_value_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-486.44 189.64,-486.44 189.64,-462.17 534.16,-462.17 534.16,-486.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-470.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r2</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r2&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge17" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r2&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.35,-486.9C181.35,-489.32 173.53,-492.11 166.02,-495.31 132.92,-509.42 102.42,-538.32 84.03,-558.24"/>
+<polygon fill="#000000" stroke="#000000" points="81.54,-555.77 77.47,-565.56 86.75,-560.45 81.54,-555.77"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r3 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node19" class="node">
+<title>proc~dyn_mpas_get_variable_value_r3</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node19"><a xlink:href="../proc/dyn_mpas_get_variable_value_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-444.44 189.64,-444.44 189.64,-420.17 534.16,-420.17 534.16,-444.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-428.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r3</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r3&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge18" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r3&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.43,-442.72C181.33,-445.7 173.47,-449.2 166.02,-453.31 123.07,-476.97 91.99,-527.44 76.71,-556.82"/>
+<polygon fill="#000000" stroke="#000000" points="73.66,-555.08 72.3,-565.59 79.92,-558.22 73.66,-555.08"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r4 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node20" class="node">
+<title>proc~dyn_mpas_get_variable_value_r4</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node20"><a xlink:href="../proc/dyn_mpas_get_variable_value_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-402.44 189.64,-402.44 189.64,-378.17 534.16,-378.17 534.16,-402.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-386.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r4</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r4&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge19" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r4&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.2,-399.33C181.1,-402.66 173.32,-406.62 166.02,-411.31 112.92,-445.39 84.2,-518.55 72.46,-556.07"/>
+<polygon fill="#000000" stroke="#000000" points="69.16,-554.87 69.66,-565.46 75.87,-556.87 69.16,-554.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r5 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node21" class="node">
+<title>proc~dyn_mpas_get_variable_value_r5</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node21"><a xlink:href="../proc/dyn_mpas_get_variable_value_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_value_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="534.16,-360.44 189.64,-360.44 189.64,-336.17 534.16,-336.17 534.16,-360.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-344.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_value_r5</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_value_r5&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge20" class="edge">
+<title>proc~dyn_mpas_get_variable_value_r5&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M189.59,-356.1C181.3,-359.73 173.38,-364.09 166.02,-369.31 102.49,-414.36 77.92,-510.72 69.67,-555.51"/>
+<polygon fill="#000000" stroke="#000000" points="66.25,-554.75 68.01,-565.2 73.14,-555.93 66.25,-554.75"/>
+</g>
+<!-- proc~dyn_mpas_init_phase1 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node22" class="node">
+<title>proc~dyn_mpas_init_phase1</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node22"><a xlink:href="../proc/dyn_mpas_init_phase1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase1">
+<polygon fill="#d9534f" stroke="#d9534f" points="506.04,-318.44 217.77,-318.44 217.77,-294.17 506.04,-294.17 506.04,-318.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-302.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase1</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase1&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge21" class="edge">
+<title>proc~dyn_mpas_init_phase1&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M217.69,-303.61C199.05,-308.28 181.19,-315.77 166.02,-327.31 91.6,-383.9 72.46,-504.37 67.61,-555.53"/>
+<polygon fill="#000000" stroke="#000000" points="64.15,-554.94 66.81,-565.19 71.13,-555.52 64.15,-554.94"/>
+</g>
+<!-- proc~dyn_mpas_init_phase3 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node23" class="node">
+<title>proc~dyn_mpas_init_phase3</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node23"><a xlink:href="../proc/dyn_mpas_init_phase3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase3">
+<polygon fill="#d9534f" stroke="#d9534f" points="506.04,-276.44 217.77,-276.44 217.77,-252.17 506.04,-252.17 506.04,-276.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-260.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase3</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase3&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge22" class="edge">
+<title>proc~dyn_mpas_init_phase3&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M217.65,-260.8C198.91,-265.56 181.03,-273.29 166.02,-285.31 80.53,-353.76 67.74,-498.69 66.11,-555.63"/>
+<polygon fill="#000000" stroke="#000000" points="62.61,-555.4 65.93,-565.46 69.61,-555.52 62.61,-555.4"/>
+</g>
+<!-- proc~dyn_mpas_init_phase4 -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node24" class="node">
+<title>proc~dyn_mpas_init_phase4</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node24"><a xlink:href="../proc/dyn_mpas_init_phase4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase4">
+<polygon fill="#d9534f" stroke="#d9534f" points="506.04,-234.44 217.77,-234.44 217.77,-210.17 506.04,-210.17 506.04,-234.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-218.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase4</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase4&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge23" class="edge">
+<title>proc~dyn_mpas_init_phase4&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M217.72,-218.15C198.85,-222.97 180.93,-230.9 166.02,-243.31 116.61,-284.46 80.63,-486.61 69.57,-555.93"/>
+<polygon fill="#000000" stroke="#000000" points="66.17,-555 68.09,-565.42 73.09,-556.08 66.17,-555"/>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node25" class="node">
+<title>proc~dyn_mpas_init_stream_with_pool</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node25"><a xlink:href="../proc/dyn_mpas_init_stream_with_pool.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_stream_with_pool">
+<polygon fill="#d9534f" stroke="#d9534f" points="532.66,-192.44 191.14,-192.44 191.14,-168.17 532.66,-168.17 532.66,-192.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-176.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_stream_with_pool</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge24" class="edge">
+<title>proc~dyn_mpas_init_stream_with_pool&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M191.07,-185.17C182.08,-189.45 173.63,-194.77 166.02,-201.31 110.9,-248.66 78.03,-481.16 68.74,-556.03"/>
+<polygon fill="#000000" stroke="#000000" points="65.32,-555.16 67.59,-565.51 72.27,-556 65.32,-555.16"/>
+</g>
+<!-- proc~dyn_mpas_read_namelist -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node26" class="node">
+<title>proc~dyn_mpas_read_namelist</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node26"><a xlink:href="../proc/dyn_mpas_read_namelist.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_read_namelist">
+<polygon fill="#d9534f" stroke="#d9534f" points="513.16,-150.44 210.64,-150.44 210.64,-126.17 513.16,-126.17 513.16,-150.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-134.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_read_namelist</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_read_namelist&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge25" class="edge">
+<title>proc~dyn_mpas_read_namelist&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M210.22,-135.37C194,-140.41 178.79,-148.06 166.02,-159.31 105.29,-212.81 75.85,-474.91 68.13,-555.61"/>
+<polygon fill="#000000" stroke="#000000" points="64.66,-555.16 67.21,-565.44 71.63,-555.81 64.66,-555.16"/>
+</g>
+<!-- proc~dyn_mpas_run -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node27" class="node">
+<title>proc~dyn_mpas_run</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node27"><a xlink:href="../proc/dyn_mpas_run.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_run">
+<polygon fill="#d9534f" stroke="#d9534f" points="484.66,-108.44 239.14,-108.44 239.14,-84.17 484.66,-84.17 484.66,-108.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-92.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_run</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_run&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge26" class="edge">
+<title>proc~dyn_mpas_run&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M238.66,-86.8C212.05,-90.51 185.95,-99.39 166.02,-117.31 99.5,-177.14 73.74,-470.2 67.57,-555.8"/>
+<polygon fill="#000000" stroke="#000000" points="64.09,-555.34 66.89,-565.56 71.07,-555.83 64.09,-555.34"/>
+</g>
+<!-- proc~init_reference_pressure -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node28" class="node">
+<title>proc~init_reference_pressure</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node28"><a xlink:href="../proc/init_reference_pressure.html" xlink:title="init_reference_pressure">
+<polygon fill="#d9534f" stroke="#d9534f" points="429.16,-66.44 294.64,-66.44 294.64,-42.17 429.16,-42.17 429.16,-66.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-50.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">init_reference_pressure</text>
+</a>
+</g>
+</g>
+<!-- proc~init_reference_pressure&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge27" class="edge">
+<title>proc~init_reference_pressure&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M294.16,-43.16C252.25,-40.15 199.91,-44.29 166.02,-75.31 93.81,-141.39 71.91,-464.52 67.13,-555.45"/>
+<polygon fill="#000000" stroke="#000000" points="63.64,-555.24 66.63,-565.4 70.63,-555.59 63.64,-555.24"/>
+</g>
+<!-- proc~parse_stream_name -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_node29" class="node">
+<title>proc~parse_stream_name</title>
+<g id="a_module~~dyn_mpas_procedures~~UsedByGraph_node29"><a xlink:href="../proc/parse_stream_name.html" xlink:title="parse_stream_name">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="421.66,-24.44 302.14,-24.44 302.14,-0.17 421.66,-0.17 421.66,-24.44"/>
+<text xml:space="preserve" text-anchor="middle" x="361.9" y="-8.71" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">parse_stream_name</text>
+</a>
+</g>
+</g>
+<!-- proc~parse_stream_name&#45;&gt;module~dyn_mpas_procedures -->
+<g id="module~~dyn_mpas_procedures~~UsedByGraph_edge28" class="edge">
+<title>proc~parse_stream_name&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M301.81,-1.66C258.7,2.5 201.8,-0.08 166.02,-33.31 87.97,-105.8 70.14,-460.27 66.73,-555.64"/>
+<polygon fill="#000000" stroke="#000000" points="63.24,-555.25 66.4,-565.36 70.24,-555.48 63.24,-555.25"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsedByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsedByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+      <br>
+
+
+
+
+        <section>
+          <h2>Interfaces</h2>
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-almost_divisible"></span>
+      <h3>public        interface <a href='../interface/almost_divisible.html'>almost_divisible</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/almost_divisible_real32.html'>almost_divisible_real32</a>(a, b) result(almost_divisible)  
+
+    </h3>
+    
+  <p>Test if <code>a</code> is divisible by <code>b</code>, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/almost_divisible_real64.html'>almost_divisible_real64</a>(a, b) result(almost_divisible)  
+
+    </h3>
+    
+  <p>Test if <code>a</code> is divisible by <code>b</code>, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-almost_equal"></span>
+      <h3>public        interface <a href='../interface/almost_equal.html'>almost_equal</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/almost_equal_real32.html'>almost_equal_real32</a>(a, b, absolute_tolerance, relative_tolerance) result(almost_equal)  
+
+    </h3>
+    
+  <p>Test <code>a</code> and <code>b</code> for approximate equality, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-absolute_tolerance"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>absolute_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-relative_tolerance"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>relative_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/almost_equal_real64.html'>almost_equal_real64</a>(a, b, absolute_tolerance, relative_tolerance) result(almost_equal)  
+
+    </h3>
+    
+  <p>Test <code>a</code> and <code>b</code> for approximate equality, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-absolute_tolerance~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>absolute_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-relative_tolerance~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>relative_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-clamp"></span>
+      <h3>public        interface <a href='../interface/clamp.html'>clamp</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/clamp_int32.html'>clamp_int32</a>(x, xmin, xmax) result(clamp)  
+
+    </h3>
+    
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all integers.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer(kind=int32)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/clamp_int64.html'>clamp_int64</a>(x, xmin, xmax) result(clamp)  
+
+    </h3>
+    
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all integers.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer(kind=int64)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/clamp_real32.html'>clamp_real32</a>(x, xmin, xmax) result(clamp)  
+
+    </h3>
+    
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all reals.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/clamp_real64.html'>clamp_real64</a>(x, xmin, xmax) result(clamp)  
+
+    </h3>
+    
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all reals.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-dzu_of_dzw"></span>
+      <h3>public        interface <a href='../interface/dzu_of_dzw.html'>dzu_of_dzw</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/dzu_of_dzw_real32.html'>dzu_of_dzw_real32</a>(dzw) result(dzu)  
+
+    </h3>
+    
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between u-wind levels <code>dzu</code> from the differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>dzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with
+layer midpoints and interfaces in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~4"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw)-1)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/dzu_of_dzw_real64.html'>dzu_of_dzw_real64</a>(dzw) result(dzu)  
+
+    </h3>
+    
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between u-wind levels <code>dzu</code> from the differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>dzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with
+layer midpoints and interfaces in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~5"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw)-1)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-dzw_of_rdzw"></span>
+      <h3>public        interface <a href='../interface/dzw_of_rdzw.html'>dzw_of_rdzw</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/dzw_of_rdzw_real32.html'>dzw_of_rdzw_real32</a>(rdzw) result(dzw)  
+
+    </h3>
+    
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code> from the reciprocal differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>rdzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces
+in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-rdzw~2"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rdzw</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure elemental function <a href='../proc/dzw_of_rdzw_real64.html'>dzw_of_rdzw_real64</a>(rdzw) result(dzw)  
+
+    </h3>
+    
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code> from the reciprocal differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>rdzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces
+in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-rdzw~3"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rdzw</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-tokenize"></span>
+      <h3>public        interface <a href='../interface/tokenize.html'>tokenize</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure subroutine <a href='../proc/tokenize_into_first_last.html'>tokenize_into_first_last</a>(string, set, first, last)  
+
+    </h3>
+    
+  <p>Parse a string into tokens. Each character in <code>set</code> is a token delimiter.
+<code>first</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>.
+Each element is assigned, in array element order, the starting position of each token in <code>string</code>, in the order found.
+<code>last</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>.
+Each element is assigned, in array element order, the ending position of each token in <code>string</code>, in the order found.
+This subroutine implements the <code>tokenize</code> intrinsic procedure as defined in the Fortran 2023 language standard
+(Section 16.9.210). We implement it ourselves because the compiler support may take years to become widespread.
+(KCW, 2025-10-29)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-set~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>set</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-first"></span>
+              integer,
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>first</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-last"></span>
+              integer,
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>last</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure subroutine <a href='../proc/tokenize_into_tokens_separator.html'>tokenize_into_tokens_separator</a>(string, set, tokens, separator)  
+
+    </h3>
+    
+  <p>Parse a string into tokens. Each character in <code>set</code> is a token delimiter.
+<code>tokens</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>,
+and with character length equal to the length of the longest token. It contains the tokens in <code>string</code>.
+<code>separator</code> is allocated with the lower bound equal to one and the upper bound equal to one less than the number of
+tokens in <code>string</code>, and with character length equal to one. It contains the token delimiters in <code>string</code>.
+This subroutine implements the <code>tokenize</code> intrinsic procedure as defined in the Fortran 2023 language standard
+(Section 16.9.210). We implement it ourselves because the compiler support may take years to become widespread.
+(KCW, 2025-10-29)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-set~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>set</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-tokens"></span>
+              character(len=:),
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>tokens</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-separator~2"></span>
+              character(len=:),
+            </td>
+<td>intent(out),</td>
+              <td>optional,</td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>separator</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-zu_of_dzw"></span>
+      <h3>public        interface <a href='../interface/zu_of_dzw.html'>zu_of_dzw</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/zu_of_dzw_real32.html'>zu_of_dzw_real32</a>(dzw) result(zu)  
+
+    </h3>
+    
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at u-wind levels <code>zu</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with layer midpoints and interfaces
+in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~6"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw))</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/zu_of_dzw_real64.html'>zu_of_dzw_real64</a>(dzw) result(zu)  
+
+    </h3>
+    
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at u-wind levels <code>zu</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with layer midpoints and interfaces
+in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~7"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw))</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+              <div class="card">
+    <div class="card-header bg-light codesum">
+      <span class="anchor" id="interface-zw_of_dzw"></span>
+      <h3>public        interface <a href='../interface/zw_of_dzw.html'>zw_of_dzw</a> 
+      </h3>
+    </div>
+    <ul class="list-group">
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/zw_of_dzw_real32.html'>zw_of_dzw_real32</a>(dzw) result(zw)  
+
+    </h3>
+    
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at w-wind levels <code>zw</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~8"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw)+1)</small>
+    </h4>
+    
+
+          </li>
+          <li class="list-group-item">
+                <h3>
+    private pure function <a href='../proc/zw_of_dzw_real64.html'>zw_of_dzw_real64</a>(dzw) result(zw)  
+
+    </h3>
+    
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at w-wind levels <code>zw</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~9"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw)+1)</small>
+    </h4>
+    
+
+          </li>
+    </ul>
+  </div>
+
+        </section>
+        <br>
+
+
+
+        <section>
+          <h2>Functions</h2>
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-almost_divisible_real32"></span> <h3>private pure elemental function <a href='../proc/almost_divisible_real32.html'>almost_divisible_real32</a>(a, b) result(almost_divisible)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Test if <code>a</code> is divisible by <code>b</code>, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-almost_divisible_real64"></span> <h3>private pure elemental function <a href='../proc/almost_divisible_real64.html'>almost_divisible_real64</a>(a, b) result(almost_divisible)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Test if <code>a</code> is divisible by <code>b</code>, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-almost_equal_real32"></span> <h3>private pure elemental function <a href='../proc/almost_equal_real32.html'>almost_equal_real32</a>(a, b, absolute_tolerance, relative_tolerance) result(almost_equal)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Test <code>a</code> and <code>b</code> for approximate equality, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-absolute_tolerance"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>absolute_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-relative_tolerance"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>relative_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-almost_equal_real64"></span> <h3>private pure elemental function <a href='../proc/almost_equal_real64.html'>almost_equal_real64</a>(a, b, absolute_tolerance, relative_tolerance) result(almost_equal)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Test <code>a</code> and <code>b</code> for approximate equality, where <code>a</code> and <code>b</code> are both reals.
+(KCW, 2024-05-25)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-a~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>a</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-b~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>b</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-absolute_tolerance~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>absolute_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-relative_tolerance~2"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>relative_tolerance</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>logical</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-clamp_int32"></span> <h3>private pure elemental function <a href='../proc/clamp_int32.html'>clamp_int32</a>(x, xmin, xmax) result(clamp)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all integers.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax"></span>
+              integer(kind=int32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer(kind=int32)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-clamp_int64"></span> <h3>private pure elemental function <a href='../proc/clamp_int64.html'>clamp_int64</a>(x, xmin, xmax) result(clamp)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all integers.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~2"></span>
+              integer(kind=int64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer(kind=int64)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-clamp_real32"></span> <h3>private pure elemental function <a href='../proc/clamp_real32.html'>clamp_real32</a>(x, xmin, xmax) result(clamp)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all reals.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~3"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-clamp_real64"></span> <h3>private pure elemental function <a href='../proc/clamp_real64.html'>clamp_real64</a>(x, xmin, xmax) result(clamp)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Clamp/Limit the value of <code>x</code> to the range of [<code>xmin</code>, <code>xmax</code>], where <code>x</code>, <code>xmin</code>, and <code>xmax</code> are all reals.
+No check is performed to ensure <code>xmin</code> &lt; <code>xmax</code>.
+(KCW, 2025-07-16)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-x~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>x</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmin~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmin</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-xmax~4"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>xmax</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-dzu_of_dzw_real32"></span> <h3>private pure function <a href='../proc/dzu_of_dzw_real32.html'>dzu_of_dzw_real32</a>(dzw) result(dzu)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between u-wind levels <code>dzu</code> from the differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>dzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with
+layer midpoints and interfaces in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~4"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw)-1)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-dzu_of_dzw_real64"></span> <h3>private pure function <a href='../proc/dzu_of_dzw_real64.html'>dzu_of_dzw_real64</a>(dzw) result(dzu)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between u-wind levels <code>dzu</code> from the differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>dzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with
+layer midpoints and interfaces in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~5"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw)-1)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-dzw_of_rdzw_real32"></span> <h3>private pure elemental function <a href='../proc/dzw_of_rdzw_real32.html'>dzw_of_rdzw_real32</a>(rdzw) result(dzw)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code> from the reciprocal differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>rdzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces
+in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-rdzw~2"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rdzw</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-dzw_of_rdzw_real64"></span> <h3>private pure elemental function <a href='../proc/dzw_of_rdzw_real64.html'>dzw_of_rdzw_real64</a>(rdzw) result(dzw)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code> from the reciprocal differences in <script type="math/tex"> \zeta </script> between
+w-wind levels <code>rdzw</code>, where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces
+in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-rdzw~3"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>rdzw</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-index_unique"></span> <h3>public pure function <a href='../proc/index_unique.html'>index_unique</a>(array)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Return the index of unique elements in <code>array</code>, which can be any intrinsic data types, as an integer array.
+Please note that <code>array</code> must only have one dimension, and the unique elements are returned by their first occurrences
+in <code>array</code>.
+If <code>array</code> contains zero element or is of unsupported data types, an empty integer array is produced.
+For example, <code>index_unique([1, 2, 3, 1, 2, 3, 4, 5])</code> returns <code>[1, 2, 3, 7, 8]</code>.
+(KCW, 2024-03-22)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-array~2"></span>
+              class(*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>array</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>integer, allocatable, (:)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-stringify"></span> <h3>public pure function <a href='../proc/stringify.html'>stringify</a>(value, separator)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Convert one or more values of any intrinsic data types to a character string for pretty printing.
+If <code>value</code> contains more than one element, the elements will be stringified, delimited by <code>separator</code>, then concatenated.
+If <code>value</code> contains exactly one element, the element will be stringified without using <code>separator</code>.
+If <code>value</code> contains zero element or is of unsupported data types, an empty character string is produced.
+If <code>separator</code> is not supplied, it defaults to ", " (i.e., a comma and a space).
+(KCW, 2024-02-04)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-value"></span>
+              class(*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>value</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-separator"></span>
+              character(len=*),
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>separator</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>character(len=:), allocatable</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-zu_of_dzw_real32"></span> <h3>private pure function <a href='../proc/zu_of_dzw_real32.html'>zu_of_dzw_real32</a>(dzw) result(zu)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at u-wind levels <code>zu</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with layer midpoints and interfaces
+in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~6"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw))</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-zu_of_dzw_real64"></span> <h3>private pure function <a href='../proc/zu_of_dzw_real64.html'>zu_of_dzw_real64</a>(dzw) result(zu)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at u-wind levels <code>zu</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, u-wind and w-wind levels are synonymous with layer midpoints and interfaces
+in MPAS, respectively.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~7"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw))</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-zw_of_dzw_real32"></span> <h3>private pure function <a href='../proc/zw_of_dzw_real32.html'>zw_of_dzw_real32</a>(dzw) result(zw)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at w-wind levels <code>zw</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~8"></span>
+              real(kind=real32),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real32), (size(dzw)+1)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-zw_of_dzw_real64"></span> <h3>private pure function <a href='../proc/zw_of_dzw_real64.html'>zw_of_dzw_real64</a>(dzw) result(zw)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Compute the <script type="math/tex"> \zeta </script> coordinates at w-wind levels <code>zw</code> from the differences in <script type="math/tex"> \zeta </script> between w-wind levels <code>dzw</code>,
+where <script type="math/tex"> \zeta </script> is the vertical coordinate, and w-wind levels are synonymous with layer interfaces in MPAS.
+(KCW, 2025-10-20)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dzw~9"></span>
+              real(kind=real64),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>dzw</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+    <h4>
+    Return Value
+    <small>real(kind=real64), (size(dzw)+1)</small>
+    </h4>
+    
+
+    </div>
+  </div>
+
+        </section>
+        <br>
+
+        <section>
+          <h2>Subroutines</h2>
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-split"></span> <h3>public pure subroutine <a href='../proc/split.html'>split</a>(string, set, pos, back)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Parse a string into tokens, one at a time. Each character in <code>set</code> is a token delimiter.
+If <code>back</code> is absent or is present with the value <code>.false.</code>, <code>pos</code> is assigned the position of the leftmost
+token delimiter in <code>string</code> whose position is greater than <code>pos</code>, or if there is no such character, it
+is assigned a value one greater than the length of <code>string</code>. This identifies a token with starting
+position one greater than the value of <code>pos</code> on invocation, and ending position one less than the
+value of <code>pos</code> on return.
+If <code>back</code> is present with the value <code>.true.</code>, <code>pos</code> is assigned the position of the rightmost token delimiter
+in <code>string</code> whose position is less than <code>pos</code>, or if there is no such character, it is assigned the value
+zero. This identifies a token with ending position one less than the value of <code>pos</code> on invocation, and
+starting position one greater than the value of <code>pos</code> on return.
+This subroutine implements the <code>split</code> intrinsic procedure as defined in the Fortran 2023 language standard
+(Section 16.9.196). We implement it ourselves because the compiler support may take years to become widespread.
+(KCW, 2025-10-29)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-set"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>set</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-pos"></span>
+              integer,
+            </td>
+<td>intent(inout)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>pos</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-back"></span>
+              logical,
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>back</strong></td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-tokenize_into_first_last"></span> <h3>private pure subroutine <a href='../proc/tokenize_into_first_last.html'>tokenize_into_first_last</a>(string, set, first, last)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Parse a string into tokens. Each character in <code>set</code> is a token delimiter.
+<code>first</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>.
+Each element is assigned, in array element order, the starting position of each token in <code>string</code>, in the order found.
+<code>last</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>.
+Each element is assigned, in array element order, the ending position of each token in <code>string</code>, in the order found.
+This subroutine implements the <code>tokenize</code> intrinsic procedure as defined in the Fortran 2023 language standard
+(Section 16.9.210). We implement it ourselves because the compiler support may take years to become widespread.
+(KCW, 2025-10-29)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-set~2"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>set</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-first"></span>
+              integer,
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>first</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-last"></span>
+              integer,
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>last</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-tokenize_into_tokens_separator"></span> <h3>private pure subroutine <a href='../proc/tokenize_into_tokens_separator.html'>tokenize_into_tokens_separator</a>(string, set, tokens, separator)  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Parse a string into tokens. Each character in <code>set</code> is a token delimiter.
+<code>tokens</code> is allocated with the lower bound equal to one and the upper bound equal to the number of tokens in <code>string</code>,
+and with character length equal to the length of the longest token. It contains the tokens in <code>string</code>.
+<code>separator</code> is allocated with the lower bound equal to one and the upper bound equal to one less than the number of
+tokens in <code>string</code>, and with character length equal to one. It contains the token delimiters in <code>string</code>.
+This subroutine implements the <code>tokenize</code> intrinsic procedure as defined in the Fortran 2023 language standard
+(Section 16.9.210). We implement it ourselves because the compiler support may take years to become widespread.
+(KCW, 2025-10-29)</p>
+
+  <h4>Arguments</h4>
+      <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-string~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>string</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-set~3"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>set</strong></td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-tokens"></span>
+              character(len=:),
+            </td>
+<td>intent(out),</td>
+              <td></td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>tokens</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-separator~2"></span>
+              character(len=:),
+            </td>
+<td>intent(out),</td>
+              <td>optional,</td>            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>separator</strong>(:)</td>
+            <td>
+
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+
+    </div>
+  </div>
+
+        </section>
+        <br>
+
+
+
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

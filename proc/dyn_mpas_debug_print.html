@@ -1,0 +1,1600 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>dyn_mpas_debug_print – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      dyn_mpas_debug_print
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+            <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> Kuan-Chih Wang</li>
+            <li class="list-inline-item" id="meta-date"><i class="fa fa-calendar-o"></i> 2024-02-03</li>
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 0.5% of total for procedures.">20 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_mpas_subdriver.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_mpas_subdriver.f90.html'>dyn_mpas_subdriver.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_mpas_subdriver.html'>dyn_mpas_subdriver</a></li>
+            <li class="breadcrumb-item active" aria-current="page">dyn_mpas_debug_print</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/dyn_mpas_debug_print.html#src">dyn_mpas_debug_print</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2>private  subroutine dyn_mpas_debug_print(self, level, message, printer)  
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item"><a href='../module/dyn_mpas_procedures.html'>dyn_mpas_procedures</a></li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_debug_print~~UsesGraph Pages: 1 -->
+<svg id="procdyn_mpas_debug_printUsesGraph" width="465pt" height="32pt"
+ viewBox="0.00 0.00 465.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_debug_print~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~dyn_mpas_debug_print~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 461.29,-28.27 461.29,4 -4,4"/>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~UsesGraph_node1" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<polygon fill="none" stroke="black" points="457.29,-24.27 166.02,-24.27 166.02,0 457.29,0 457.29,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="311.65" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</g>
+<!-- module~dyn_mpas_procedures -->
+<g id="proc~~dyn_mpas_debug_print~~UsesGraph_node2" class="node">
+<title>module~dyn_mpas_procedures</title>
+<g id="a_proc~~dyn_mpas_debug_print~~UsesGraph_node2"><a xlink:href="../module/dyn_mpas_procedures.html" xlink:title="dyn_mpas_procedures">
+<polygon fill="#337ab7" stroke="#337ab7" points="130.02,-24.27 0,-24.27 0,0 130.02,0 130.02,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="65.01" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_procedures</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_debug_print&#45;&gt;module~dyn_mpas_procedures -->
+<g id="proc~~dyn_mpas_debug_print~~UsesGraph_edge1" class="edge">
+<title>proc~dyn_mpas_debug_print&#45;&gt;module~dyn_mpas_procedures</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M165.87,-12.13C157.72,-12.13 149.7,-12.13 141.98,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="142.01,-8.64 132.01,-12.14 142.01,-15.64 142.01,-8.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>This subroutine prints a debug message at a debug level. The debug message
+will be prefixed by "MPAS Subdriver (N): ", where <code>N</code> is the MPI rank. The
+debug level is one of the <code>log_level_*</code> constants.
+If <code>printer</code> is not supplied, the MPI root rank will print. Otherwise,
+the designated MPI rank will print instead.</p>
+
+        <h3>Type Bound</h3>
+        <p><a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a></p>
+
+      <h3>Arguments</h3>
+          <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-self"></span>
+              class(<a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-level~3"></span>
+              integer,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>level</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-message~4"></span>
+              character(len=*),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>message</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-printer~3"></span>
+              integer,
+            </td>
+<td>intent(in),</td>
+              <td>optional</td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>printer</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_debug_print~~CallsGraph Pages: 1 -->
+<svg id="procdyn_mpas_debug_printCallsGraph" width="390pt" height="32pt"
+ viewBox="0.00 0.00 390.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_debug_print~~CallsGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~dyn_mpas_debug_print~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 385.54,-28.27 385.54,4 -4,4"/>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CallsGraph_node1" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<polygon fill="none" stroke="black" points="291.27,-24.27 0,-24.27 0,0 291.27,0 291.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="145.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</g>
+<!-- proc~stringify -->
+<g id="proc~~dyn_mpas_debug_print~~CallsGraph_node2" class="node">
+<title>proc~stringify</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CallsGraph_node2"><a xlink:href="../proc/stringify.html" xlink:title="stringify">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="381.54,-24.27 327.27,-24.27 327.27,0 381.54,0 381.54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="354.4" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_debug_print&#45;&gt;proc~stringify -->
+<g id="proc~~dyn_mpas_debug_print~~CallsGraph_edge1" class="edge">
+<title>proc~dyn_mpas_debug_print&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M291.65,-12.13C300.24,-12.13 308.37,-12.13 315.74,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="315.5,-15.64 325.5,-12.14 315.5,-8.64 315.5,-15.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_debug_print~~CalledByGraph Pages: 1 -->
+<svg id="procdyn_mpas_debug_printCalledByGraph" width="641pt" height="274pt"
+ viewBox="0.00 0.00 641.00 274.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph" class="graph" transform="scale(0.253617 0.253617) rotate(0) translate(4 1078.33)">
+<title>proc~~dyn_mpas_debug_print~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-1078.33 2523.43,-1078.33 2523.43,4 -4,4"/>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node1" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<polygon fill="none" stroke="black" points="2519.43,-372.27 2228.16,-372.27 2228.16,-348 2519.43,-348 2519.43,-372.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2373.8" y="-356.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</g>
+<!-- none~add_stream_attribute_0d -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node2" class="node">
+<title>none~add_stream_attribute_0d</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node2"><a xlink:href="../proc/dyn_mpas_init_stream_with_pool.html#proc-add_stream_attribute_0d" xlink:title="add_stream_attribute_0d">
+<polygon fill="#d9534f" stroke="#d9534f" points="2074.79,-554.27 1931.27,-554.27 1931.27,-530 2074.79,-530 2074.79,-554.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-538.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">add_stream_attribute_0d</text>
+</a>
+</g>
+</g>
+<!-- none~add_stream_attribute_0d&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge1" class="edge">
+<title>none~add_stream_attribute_0d&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2075.05,-544.31C2111.46,-542.96 2155.69,-537.4 2192.16,-521.13 2264.36,-488.93 2328.02,-417.07 2356.68,-381.26"/>
+<polygon fill="#000000" stroke="#000000" points="2359.14,-383.8 2362.57,-373.77 2353.64,-379.47 2359.14,-383.8"/>
+</g>
+<!-- none~add_stream_attribute_1d -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node3" class="node">
+<title>none~add_stream_attribute_1d</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node3"><a xlink:href="../proc/dyn_mpas_init_stream_with_pool.html#proc-add_stream_attribute_1d" xlink:title="add_stream_attribute_1d">
+<polygon fill="#d9534f" stroke="#d9534f" points="2074.79,-512.27 1931.27,-512.27 1931.27,-488 2074.79,-488 2074.79,-512.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-496.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">add_stream_attribute_1d</text>
+</a>
+</g>
+</g>
+<!-- none~add_stream_attribute_1d&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge2" class="edge">
+<title>none~add_stream_attribute_1d&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2074.98,-497.45C2110.97,-494.32 2154.84,-487.76 2192.16,-474.13 2253.66,-451.67 2316.26,-405.96 2349.18,-379.76"/>
+<polygon fill="#000000" stroke="#000000" points="2351.27,-382.57 2356.86,-373.56 2346.88,-377.12 2351.27,-382.57"/>
+</g>
+<!-- proc~dyn_mpas_check_variable_status -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node4" class="node">
+<title>proc~dyn_mpas_check_variable_status</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node4"><a xlink:href="../proc/dyn_mpas_check_variable_status.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_check_variable_status">
+<polygon fill="#d9534f" stroke="#d9534f" points="2175.29,-432.27 1830.77,-432.27 1830.77,-408 2175.29,-408 2175.29,-432.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-416.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_check_variable_status</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_check_variable_status&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge3" class="edge">
+<title>proc~dyn_mpas_check_variable_status&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2101.81,-407.54C2130.92,-403.54 2162.87,-398.91 2192.16,-394.13 2227.24,-388.41 2265.98,-381.24 2298.56,-374.95"/>
+<polygon fill="#000000" stroke="#000000" points="2299.18,-378.4 2308.33,-373.06 2297.84,-371.53 2299.18,-378.4"/>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node5" class="node">
+<title>proc~dyn_mpas_compute_edge_wind</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node5"><a xlink:href="../proc/dyn_mpas_compute_edge_wind.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_compute_edge_wind">
+<polygon fill="#d9534f" stroke="#d9534f" points="1777.89,-910.27 1440.87,-910.27 1440.87,-886 1777.89,-886 1777.89,-910.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-894.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_compute_edge_wind</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge4" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1775.58,-885.52C1903.35,-867.68 2077.27,-824.68 2192.16,-721.13 2300.02,-623.93 2351.61,-447.61 2367.36,-383.9"/>
+<polygon fill="#000000" stroke="#000000" points="2370.76,-384.73 2369.69,-374.19 2363.95,-383.1 2370.76,-384.73"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node8" class="node">
+<title>proc~dyn_mpas_exchange_halo</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node8"><a xlink:href="../proc/dyn_mpas_exchange_halo.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_exchange_halo">
+<polygon fill="#d9534f" stroke="#d9534f" points="2156.91,-712.27 1849.14,-712.27 1849.14,-688 2156.91,-688 2156.91,-712.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-696.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_exchange_halo</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge33" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1763.96,-885.54C1768.8,-883.06 1773.46,-880.27 1777.89,-877.13 1807.09,-856.47 1789.17,-831 1813.89,-805.13 1853.74,-763.43 1913.86,-733.87 1955.35,-716.95"/>
+<polygon fill="#000000" stroke="#000000" points="1956.6,-720.22 1964.6,-713.28 1954.01,-713.72 1956.6,-720.22"/>
+</g>
+<!-- proc~dyn_mpas_compute_unit_vector -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node6" class="node">
+<title>proc~dyn_mpas_compute_unit_vector</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node6"><a xlink:href="../proc/dyn_mpas_compute_unit_vector.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_compute_unit_vector">
+<polygon fill="#d9534f" stroke="#d9534f" points="1027.35,-274.27 688.08,-274.27 688.08,-250 1027.35,-250 1027.35,-274.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-258.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_compute_unit_vector</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_unit_vector&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge5" class="edge">
+<title>proc~dyn_mpas_compute_unit_vector&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1027.61,-255.3C1335.34,-244.3 1975.59,-228.48 2192.16,-277.13 2248.71,-289.84 2308.79,-321.59 2343.44,-341.93"/>
+<polygon fill="#000000" stroke="#000000" points="2341.25,-344.7 2351.63,-346.82 2344.84,-338.69 2341.25,-344.7"/>
+</g>
+<!-- proc~dyn_mpas_define_scalar -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node7" class="node">
+<title>proc~dyn_mpas_define_scalar</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node7"><a xlink:href="../proc/dyn_mpas_define_scalar.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_define_scalar">
+<polygon fill="#d9534f" stroke="#d9534f" points="1758.77,-1033.27 1460,-1033.27 1460,-1009 1758.77,-1009 1758.77,-1033.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-1017.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_define_scalar</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_define_scalar&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge6" class="edge">
+<title>proc~dyn_mpas_define_scalar&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1651.09,-1033.76C1754.32,-1063.03 2029.59,-1123.71 2192.16,-995.13 2292.8,-915.54 2355.57,-489.44 2369.73,-383.83"/>
+<polygon fill="#000000" stroke="#000000" points="2373.18,-384.46 2371.02,-374.09 2366.24,-383.54 2373.18,-384.46"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge7" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2024.03,-687.62C2059.6,-664.92 2135.44,-614.57 2192.16,-563.13 2258.85,-502.66 2326.49,-419.55 2356.6,-381.15"/>
+<polygon fill="#000000" stroke="#000000" points="2359.11,-383.62 2362.5,-373.58 2353.59,-379.32 2359.11,-383.62"/>
+</g>
+<!-- proc~dyn_mpas_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node9" class="node">
+<title>proc~dyn_mpas_final</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node9"><a xlink:href="../proc/dyn_mpas_final.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_final">
+<polygon fill="#d9534f" stroke="#d9534f" points="2128.41,-192.27 1877.64,-192.27 1877.64,-168 2128.41,-168 2128.41,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_final</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_final&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge8" class="edge">
+<title>proc~dyn_mpas_final&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2128.78,-187.22C2150.52,-191.28 2172.45,-197.3 2192.16,-206.13 2262.27,-237.58 2326.08,-304.92 2355.57,-339.18"/>
+<polygon fill="#000000" stroke="#000000" points="2352.85,-341.38 2361.98,-346.76 2358.19,-336.86 2352.85,-341.38"/>
+</g>
+<!-- proc~dyn_mpas_get_global_mesh_dimension -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node10" class="node">
+<title>proc~dyn_mpas_get_global_mesh_dimension</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node10"><a xlink:href="../proc/dyn_mpas_get_global_mesh_dimension.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_global_mesh_dimension">
+<polygon fill="#d9534f" stroke="#d9534f" points="2192.16,-352.27 1813.89,-352.27 1813.89,-328 2192.16,-328 2192.16,-352.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-336.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_global_mesh_dimension</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_global_mesh_dimension&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge9" class="edge">
+<title>proc~dyn_mpas_get_global_mesh_dimension&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2192.46,-350.35C2200.54,-350.79 2208.61,-351.23 2216.6,-351.66"/>
+<polygon fill="#000000" stroke="#000000" points="2216.16,-355.15 2226.34,-352.19 2216.54,-348.16 2216.16,-355.15"/>
+</g>
+<!-- proc~dyn_mpas_get_local_mesh_dimension -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node11" class="node">
+<title>proc~dyn_mpas_get_local_mesh_dimension</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node11"><a xlink:href="../proc/dyn_mpas_get_local_mesh_dimension.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_local_mesh_dimension">
+<polygon fill="#d9534f" stroke="#d9534f" points="2188.41,-310.27 1817.64,-310.27 1817.64,-286 2188.41,-286 2188.41,-310.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-294.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_local_mesh_dimension</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_local_mesh_dimension&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge10" class="edge">
+<title>proc~dyn_mpas_get_local_mesh_dimension&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2134.34,-310.76C2153.77,-313.2 2173.53,-315.99 2192.16,-319.13 2232.79,-325.99 2278,-336.26 2313.03,-344.8"/>
+<polygon fill="#000000" stroke="#000000" points="2312.01,-348.15 2322.55,-347.14 2313.68,-341.35 2312.01,-348.15"/>
+</g>
+<!-- proc~dyn_mpas_init_phase1 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node12" class="node">
+<title>proc~dyn_mpas_init_phase1</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node12"><a xlink:href="../proc/dyn_mpas_init_phase1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase1">
+<polygon fill="#d9534f" stroke="#d9534f" points="2147.16,-150.27 1858.89,-150.27 1858.89,-126 2147.16,-126 2147.16,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase1</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase1&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge11" class="edge">
+<title>proc~dyn_mpas_init_phase1&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2147.5,-143.03C2163.07,-146.78 2178.28,-152 2192.16,-159.13 2273.13,-200.77 2335.14,-294.78 2360.41,-337.84"/>
+<polygon fill="#000000" stroke="#000000" points="2357.26,-339.38 2365.27,-346.31 2363.33,-335.9 2357.26,-339.38"/>
+</g>
+<!-- proc~dyn_mpas_init_phase2 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node13" class="node">
+<title>proc~dyn_mpas_init_phase2</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node13"><a xlink:href="../proc/dyn_mpas_init_phase2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase2">
+<polygon fill="#d9534f" stroke="#d9534f" points="2147.16,-108.27 1858.89,-108.27 1858.89,-84 2147.16,-84 2147.16,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase2</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase2&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge12" class="edge">
+<title>proc~dyn_mpas_init_phase2&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2147.22,-99.51C2163,-103.51 2178.34,-109.2 2192.16,-117.14 2283.08,-169.36 2341.98,-287.72 2363.56,-337.46"/>
+<polygon fill="#000000" stroke="#000000" points="2360.21,-338.52 2367.33,-346.37 2366.66,-335.8 2360.21,-338.52"/>
+</g>
+<!-- proc~dyn_mpas_init_phase3 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node14" class="node">
+<title>proc~dyn_mpas_init_phase3</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node14"><a xlink:href="../proc/dyn_mpas_init_phase3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1001.85,-232.27 713.58,-232.27 713.58,-208 1001.85,-208 1001.85,-232.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-216.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase3</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase3&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge13" class="edge">
+<title>proc~dyn_mpas_init_phase3&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1002.11,-218.01C1323.28,-213.91 2081,-208.04 2192.16,-242.13 2256.37,-261.83 2319.25,-311.82 2351.16,-340.01"/>
+<polygon fill="#000000" stroke="#000000" points="2348.77,-342.57 2358.55,-346.66 2353.46,-337.37 2348.77,-342.57"/>
+</g>
+<!-- proc~dyn_mpas_init_phase4 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node15" class="node">
+<title>proc~dyn_mpas_init_phase4</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node15"><a xlink:href="../proc/dyn_mpas_init_phase4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_phase4">
+<polygon fill="#d9534f" stroke="#d9534f" points="1001.85,-933.27 713.58,-933.27 713.58,-909 1001.85,-909 1001.85,-933.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-917.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_phase4</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_phase4&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge14" class="edge">
+<title>proc~dyn_mpas_init_phase4&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1001.96,-930.63C1010.65,-932.73 1019.18,-935.21 1027.35,-938.13 1045.45,-944.62 1044.95,-956.56 1063.35,-962.13 1305.52,-1035.46 2002.09,-980.15 2192.16,-813.13 2327.74,-694 2362.77,-459.17 2370.7,-383.93"/>
+<polygon fill="#000000" stroke="#000000" points="2374.18,-384.33 2371.67,-374.03 2367.21,-383.64 2374.18,-384.33"/>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node16" class="node">
+<title>proc~dyn_mpas_init_stream_with_pool</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node16"><a xlink:href="../proc/dyn_mpas_init_stream_with_pool.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_init_stream_with_pool">
+<polygon fill="#d9534f" stroke="#d9534f" points="1404.87,-489.27 1063.35,-489.27 1063.35,-465 1404.87,-465 1404.87,-489.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-473.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_init_stream_with_pool</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge15" class="edge">
+<title>proc~dyn_mpas_init_stream_with_pool&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1405.34,-474.26C1659.92,-469.43 2118.01,-458.46 2192.16,-441.13 2247.9,-428.11 2307.57,-397.74 2342.47,-378.12"/>
+<polygon fill="#000000" stroke="#000000" points="2343.79,-381.4 2350.73,-373.4 2340.31,-375.32 2343.79,-381.4"/>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool&#45;&gt;proc~dyn_mpas_check_variable_status -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge21" class="edge">
+<title>proc~dyn_mpas_init_stream_with_pool&#45;&gt;proc~dyn_mpas_check_variable_status</title>
+<path fill="none" stroke="#000000" d="M1301.11,-464.55C1341.35,-457.37 1393.9,-448.89 1440.87,-444.13 1566.79,-431.39 1709.27,-425.4 1819.15,-422.59"/>
+<polygon fill="#000000" stroke="#000000" points="1818.93,-426.1 1828.84,-422.35 1818.76,-419.1 1818.93,-426.1"/>
+</g>
+<!-- none~add_stream_attribute -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node20" class="node">
+<title>none~add_stream_attribute</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="1671.77,-510.27 1547,-510.27 1547,-486 1671.77,-486 1671.77,-510.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-494.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">add_stream_attribute</text>
+</g>
+<!-- proc~dyn_mpas_init_stream_with_pool&#45;&gt;none~add_stream_attribute -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge48" class="edge">
+<title>proc~dyn_mpas_init_stream_with_pool&#45;&gt;none~add_stream_attribute</title>
+<path fill="none" stroke="#000000" d="M1405.36,-486.71C1451.19,-489.29 1498.34,-491.94 1535.66,-494.04"/>
+<polygon fill="#000000" stroke="#000000" points="1535.22,-497.52 1545.4,-494.59 1535.61,-490.54 1535.22,-497.52"/>
+</g>
+<!-- proc~dyn_mpas_read_namelist -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node17" class="node">
+<title>proc~dyn_mpas_read_namelist</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node17"><a xlink:href="../proc/dyn_mpas_read_namelist.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_read_namelist">
+<polygon fill="#d9534f" stroke="#d9534f" points="2154.29,-66.27 1851.77,-66.27 1851.77,-42 2154.29,-42 2154.29,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_read_namelist</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_read_namelist&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge16" class="edge">
+<title>proc~dyn_mpas_read_namelist&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2154.57,-58.44C2167.83,-62.47 2180.59,-67.91 2192.16,-75.14 2293.06,-138.18 2347.55,-280.57 2365.77,-336.73"/>
+<polygon fill="#000000" stroke="#000000" points="2362.4,-337.7 2368.74,-346.19 2369.08,-335.6 2362.4,-337.7"/>
+</g>
+<!-- proc~dyn_mpas_read_write_stream -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node18" class="node">
+<title>proc~dyn_mpas_read_write_stream</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node18"><a xlink:href="../proc/dyn_mpas_read_write_stream.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_read_write_stream">
+<polygon fill="#d9534f" stroke="#d9534f" points="1020.23,-528.27 695.21,-528.27 695.21,-504 1020.23,-504 1020.23,-528.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-512.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_read_write_stream</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge17" class="edge">
+<title>proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M894.07,-503.53C934.46,-489.66 1002.82,-467.79 1063.35,-456.13 1280.13,-414.41 1918.51,-380.87 2216.39,-367.01"/>
+<polygon fill="#000000" stroke="#000000" points="2216.37,-370.52 2226.2,-366.56 2216.05,-363.52 2216.37,-370.52"/>
+</g>
+<!-- proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge34" class="edge">
+<title>proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1020.62,-514.61C1245.79,-514.14 1641.22,-519.72 1777.89,-562.13 1859.1,-587.34 1940.67,-648.82 1979.17,-680.52"/>
+<polygon fill="#000000" stroke="#000000" points="1976.5,-682.84 1986.42,-686.56 1980.98,-677.47 1976.5,-682.84"/>
+</g>
+<!-- proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_init_stream_with_pool -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge42" class="edge">
+<title>proc~dyn_mpas_read_write_stream&#45;&gt;proc~dyn_mpas_init_stream_with_pool</title>
+<path fill="none" stroke="#000000" d="M979.75,-503.53C1018.34,-499.51 1061.22,-495.04 1100.58,-490.94"/>
+<polygon fill="#000000" stroke="#000000" points="1100.76,-494.44 1110.34,-489.92 1100.03,-487.48 1100.76,-494.44"/>
+</g>
+<!-- proc~dyn_mpas_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node19" class="node">
+<title>proc~dyn_mpas_run</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node19"><a xlink:href="../proc/dyn_mpas_run.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_run">
+<polygon fill="#d9534f" stroke="#d9534f" points="2125.79,-24.27 1880.27,-24.27 1880.27,0 2125.79,0 2125.79,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2003.03" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_run</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_run&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge18" class="edge">
+<title>proc~dyn_mpas_run&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M2125.88,-8.81C2149.31,-12.69 2172.62,-20.09 2192.16,-33.13 2303.67,-107.57 2352.87,-275.01 2367.69,-336.72"/>
+<polygon fill="#000000" stroke="#000000" points="2364.2,-337.17 2369.86,-346.12 2371.02,-335.59 2364.2,-337.17"/>
+</g>
+<!-- none~add_stream_attribute&#45;&gt;none~add_stream_attribute_0d -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge19" class="edge">
+<title>none~add_stream_attribute&#45;&gt;none~add_stream_attribute_0d</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1671.83,-505.1C1712.2,-509.67 1766.19,-515.78 1813.89,-521.13 1848.51,-525.02 1886.72,-529.29 1919.6,-532.96"/>
+<polygon fill="#000000" stroke="#000000" points="1919.17,-536.43 1929.5,-534.06 1919.94,-529.48 1919.17,-536.43"/>
+</g>
+<!-- none~add_stream_attribute&#45;&gt;none~add_stream_attribute_1d -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge20" class="edge">
+<title>none~add_stream_attribute&#45;&gt;none~add_stream_attribute_1d</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1672.01,-498.45C1738.8,-498.79 1845.74,-499.34 1919.69,-499.71"/>
+<polygon fill="#000000" stroke="#000000" points="1919.28,-503.21 1929.3,-499.76 1919.32,-496.21 1919.28,-503.21"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rho -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node21" class="node">
+<title>none~set_mpas_physics_tendency_rho</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node21"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rho" xlink:title="set_mpas_physics_tendency_rho">
+<polygon fill="#d9534f" stroke="#d9534f" points="1701.39,-670.27 1517.37,-670.27 1517.37,-646 1701.39,-646 1701.39,-670.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-654.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_rho</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rho&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge26" class="edge">
+<title>none~set_mpas_physics_tendency_rho&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1701.71,-667.93C1752.78,-673.41 1817.26,-680.32 1873.36,-686.34"/>
+<polygon fill="#000000" stroke="#000000" points="1872.65,-689.78 1882.96,-687.37 1873.39,-682.82 1872.65,-689.78"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node22" class="node">
+<title>none~set_mpas_physics_tendency_rtheta</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node22"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rtheta" xlink:title="set_mpas_physics_tendency_rtheta">
+<polygon fill="#d9534f" stroke="#d9534f" points="1708.52,-712.27 1510.25,-712.27 1510.25,-688 1708.52,-688 1708.52,-712.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-696.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_rtheta</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge27" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1708.96,-700.13C1747.94,-700.13 1793.81,-700.13 1837.54,-700.13"/>
+<polygon fill="#000000" stroke="#000000" points="1837.39,-703.64 1847.39,-700.14 1837.39,-696.64 1837.39,-703.64"/>
+</g>
+<!-- none~set_mpas_physics_tendency_ru -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node23" class="node">
+<title>none~set_mpas_physics_tendency_ru</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node23"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_ru" xlink:title="set_mpas_physics_tendency_ru">
+<polygon fill="#d9534f" stroke="#d9534f" points="1322.75,-873.27 1145.48,-873.27 1145.48,-849 1322.75,-849 1322.75,-873.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-857.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_ru</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge22" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind</title>
+<path fill="none" stroke="#000000" d="M1323.1,-869.86C1366.79,-874.19 1420.6,-879.52 1469.67,-884.39"/>
+<polygon fill="#000000" stroke="#000000" points="1469.24,-887.86 1479.54,-885.36 1469.94,-880.89 1469.24,-887.86"/>
+</g>
+<!-- none~set_mpas_state_rho_base_theta_base -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node24" class="node">
+<title>none~set_mpas_state_rho_base_theta_base</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node24"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_rho_base_theta_base" xlink:title="set_mpas_state_rho_base_theta_base">
+<polygon fill="#d9534f" stroke="#d9534f" points="1714.89,-868.27 1503.87,-868.27 1503.87,-844 1714.89,-844 1714.89,-868.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-852.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_rho_base_theta_base</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_rho_base_theta_base&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge28" class="edge">
+<title>none~set_mpas_state_rho_base_theta_base&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1715.1,-847.34C1736.36,-843.5 1758.22,-838 1777.89,-830.13 1795.98,-822.9 1797.37,-815.45 1813.89,-805.13 1866.39,-772.37 1929.61,-738.1 1967.76,-717.95"/>
+<polygon fill="#000000" stroke="#000000" points="1969.27,-721.12 1976.49,-713.36 1966.01,-714.92 1969.27,-721.12"/>
+</g>
+<!-- none~set_mpas_state_rho_theta -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node25" class="node">
+<title>none~set_mpas_state_rho_theta</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node25"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_rho_theta" xlink:title="set_mpas_state_rho_theta">
+<polygon fill="#d9534f" stroke="#d9534f" points="1308.87,-831.27 1159.35,-831.27 1159.35,-807 1308.87,-807 1308.87,-831.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-815.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_rho_theta</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_rho_theta&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge29" class="edge">
+<title>none~set_mpas_state_rho_theta&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1309.11,-817.16C1414.23,-813.25 1612.41,-801.86 1777.89,-769.13 1841.77,-756.5 1913.32,-732.72 1958.02,-716.65"/>
+<polygon fill="#000000" stroke="#000000" points="1959.16,-719.96 1967.36,-713.26 1956.77,-713.38 1959.16,-719.96"/>
+</g>
+<!-- none~set_mpas_state_scalars -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node26" class="node">
+<title>none~set_mpas_state_scalars</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node26"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_scalars" xlink:title="set_mpas_state_scalars">
+<polygon fill="#d9534f" stroke="#d9534f" points="1302.12,-789.27 1166.1,-789.27 1166.1,-765 1302.12,-765 1302.12,-789.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-773.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_scalars</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_scalars&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge30" class="edge">
+<title>none~set_mpas_state_scalars&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1302.62,-775.15C1405.5,-771.55 1607.55,-762.29 1777.89,-741.13 1830.07,-734.65 1888.5,-723.85 1932.61,-714.96"/>
+<polygon fill="#000000" stroke="#000000" points="1933.2,-718.41 1942.31,-712.98 1931.81,-711.55 1933.2,-718.41"/>
+</g>
+<!-- none~set_mpas_state_u -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node27" class="node">
+<title>none~set_mpas_state_u</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node27"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_u" xlink:title="set_mpas_state_u">
+<polygon fill="#d9534f" stroke="#d9534f" points="1286.75,-953.27 1181.48,-953.27 1181.48,-929 1286.75,-929 1286.75,-953.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-937.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_u</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_u&#45;&gt;proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge23" class="edge">
+<title>none~set_mpas_state_u&#45;&gt;proc~dyn_mpas_compute_edge_wind</title>
+<path fill="none" stroke="#000000" d="M1287.01,-935.16C1338.72,-929.2 1419.97,-919.84 1487.84,-912.02"/>
+<polygon fill="#000000" stroke="#000000" points="1488.01,-915.53 1497.54,-910.9 1487.2,-908.57 1488.01,-915.53"/>
+</g>
+<!-- none~set_mpas_state_w -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node28" class="node">
+<title>none~set_mpas_state_w</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node28"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_w" xlink:title="set_mpas_state_w">
+<polygon fill="#d9534f" stroke="#d9534f" points="1287.5,-747.27 1180.73,-747.27 1180.73,-723 1287.5,-723 1287.5,-747.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-731.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_w</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_w&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge31" class="edge">
+<title>none~set_mpas_state_w&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1287.94,-734.96C1385.04,-734.37 1598.4,-731.85 1777.89,-721.13 1808.47,-719.31 1841.33,-716.63 1872.21,-713.8"/>
+<polygon fill="#000000" stroke="#000000" points="1872.35,-717.3 1881.99,-712.89 1871.7,-710.33 1872.35,-717.3"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node29" class="node">
+<title>proc~dyn_exchange_constituent_states</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node29"><a xlink:href="../proc/dyn_exchange_constituent_states.html" xlink:title="dyn_exchange_constituent_states">
+<polygon fill="#d9534f" stroke="#d9534f" points="1704.02,-628.27 1514.75,-628.27 1514.75,-604 1704.02,-604 1704.02,-628.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-612.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_exchange_constituent_states</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge32" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M1704.25,-625.4C1728.37,-628.46 1754.19,-632.35 1777.89,-637.13 1839.07,-649.5 1907.99,-669.87 1953.05,-684.09"/>
+<polygon fill="#000000" stroke="#000000" points="1951.95,-687.41 1962.54,-687.1 1954.07,-680.74 1951.95,-687.41"/>
+</g>
+<!-- proc~dyn_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node30" class="node">
+<title>proc~dyn_init</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node30"><a xlink:href="../proc/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="592.32,-831.27 538.32,-831.27 538.32,-807 592.32,-807 592.32,-831.27"/>
+<text xml:space="preserve" text-anchor="middle" x="565.32" y="-815.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~dyn_mpas_define_scalar -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge25" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~dyn_mpas_define_scalar</title>
+<path fill="none" stroke="#000000" d="M574.31,-831.49C591.59,-857.05 635.18,-915.57 688.08,-942.13 961.35,-1079.36 1338.13,-1055.99 1512.6,-1035.13"/>
+<polygon fill="#000000" stroke="#000000" points="1512.79,-1038.63 1522.3,-1033.94 1511.94,-1031.68 1512.79,-1038.63"/>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~dyn_mpas_init_phase4 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge41" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~dyn_mpas_init_phase4</title>
+<path fill="none" stroke="#000000" d="M592.6,-828.37C641.86,-845.67 748.65,-883.18 810.29,-904.83"/>
+<polygon fill="#000000" stroke="#000000" points="808.85,-908.03 819.45,-908.05 811.17,-901.43 808.85,-908.03"/>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~dyn_mpas_read_write_stream -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge44" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~dyn_mpas_read_write_stream</title>
+<path fill="none" stroke="#000000" d="M591.64,-806.67C611.15,-795.75 637.22,-778.05 652.08,-755.13 691.75,-693.99 642.42,-651.95 688.08,-595.13 713.5,-563.51 754.53,-543.9 789.76,-532.13"/>
+<polygon fill="#000000" stroke="#000000" points="790.56,-535.55 799.04,-529.19 788.44,-528.88 790.56,-535.55"/>
+</g>
+<!-- interface~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node36" class="node">
+<title>interface~dyn_exchange_constituent_states</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node36"><a xlink:href="../interface/dyn_exchange_constituent_states.html" xlink:title="dyn_exchange_constituent_states">
+<polygon fill="#a7506f" stroke="#a7506f" points="1328.75,-629.27 1139.48,-629.27 1139.48,-605 1328.75,-605 1328.75,-629.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-613.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_exchange_constituent_states</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_init&#45;&gt;interface~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge65" class="edge">
+<title>proc~dyn_init&#45;&gt;interface~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" d="M585.66,-806.53C603.69,-794.36 630.91,-774.92 652.08,-755.13 670.04,-738.35 666.71,-725.29 688.08,-713.13 821.11,-637.46 876.64,-680.79 1027.35,-654.13 1068.66,-646.83 1114.62,-638.58 1152.6,-631.72"/>
+<polygon fill="#000000" stroke="#000000" points="1152.89,-635.23 1162.11,-630.01 1151.65,-628.34 1152.89,-635.23"/>
+</g>
+<!-- proc~set_analytic_initial_condition -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node44" class="node">
+<title>proc~set_analytic_initial_condition</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node44"><a xlink:href="../proc/set_analytic_initial_condition.html" xlink:title="set_analytic_initial_condition">
+<polygon fill="#d9534f" stroke="#d9534f" points="939.6,-831.27 775.83,-831.27 775.83,-807 939.6,-807 939.6,-831.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-815.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_analytic_initial_condition</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~set_analytic_initial_condition -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge72" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~set_analytic_initial_condition</title>
+<path fill="none" stroke="#000000" d="M592.6,-819.13C631.03,-819.13 704.48,-819.13 764.18,-819.13"/>
+<polygon fill="#000000" stroke="#000000" points="764.03,-822.64 774.03,-819.14 764.03,-815.64 764.03,-822.64"/>
+</g>
+<!-- proc~dyn_inquire_mesh_dimensions -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node31" class="node">
+<title>proc~dyn_inquire_mesh_dimensions</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node31"><a xlink:href="../proc/dyn_inquire_mesh_dimensions.html" xlink:title="dyn_inquire_mesh_dimensions">
+<polygon fill="#d9534f" stroke="#d9534f" points="1696.14,-316.27 1522.62,-316.27 1522.62,-292 1696.14,-292 1696.14,-316.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-300.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_inquire_mesh_dimensions</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_mpas_get_global_mesh_dimension -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge36" class="edge">
+<title>proc~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_mpas_get_global_mesh_dimension</title>
+<path fill="none" stroke="#000000" d="M1696.33,-312.04C1742.37,-316.27 1800.38,-321.6 1853.47,-326.48"/>
+<polygon fill="#000000" stroke="#000000" points="1852.93,-329.95 1863.21,-327.38 1853.57,-322.97 1852.93,-329.95"/>
+</g>
+<!-- proc~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_mpas_get_local_mesh_dimension -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge37" class="edge">
+<title>proc~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_mpas_get_local_mesh_dimension</title>
+<path fill="none" stroke="#000000" d="M1696.33,-302.82C1728.91,-302.32 1767.5,-301.73 1806.09,-301.14"/>
+<polygon fill="#000000" stroke="#000000" points="1806.06,-304.64 1816,-300.98 1805.95,-297.64 1806.06,-304.64"/>
+</g>
+<!-- proc~dyn_readnl -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node32" class="node">
+<title>proc~dyn_readnl</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node32"><a xlink:href="../proc/dyn_readnl.html" xlink:title="dyn_readnl">
+<polygon fill="#d9534f" stroke="#d9534f" points="1644.39,-108.27 1574.37,-108.27 1574.37,-84 1644.39,-84 1644.39,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_readnl</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_readnl&#45;&gt;proc~dyn_mpas_init_phase1 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge38" class="edge">
+<title>proc~dyn_readnl&#45;&gt;proc~dyn_mpas_init_phase1</title>
+<path fill="none" stroke="#000000" d="M1644.79,-99.83C1695.51,-105.26 1793.01,-115.72 1873.35,-124.34"/>
+<polygon fill="#000000" stroke="#000000" points="1872.75,-127.79 1883.06,-125.38 1873.49,-120.83 1872.75,-127.79"/>
+</g>
+<!-- proc~dyn_readnl&#45;&gt;proc~dyn_mpas_init_phase2 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge39" class="edge">
+<title>proc~dyn_readnl&#45;&gt;proc~dyn_mpas_init_phase2</title>
+<path fill="none" stroke="#000000" d="M1644.79,-96.14C1690.15,-96.14 1772.94,-96.14 1847.4,-96.14"/>
+<polygon fill="#000000" stroke="#000000" points="1847.28,-99.64 1857.28,-96.14 1847.28,-92.64 1847.28,-99.64"/>
+</g>
+<!-- proc~dyn_readnl&#45;&gt;proc~dyn_mpas_read_namelist -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge43" class="edge">
+<title>proc~dyn_readnl&#45;&gt;proc~dyn_mpas_read_namelist</title>
+<path fill="none" stroke="#000000" d="M1644.79,-92.44C1695.51,-87.01 1793.01,-76.55 1873.35,-67.93"/>
+<polygon fill="#000000" stroke="#000000" points="1873.49,-71.44 1883.06,-66.89 1872.75,-64.48 1873.49,-71.44"/>
+</g>
+<!-- proc~dyn_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node33" class="node">
+<title>proc~dyn_run</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node33"><a xlink:href="../proc/dyn_run.html" xlink:title="dyn_run">
+<polygon fill="#d9534f" stroke="#d9534f" points="1636.52,-24.27 1582.25,-24.27 1582.25,0 1636.52,0 1636.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1609.38" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_run</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_run&#45;&gt;proc~dyn_mpas_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge47" class="edge">
+<title>proc~dyn_run&#45;&gt;proc~dyn_mpas_run</title>
+<path fill="none" stroke="#000000" d="M1636.99,-12.13C1683.98,-12.13 1784.62,-12.13 1868.34,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="1868.26,-15.64 1878.26,-12.14 1868.26,-8.64 1868.26,-15.64"/>
+</g>
+<!-- proc~dyn_variable_dump -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node34" class="node">
+<title>proc~dyn_variable_dump</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node34"><a xlink:href="../proc/dyn_variable_dump.html" xlink:title="dyn_variable_dump">
+<polygon fill="#d9534f" stroke="#d9534f" points="623.21,-578.27 507.44,-578.27 507.44,-554 623.21,-554 623.21,-578.27"/>
+<text xml:space="preserve" text-anchor="middle" x="565.32" y="-562.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_variable_dump</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_variable_dump&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge35" class="edge">
+<title>proc~dyn_variable_dump&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M623.36,-564.4C832.21,-558.53 1554.52,-542.59 1777.89,-595.13 1852.31,-612.64 1931.55,-656.53 1972.96,-681.68"/>
+<polygon fill="#000000" stroke="#000000" points="1971.01,-684.58 1981.36,-686.84 1974.68,-678.62 1971.01,-684.58"/>
+</g>
+<!-- proc~dyn_variable_dump&#45;&gt;proc~dyn_mpas_read_write_stream -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge45" class="edge">
+<title>proc~dyn_variable_dump&#45;&gt;proc~dyn_mpas_read_write_stream</title>
+<path fill="none" stroke="#000000" d="M623.69,-556.26C666.08,-548.96 724.46,-538.91 772.19,-530.69"/>
+<polygon fill="#000000" stroke="#000000" points="772.69,-534.15 781.95,-529.01 771.5,-527.26 772.69,-534.15"/>
+</g>
+<!-- proc~model_grid_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node35" class="node">
+<title>proc~model_grid_init</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node35"><a xlink:href="../proc/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="611.96,-295.27 518.69,-295.27 518.69,-271 611.96,-271 611.96,-295.27"/>
+<text xml:space="preserve" text-anchor="middle" x="565.32" y="-279.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- proc~model_grid_init&#45;&gt;proc~dyn_mpas_compute_unit_vector -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge24" class="edge">
+<title>proc~model_grid_init&#45;&gt;proc~dyn_mpas_compute_unit_vector</title>
+<path fill="none" stroke="#000000" d="M612.33,-279.81C630.63,-278.48 652.94,-276.87 676.57,-275.16"/>
+<polygon fill="#000000" stroke="#000000" points="676.66,-278.67 686.38,-274.45 676.15,-271.68 676.66,-278.67"/>
+</g>
+<!-- proc~model_grid_init&#45;&gt;proc~dyn_mpas_init_phase3 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge40" class="edge">
+<title>proc~model_grid_init&#45;&gt;proc~dyn_mpas_init_phase3</title>
+<path fill="none" stroke="#000000" d="M597.08,-270.53C621.39,-261.05 656.39,-248.49 688.08,-241.13 698.64,-238.68 709.65,-236.5 720.75,-234.57"/>
+<polygon fill="#000000" stroke="#000000" points="721.09,-238.06 730.38,-232.96 719.94,-231.15 721.09,-238.06"/>
+</g>
+<!-- proc~model_grid_init&#45;&gt;proc~dyn_mpas_read_write_stream -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge46" class="edge">
+<title>proc~model_grid_init&#45;&gt;proc~dyn_mpas_read_write_stream</title>
+<path fill="none" stroke="#000000" d="M581.93,-295.66C629.7,-333.99 774.11,-449.86 832.16,-496.44"/>
+<polygon fill="#000000" stroke="#000000" points="829.85,-499.07 839.84,-502.6 834.24,-493.61 829.85,-499.07"/>
+</g>
+<!-- interface~dyn_inquire_mesh_dimensions -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node38" class="node">
+<title>interface~dyn_inquire_mesh_dimensions</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node38"><a xlink:href="../interface/dyn_inquire_mesh_dimensions.html" xlink:title="dyn_inquire_mesh_dimensions">
+<polygon fill="#a7506f" stroke="#a7506f" points="944.48,-316.27 770.96,-316.27 770.96,-292 944.48,-292 944.48,-316.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-300.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_inquire_mesh_dimensions</text>
+</a>
+</g>
+</g>
+<!-- proc~model_grid_init&#45;&gt;interface~dyn_inquire_mesh_dimensions -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge68" class="edge">
+<title>proc~model_grid_init&#45;&gt;interface~dyn_inquire_mesh_dimensions</title>
+<path fill="none" stroke="#000000" d="M612.33,-286.46C651.65,-289.31 709.56,-293.49 759.13,-297.08"/>
+<polygon fill="#000000" stroke="#000000" points="758.82,-300.56 769.05,-297.8 759.32,-293.58 758.82,-300.56"/>
+</g>
+<!-- interface~dyn_exchange_constituent_states&#45;&gt;proc~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge57" class="edge">
+<title>interface~dyn_exchange_constituent_states&#45;&gt;proc~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1328.82,-616.88C1381.74,-616.74 1448.05,-616.56 1502.81,-616.42"/>
+<polygon fill="#000000" stroke="#000000" points="1502.8,-619.92 1512.79,-616.39 1502.78,-612.92 1502.8,-619.92"/>
+</g>
+<!-- interface~dyn_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node37" class="node">
+<title>interface~dyn_init</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node37"><a xlink:href="../interface/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="382.8,-831.27 328.8,-831.27 328.8,-807 382.8,-807 382.8,-831.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-815.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_init&#45;&gt;proc~dyn_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge58" class="edge">
+<title>interface~dyn_init&#45;&gt;proc~dyn_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M383.08,-819.13C419.39,-819.13 485.11,-819.13 526.64,-819.13"/>
+<polygon fill="#000000" stroke="#000000" points="526.41,-822.64 536.41,-819.14 526.41,-815.64 526.41,-822.64"/>
+</g>
+<!-- interface~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_inquire_mesh_dimensions -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge59" class="edge">
+<title>interface~dyn_inquire_mesh_dimensions&#45;&gt;proc~dyn_inquire_mesh_dimensions</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M944.71,-304.13C1085.27,-304.13 1363.33,-304.13 1510.97,-304.13"/>
+<polygon fill="#000000" stroke="#000000" points="1510.72,-307.64 1520.72,-304.14 1510.72,-300.64 1510.72,-307.64"/>
+</g>
+<!-- interface~dyn_readnl -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node39" class="node">
+<title>interface~dyn_readnl</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node39"><a xlink:href="../interface/dyn_readnl.html" xlink:title="dyn_readnl">
+<polygon fill="#a7506f" stroke="#a7506f" points="1269.12,-108.27 1199.1,-108.27 1199.1,-84 1269.12,-84 1269.12,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_readnl</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_readnl&#45;&gt;proc~dyn_readnl -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge60" class="edge">
+<title>interface~dyn_readnl&#45;&gt;proc~dyn_readnl</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1269.56,-96.14C1337.06,-96.14 1486.73,-96.14 1562.51,-96.14"/>
+<polygon fill="#000000" stroke="#000000" points="1562.5,-99.64 1572.5,-96.14 1562.5,-92.64 1562.5,-99.64"/>
+</g>
+<!-- interface~dyn_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node40" class="node">
+<title>interface~dyn_run</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node40"><a xlink:href="../interface/dyn_run.html" xlink:title="dyn_run">
+<polygon fill="#a7506f" stroke="#a7506f" points="1261.25,-24.27 1206.98,-24.27 1206.98,0 1261.25,0 1261.25,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1234.11" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_run</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_run&#45;&gt;proc~dyn_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge61" class="edge">
+<title>interface~dyn_run&#45;&gt;proc~dyn_run</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1261.66,-12.13C1326.95,-12.13 1495.53,-12.13 1570.94,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="1570.71,-15.64 1580.71,-12.14 1570.71,-8.64 1570.71,-15.64"/>
+</g>
+<!-- interface~model_grid_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node41" class="node">
+<title>interface~model_grid_init</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node41"><a xlink:href="../interface/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="402.44,-295.27 309.17,-295.27 309.17,-271 402.44,-271 402.44,-295.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-279.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- interface~model_grid_init&#45;&gt;proc~model_grid_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge63" class="edge">
+<title>interface~model_grid_init&#45;&gt;proc~model_grid_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M402.86,-283.13C433.62,-283.13 474.3,-283.13 507.14,-283.13"/>
+<polygon fill="#000000" stroke="#000000" points="506.88,-286.64 516.88,-283.14 506.88,-279.64 506.88,-286.64"/>
+</g>
+<!-- proc~dyn_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node42" class="node">
+<title>proc~dyn_final</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node42"><a xlink:href="../proc/dyn_final.html" xlink:title="dyn_final">
+<polygon fill="#d9534f" stroke="#d9534f" points="385.56,-578.27 326.04,-578.27 326.04,-554 385.56,-554 385.56,-578.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-562.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_final</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_final&#45;&gt;proc~dyn_variable_dump -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge62" class="edge">
+<title>proc~dyn_final&#45;&gt;proc~dyn_variable_dump</title>
+<path fill="none" stroke="#000000" d="M385.65,-566.13C414.02,-566.13 458.36,-566.13 495.78,-566.13"/>
+<polygon fill="#000000" stroke="#000000" points="495.63,-569.64 505.63,-566.14 495.63,-562.64 495.63,-569.64"/>
+</g>
+<!-- proc~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node43" class="node">
+<title>proc~physics_to_dynamics_coupling</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node43"><a xlink:href="../proc/physics_to_dynamics_coupling.html" xlink:title="physics_to_dynamics_coupling">
+<polygon fill="#d9534f" stroke="#d9534f" points="944.48,-746.27 770.96,-746.27 770.96,-722 944.48,-722 944.48,-746.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-730.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_to_dynamics_coupling</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rho -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge49" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rho</title>
+<path fill="none" stroke="#000000" d="M944.86,-722.85C971.43,-718.84 1000.71,-713.87 1027.35,-708.13 1043.58,-704.64 1046.99,-700.98 1063.35,-698.13 1215.93,-671.61 1395.51,-662.65 1505.63,-659.64"/>
+<polygon fill="#000000" stroke="#000000" points="1505.64,-663.14 1515.54,-659.38 1505.46,-656.14 1505.64,-663.14"/>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rtheta -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge50" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rtheta</title>
+<path fill="none" stroke="#000000" d="M944.73,-724.34C981.26,-720.55 1024.34,-716.54 1063.35,-714.13 1213.91,-704.86 1388.22,-701.7 1498.38,-700.65"/>
+<polygon fill="#000000" stroke="#000000" points="1498.35,-704.15 1508.31,-700.56 1498.28,-697.15 1498.35,-704.15"/>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge51" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru</title>
+<path fill="none" stroke="#000000" d="M911.02,-746.67C946.08,-756.76 992.12,-773.38 1027.35,-798.13 1047.47,-812.27 1041.69,-828.51 1063.35,-840.13 1084.7,-851.59 1109.68,-857.88 1133.81,-861.13"/>
+<polygon fill="#000000" stroke="#000000" points="1133.35,-864.6 1143.69,-862.28 1134.16,-857.65 1133.35,-864.6"/>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge67" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" d="M944.92,-735.63C973.25,-732.44 1003.54,-724.74 1027.35,-708.13 1054.44,-689.24 1036.25,-662.01 1063.35,-643.13 1082.27,-629.95 1105.26,-622.36 1128.12,-618.19"/>
+<polygon fill="#000000" stroke="#000000" points="1128.5,-621.67 1137.82,-616.64 1127.4,-614.76 1128.5,-621.67"/>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_rho_base_theta_base -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge52" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_rho_base_theta_base</title>
+<path fill="none" stroke="#000000" d="M889.24,-831.69C928.66,-847.16 999.76,-872.57 1063.35,-882.13 1213.45,-904.72 1253.44,-892.6 1404.87,-882.13 1420.99,-881.02 1424.86,-879.25 1440.87,-877.13 1458.32,-874.83 1476.79,-872.45 1494.86,-870.16"/>
+<polygon fill="#000000" stroke="#000000" points="1495.05,-873.66 1504.53,-868.94 1494.17,-866.72 1495.05,-873.66"/>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_rho_theta -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge53" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_rho_theta</title>
+<path fill="none" stroke="#000000" d="M939.95,-819.13C1001.3,-819.13 1085.28,-819.13 1147.64,-819.13"/>
+<polygon fill="#000000" stroke="#000000" points="1147.51,-822.64 1157.51,-819.14 1147.51,-815.64 1147.51,-822.64"/>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_scalars -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge54" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_scalars</title>
+<path fill="none" stroke="#000000" d="M939.95,-810.02C1003.66,-802.88 1091.77,-792.99 1154.73,-785.93"/>
+<polygon fill="#000000" stroke="#000000" points="1154.74,-789.45 1164.29,-784.86 1153.96,-782.49 1154.74,-789.45"/>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_u -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge55" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_u</title>
+<path fill="none" stroke="#000000" d="M884.53,-831.75C935.34,-856.51 1045,-909.55 1063.35,-915.13 1097.8,-925.61 1137.52,-931.99 1169.88,-935.81"/>
+<polygon fill="#000000" stroke="#000000" points="1169.16,-939.25 1179.49,-936.88 1169.94,-932.29 1169.16,-939.25"/>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_w -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge56" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_w</title>
+<path fill="none" stroke="#000000" d="M892.98,-806.55C933.24,-792.25 1002.28,-769.21 1063.35,-756.13 1097.88,-748.74 1136.95,-743.69 1168.9,-740.39"/>
+<polygon fill="#000000" stroke="#000000" points="1169.22,-743.88 1178.82,-739.41 1168.52,-736.91 1169.22,-743.88"/>
+</g>
+<!-- interface~dyn_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node45" class="node">
+<title>interface~dyn_final</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node45"><a xlink:href="../interface/dyn_final.html" xlink:title="dyn_final">
+<polygon fill="#a7506f" stroke="#a7506f" points="202.29,-578.27 142.77,-578.27 142.77,-554 202.29,-554 202.29,-578.27"/>
+<text xml:space="preserve" text-anchor="middle" x="172.53" y="-562.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_final</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_final&#45;&gt;proc~dyn_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge70" class="edge">
+<title>interface~dyn_final&#45;&gt;proc~dyn_final</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M202.65,-566.13C232.91,-566.13 280.49,-566.13 314.38,-566.13"/>
+<polygon fill="#000000" stroke="#000000" points="314.23,-569.64 324.23,-566.14 314.23,-562.64 314.23,-569.64"/>
+</g>
+<!-- interface~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node46" class="node">
+<title>interface~physics_to_dynamics_coupling</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node46"><a xlink:href="../interface/physics_to_dynamics_coupling.html" xlink:title="physics_to_dynamics_coupling">
+<polygon fill="#a7506f" stroke="#a7506f" points="652.08,-746.27 478.56,-746.27 478.56,-722 652.08,-722 652.08,-746.27"/>
+<text xml:space="preserve" text-anchor="middle" x="565.32" y="-730.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_to_dynamics_coupling</text>
+</a>
+</g>
+</g>
+<!-- interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge71" class="edge">
+<title>interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M652.27,-734.13C685.92,-734.13 724.7,-734.13 759.38,-734.13"/>
+<polygon fill="#000000" stroke="#000000" points="758.97,-737.64 768.97,-734.14 758.97,-730.64 758.97,-737.64"/>
+</g>
+<!-- none~set_physics_state_external -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node47" class="node">
+<title>none~set_physics_state_external</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node47"><a xlink:href="../proc/dynamics_to_physics_coupling.html#proc-set_physics_state_external" xlink:title="set_physics_state_external">
+<polygon fill="#d9534f" stroke="#d9534f" points="933.6,-628.27 781.83,-628.27 781.83,-604 933.6,-604 933.6,-628.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-612.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_physics_state_external</text>
+</a>
+</g>
+</g>
+<!-- none~set_physics_state_external&#45;&gt;interface~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge64" class="edge">
+<title>none~set_physics_state_external&#45;&gt;interface~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" d="M934.03,-616.34C989.71,-616.48 1066.26,-616.69 1127.97,-616.85"/>
+<polygon fill="#000000" stroke="#000000" points="1127.79,-620.35 1137.8,-616.88 1127.81,-613.35 1127.79,-620.35"/>
+</g>
+<!-- proc~dynamics_to_physics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node48" class="node">
+<title>proc~dynamics_to_physics_coupling</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node48"><a xlink:href="../proc/dynamics_to_physics_coupling.html" xlink:title="dynamics_to_physics_coupling">
+<polygon fill="#d9534f" stroke="#d9534f" points="652.08,-639.27 478.56,-639.27 478.56,-615 652.08,-615 652.08,-639.27"/>
+<text xml:space="preserve" text-anchor="middle" x="565.32" y="-623.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dynamics_to_physics_coupling</text>
+</a>
+</g>
+</g>
+<!-- proc~dynamics_to_physics_coupling&#45;&gt;interface~dyn_exchange_constituent_states -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge66" class="edge">
+<title>proc~dynamics_to_physics_coupling&#45;&gt;interface~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" d="M652.41,-635.09C664.38,-635.94 676.53,-636.66 688.08,-637.13 838.74,-643.31 876.74,-644.44 1027.35,-637.13 1060.06,-635.55 1095.59,-632.55 1127.78,-629.35"/>
+<polygon fill="#000000" stroke="#000000" points="1127.91,-632.86 1137.51,-628.37 1127.2,-625.89 1127.91,-632.86"/>
+</g>
+<!-- proc~dynamics_to_physics_coupling&#45;&gt;none~set_physics_state_external -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge75" class="edge">
+<title>proc~dynamics_to_physics_coupling&#45;&gt;none~set_physics_state_external</title>
+<path fill="none" stroke="#000000" d="M652.27,-623.88C689.4,-622.47 732.78,-620.83 770,-619.42"/>
+<polygon fill="#000000" stroke="#000000" points="769.96,-622.92 779.82,-619.05 769.7,-615.93 769.96,-622.92"/>
+</g>
+<!-- proc~stepon_run3 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node49" class="node">
+<title>proc~stepon_run3</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node49"><a xlink:href="../proc/stepon_run3.html" xlink:title="stepon_run3">
+<polygon fill="#d9534f" stroke="#d9534f" points="896.48,-24.27 818.96,-24.27 818.96,0 896.48,0 896.48,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="857.72" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_run3</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_run3&#45;&gt;interface~dyn_run -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge69" class="edge">
+<title>proc~stepon_run3&#45;&gt;interface~dyn_run</title>
+<path fill="none" stroke="#000000" d="M896.67,-12.13C968.52,-12.13 1123.6,-12.13 1195.32,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="1194.98,-15.64 1204.98,-12.14 1194.98,-8.64 1194.98,-15.64"/>
+</g>
+<!-- interface~dynamics_to_physics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node50" class="node">
+<title>interface~dynamics_to_physics_coupling</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node50"><a xlink:href="../interface/dynamics_to_physics_coupling.html" xlink:title="dynamics_to_physics_coupling">
+<polygon fill="#a7506f" stroke="#a7506f" points="442.56,-639.27 269.04,-639.27 269.04,-615 442.56,-615 442.56,-639.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-623.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dynamics_to_physics_coupling</text>
+</a>
+</g>
+</g>
+<!-- interface~dynamics_to_physics_coupling&#45;&gt;proc~dynamics_to_physics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge76" class="edge">
+<title>interface~dynamics_to_physics_coupling&#45;&gt;proc~dynamics_to_physics_coupling</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M443,-627.13C450.95,-627.13 459.04,-627.13 467.08,-627.13"/>
+<polygon fill="#000000" stroke="#000000" points="466.87,-630.64 476.87,-627.14 466.87,-623.64 466.87,-630.64"/>
+</g>
+<!-- proc~stepon_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node51" class="node">
+<title>proc~stepon_final</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node51"><a xlink:href="../proc/stepon_final.html" xlink:title="stepon_final">
+<polygon fill="#d9534f" stroke="#d9534f" points="76.02,-578.27 0,-578.27 0,-554 76.02,-554 76.02,-578.27"/>
+<text xml:space="preserve" text-anchor="middle" x="38.01" y="-562.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_final</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_final&#45;&gt;interface~dyn_final -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge73" class="edge">
+<title>proc~stepon_final&#45;&gt;interface~dyn_final</title>
+<path fill="none" stroke="#000000" d="M76.28,-566.13C93.4,-566.13 113.75,-566.13 131.23,-566.13"/>
+<polygon fill="#000000" stroke="#000000" points="131,-569.64 141,-566.14 131,-562.64 131,-569.64"/>
+</g>
+<!-- proc~stepon_run2 -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node52" class="node">
+<title>proc~stepon_run2</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node52"><a xlink:href="../proc/stepon_run2.html" xlink:title="stepon_run2">
+<polygon fill="#d9534f" stroke="#d9534f" points="394.56,-746.27 317.04,-746.27 317.04,-722 394.56,-722 394.56,-746.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-730.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_run2</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge74" class="edge">
+<title>proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" d="M394.86,-734.13C415.25,-734.13 441.38,-734.13 466.99,-734.13"/>
+<polygon fill="#000000" stroke="#000000" points="466.79,-737.64 476.79,-734.14 466.79,-730.64 466.79,-737.64"/>
+</g>
+<!-- proc~stepon_timestep_init -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_node53" class="node">
+<title>proc~stepon_timestep_init</title>
+<g id="a_proc~~dyn_mpas_debug_print~~CalledByGraph_node53"><a xlink:href="../proc/stepon_timestep_init.html" xlink:title="stepon_timestep_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="233.04,-639.27 112.02,-639.27 112.02,-615 233.04,-615 233.04,-639.27"/>
+<text xml:space="preserve" text-anchor="middle" x="172.53" y="-623.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_timestep_init</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_timestep_init&#45;&gt;interface~dynamics_to_physics_coupling -->
+<g id="proc~~dyn_mpas_debug_print~~CalledByGraph_edge77" class="edge">
+<title>proc~stepon_timestep_init&#45;&gt;interface~dynamics_to_physics_coupling</title>
+<path fill="none" stroke="#000000" d="M233.39,-627.13C241.1,-627.13 249.14,-627.13 257.27,-627.13"/>
+<polygon fill="#000000" stroke="#000000" points="257.26,-630.64 267.26,-627.14 257.26,-623.64 257.26,-630.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocdyn_mpas_debug_printCalledByGraph = svgPanZoom('#procdyn_mpas_debug_printCalledByGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">dyn_mpas_debug_print</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="p">,</span><span class="w"> </span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">printer</span><span class="p">)</span>
+<span class="w">        </span><span class="c">! Module(s) from MPAS.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_mpas_procedures</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">stringify</span>
+
+<span class="w">        </span><span class="k">class</span><span class="p">(</span><span class="n">mpas_dynamical_core_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">self</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">level</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">message</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">optional</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">printer</span>
+
+<span class="w">        </span><span class="c">! Bail out early if the log level is less verbose than the debug level.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">log_level</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">level</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            return</span>
+<span class="k">        end if</span>
+
+<span class="k">        if</span><span class="w"> </span><span class="p">(</span><span class="nb">present</span><span class="p">(</span><span class="n">printer</span><span class="p">))</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            if</span><span class="w"> </span><span class="p">(</span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">mpi_rank</span><span class="w"> </span><span class="o">/=</span><span class="w"> </span><span class="n">printer</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                return</span>
+<span class="k">            end if</span>
+<span class="k">        else</span>
+<span class="k">            if</span><span class="w"> </span><span class="p">(.</span><span class="nb">not</span><span class="p">.</span><span class="w"> </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">mpi_rank_root</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">                return</span>
+<span class="k">            end if</span>
+<span class="k">        end if</span>
+
+<span class="k">        write</span><span class="p">(</span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">log_unit</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;(a)&#39;</span><span class="p">)</span><span class="w"> </span><span class="s1">&#39;MPAS Subdriver (&#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">stringify</span><span class="p">([</span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">mpi_rank</span><span class="p">])</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39;): &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">message</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">dyn_mpas_debug_print</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

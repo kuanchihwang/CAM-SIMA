@@ -1,0 +1,1625 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>init_physics_grid – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      init_physics_grid
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 1.6% of total for procedures.">60 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_grid_impl.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_grid_impl.f90.html'>dyn_grid_impl.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_grid_impl.html'>dyn_grid_impl</a></li>
+            <li class="breadcrumb-item active" aria-current="page">init_physics_grid</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-areacell">areacell</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-cerr~2">cerr</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-dyn_attribute_name">dyn_attribute_name</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-dyn_column">dyn_column</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-hdim1_d">hdim1_d</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-hdim2_d">hdim2_d</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-i">i</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-ierr~2">ierr</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-indextocellid">indextocellid</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-latcell">latcell</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-loncell">loncell</a>
+            <a class="list-group-item" href="../proc/init_physics_grid.html#variable-subname~4">subname</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/init_physics_grid.html#src">init_physics_grid</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2> subroutine init_physics_grid()  
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">string_utils</li>
+                  <li class="list-inline-item">cam_logfile</li>
+                  <li class="list-inline-item"><a href='../module/dyn_comp.html'>dyn_comp</a></li>
+                  <li class="list-inline-item">cam_abortutils</li>
+                  <li class="list-inline-item">dynconst</li>
+                  <li class="list-inline-item">spmd_utils</li>
+                  <li class="list-inline-item">physics_grid</li>
+                  <li class="list-inline-item">shr_kind_mod</li>
+                  <li class="list-inline-item">physics_column_type</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~init_physics_grid~~UsesGraph Pages: 1 -->
+<svg id="procinit_physics_gridUsesGraph" width="580pt" height="368pt"
+ viewBox="0.00 0.00 580.00 368.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~init_physics_grid~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 364.27)">
+<title>proc~~init_physics_grid~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-364.27 575.83,-364.27 575.83,4 -4,4"/>
+<!-- proc~init_physics_grid -->
+<g id="proc~~init_physics_grid~~UsesGraph_node1" class="node">
+<title>proc~init_physics_grid</title>
+<polygon fill="none" stroke="black" points="571.83,-192.27 473.31,-192.27 473.31,-168 571.83,-168 571.83,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="522.57" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50">init_physics_grid</text>
+</g>
+<!-- cam_abortutils -->
+<g id="proc~~init_physics_grid~~UsesGraph_node2" class="node">
+<title>cam_abortutils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="420.43,-360.27 330.16,-360.27 330.16,-336 420.43,-336 420.43,-360.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-344.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_abortutils</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;cam_abortutils -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge1" class="edge">
+<title>proc~init_physics_grid&#45;&gt;cam_abortutils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M517.88,-192.36C508.83,-220.32 482.88,-289.46 437.31,-327.13 435.23,-328.85 433.01,-330.43 430.68,-331.88"/>
+<polygon fill="#000000" stroke="#000000" points="429.21,-328.7 422,-336.46 432.48,-334.89 429.21,-328.7"/>
+</g>
+<!-- cam_logfile -->
+<g id="proc~~init_physics_grid~~UsesGraph_node3" class="node">
+<title>cam_logfile</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="411.81,-318.27 338.79,-318.27 338.79,-294 411.81,-294 411.81,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_logfile</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;cam_logfile -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge2" class="edge">
+<title>proc~init_physics_grid&#45;&gt;cam_logfile</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M514.7,-192.72C502.15,-214.6 473.44,-259.72 437.31,-285.13 432.85,-288.27 427.88,-290.98 422.75,-293.3"/>
+<polygon fill="#000000" stroke="#000000" points="421.52,-290.02 413.53,-296.98 424.12,-296.52 421.52,-290.02"/>
+</g>
+<!-- dynconst -->
+<g id="proc~~init_physics_grid~~UsesGraph_node4" class="node">
+<title>dynconst</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="405.06,-276.27 345.54,-276.27 345.54,-252 405.06,-252 405.06,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dynconst</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;dynconst -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge3" class="edge">
+<title>proc~init_physics_grid&#45;&gt;dynconst</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M507.59,-192.76C491.58,-206.67 464.11,-228.95 437.31,-243.13 430.67,-246.65 423.32,-249.76 416.09,-252.45"/>
+<polygon fill="#000000" stroke="#000000" points="415.05,-249.1 406.75,-255.69 417.34,-255.72 415.05,-249.1"/>
+</g>
+<!-- module~dyn_comp -->
+<g id="proc~~init_physics_grid~~UsesGraph_node5" class="node">
+<title>module~dyn_comp</title>
+<g id="a_proc~~init_physics_grid~~UsesGraph_node5"><a xlink:href="../module/dyn_comp.html" xlink:title="dyn_comp">
+<polygon fill="#337ab7" stroke="#337ab7" points="408.43,-234.27 342.16,-234.27 342.16,-210 408.43,-210 408.43,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp</text>
+</a>
+</g>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;module~dyn_comp -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge4" class="edge">
+<title>proc~init_physics_grid&#45;&gt;module~dyn_comp</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M477.98,-192.74C459.57,-198.06 438.18,-204.24 419.78,-209.56"/>
+<polygon fill="#000000" stroke="#000000" points="418.86,-206.19 410.22,-212.33 420.8,-212.91 418.86,-206.19"/>
+</g>
+<!-- physics_column_type -->
+<g id="proc~~init_physics_grid~~UsesGraph_node6" class="node">
+<title>physics_column_type</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="437.31,-192.27 313.29,-192.27 313.29,-168 437.31,-168 437.31,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_column_type</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;physics_column_type -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge5" class="edge">
+<title>proc~init_physics_grid&#45;&gt;physics_column_type</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M473.2,-180.13C465.46,-180.13 457.3,-180.13 449.14,-180.13"/>
+<polygon fill="#000000" stroke="#000000" points="449.15,-176.64 439.15,-180.14 449.15,-183.64 449.15,-176.64"/>
+</g>
+<!-- physics_grid -->
+<g id="proc~~init_physics_grid~~UsesGraph_node7" class="node">
+<title>physics_grid</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="413.68,-150.27 336.91,-150.27 336.91,-126 413.68,-126 413.68,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_grid</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;physics_grid -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge6" class="edge">
+<title>proc~init_physics_grid&#45;&gt;physics_grid</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M477.98,-167.53C461.26,-162.7 442.07,-157.15 424.9,-152.19"/>
+<polygon fill="#000000" stroke="#000000" points="425.99,-148.86 415.41,-149.44 424.04,-155.58 425.99,-148.86"/>
+</g>
+<!-- shr_kind_mod -->
+<g id="proc~~init_physics_grid~~UsesGraph_node8" class="node">
+<title>shr_kind_mod</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="417.81,-108.27 332.79,-108.27 332.79,-84 417.81,-84 417.81,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">shr_kind_mod</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;shr_kind_mod -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge7" class="edge">
+<title>proc~init_physics_grid&#45;&gt;shr_kind_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M507.59,-167.51C491.58,-153.6 464.11,-131.32 437.31,-117.13 434.48,-115.64 431.52,-114.21 428.49,-112.86"/>
+<polygon fill="#000000" stroke="#000000" points="430.04,-109.71 419.46,-109.14 427.37,-116.18 430.04,-109.71"/>
+</g>
+<!-- spmd_utils -->
+<g id="proc~~init_physics_grid~~UsesGraph_node9" class="node">
+<title>spmd_utils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="409.18,-66.27 341.41,-66.27 341.41,-42 409.18,-42 409.18,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">spmd_utils</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;spmd_utils -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge8" class="edge">
+<title>proc~init_physics_grid&#45;&gt;spmd_utils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M514.7,-167.55C502.15,-145.67 473.44,-100.55 437.31,-75.13 432.16,-71.51 426.32,-68.46 420.35,-65.92"/>
+<polygon fill="#000000" stroke="#000000" points="421.6,-62.65 411,-62.39 419.13,-69.19 421.6,-62.65"/>
+</g>
+<!-- string_utils -->
+<g id="proc~~init_physics_grid~~UsesGraph_node10" class="node">
+<title>string_utils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="409.56,-24.27 341.04,-24.27 341.04,0 409.56,0 409.56,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="375.3" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_utils</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;string_utils -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge9" class="edge">
+<title>proc~init_physics_grid&#45;&gt;string_utils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M517.88,-167.91C508.83,-139.95 482.88,-70.81 437.31,-33.13 432.28,-28.97 426.37,-25.62 420.25,-22.92"/>
+<polygon fill="#000000" stroke="#000000" points="421.88,-19.79 411.29,-19.5 419.39,-26.33 421.88,-19.79"/>
+</g>
+<!-- module~dyn_mpas_subdriver -->
+<g id="proc~~init_physics_grid~~UsesGraph_node11" class="node">
+<title>module~dyn_mpas_subdriver</title>
+<g id="a_proc~~init_physics_grid~~UsesGraph_node11"><a xlink:href="../module/dyn_mpas_subdriver.html" xlink:title="dyn_mpas_subdriver">
+<polygon fill="#337ab7" stroke="#337ab7" points="277.29,-234.27 156.27,-234.27 156.27,-210 277.29,-210 277.29,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="216.78" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_subdriver</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge10" class="edge">
+<title>module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M341.87,-222.13C326.52,-222.13 307.54,-222.13 289.08,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="289.2,-218.64 279.2,-222.14 289.2,-225.64 289.2,-218.64"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="proc~~init_physics_grid~~UsesGraph_node12" class="node">
+<title>iso_fortran_env</title>
+<g id="a_proc~~init_physics_grid~~UsesGraph_node12"><a xlink:href="https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-fortran-env-module.html" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="106.77,-297.27 13.5,-297.27 13.5,-273 106.77,-273 106.77,-297.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-281.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge11" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-234.62C169.82,-243.26 143.67,-254.85 120.27,-264.13 116.45,-265.65 112.47,-267.18 108.47,-268.67"/>
+<polygon fill="#000000" stroke="#000000" points="107.49,-265.3 99.3,-272.03 109.9,-271.88 107.49,-265.3"/>
+</g>
+<!-- mpas_derived_types -->
+<g id="proc~~init_physics_grid~~UsesGraph_node13" class="node">
+<title>mpas_derived_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="120.27,-255.27 0,-255.27 0,-231 120.27,-231 120.27,-255.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-239.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_derived_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge12" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-230.25C148.13,-231.32 140.02,-232.42 132,-233.51"/>
+<polygon fill="#000000" stroke="#000000" points="131.7,-230.02 122.27,-234.83 132.65,-236.96 131.7,-230.02"/>
+</g>
+<!-- mpas_kind_types -->
+<g id="proc~~init_physics_grid~~UsesGraph_node14" class="node">
+<title>mpas_kind_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="111.27,-213.27 9,-213.27 9,-189 111.27,-189 111.27,-213.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-197.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_kind_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge13" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-214.02C145.14,-212.54 133.8,-211 122.9,-209.52"/>
+<polygon fill="#000000" stroke="#000000" points="123.61,-206.09 113.23,-208.21 122.67,-213.02 123.61,-206.09"/>
+</g>
+<!-- mpi -->
+<g id="proc~~init_physics_grid~~UsesGraph_node15" class="node">
+<title>mpi</title>
+<g id="a_proc~~init_physics_grid~~UsesGraph_node15"><a xlink:href="https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node467.htm" xlink:title="mpi">
+<polygon fill="#337ab7" stroke="#337ab7" points="87.13,-171.27 33.13,-171.27 33.13,-147 87.13,-147 87.13,-171.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-155.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpi</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpi -->
+<g id="proc~~init_physics_grid~~UsesGraph_edge14" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpi</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-209.65C169.82,-201.01 143.67,-189.42 120.27,-180.13 113.21,-177.33 105.61,-174.5 98.28,-171.86"/>
+<polygon fill="#000000" stroke="#000000" points="99.51,-168.58 88.91,-168.54 97.17,-175.18 99.51,-168.58"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>Initialize physics grid in terms of dynamics decomposition.
+Provide grid and mapping information between global and local indexes to physics by calling <code>phys_grid_init</code>.
+(KCW, 2024-03-27)</p>
+
+
+      <h3>Arguments</h3>
+        <em>None</em>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~init_physics_grid~~CallsGraph Pages: 1 -->
+<svg id="procinit_physics_gridCallsGraph" width="641pt" height="355pt"
+ viewBox="0.00 0.00 641.00 355.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~init_physics_grid~~CallsGraph" class="graph" transform="scale(0.47868 0.47868) rotate(0) translate(4 738.27)">
+<title>proc~~init_physics_grid~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-738.27 1335.1,-738.27 1335.1,4 -4,4"/>
+<!-- proc~init_physics_grid -->
+<g id="proc~~init_physics_grid~~CallsGraph_node1" class="node">
+<title>proc~init_physics_grid</title>
+<polygon fill="none" stroke="black" points="98.52,-608.27 0,-608.27 0,-584 98.52,-584 98.52,-608.27"/>
+<text xml:space="preserve" text-anchor="middle" x="49.26" y="-592.53" font-family="Helvetica,sans-Serif" font-size="10.50">init_physics_grid</text>
+</g>
+<!-- check_allocate -->
+<g id="proc~~init_physics_grid~~CallsGraph_node2" class="node">
+<title>check_allocate</title>
+<polygon fill="#777777" stroke="#777777" points="318.91,-734.27 227.89,-734.27 227.89,-710 318.91,-710 318.91,-734.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-718.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_allocate</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;check_allocate -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge1" class="edge">
+<title>proc~init_physics_grid&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M56.32,-608.69C67.97,-631.37 95.84,-678.84 134.52,-701.13 159.01,-715.25 189.83,-720.86 216.12,-722.78"/>
+<polygon fill="#000000" stroke="#000000" points="215.77,-726.27 225.95,-723.33 216.16,-719.28 215.77,-726.27"/>
+</g>
+<!-- coord_indices -->
+<g id="proc~~init_physics_grid~~CallsGraph_node3" class="node">
+<title>coord_indices</title>
+<polygon fill="#777777" stroke="#777777" points="315.91,-692.27 230.89,-692.27 230.89,-668 315.91,-668 315.91,-692.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-676.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">coord_indices</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;coord_indices -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge2" class="edge">
+<title>proc~init_physics_grid&#45;&gt;coord_indices</title>
+<path fill="none" stroke="#000000" d="M62.7,-608.63C78.12,-623.29 105.88,-647.14 134.52,-659.13 161.17,-670.3 192.94,-675.62 219.26,-678.11"/>
+<polygon fill="#000000" stroke="#000000" points="218.79,-681.59 229.05,-678.92 219.37,-674.61 218.79,-681.59"/>
+</g>
+<!-- dyn_block_index -->
+<g id="proc~~init_physics_grid~~CallsGraph_node4" class="node">
+<title>dyn_block_index</title>
+<polygon fill="#777777" stroke="#777777" points="322.66,-650.27 224.14,-650.27 224.14,-626 322.66,-626 322.66,-650.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-634.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_block_index</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;dyn_block_index -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge3" class="edge">
+<title>proc~init_physics_grid&#45;&gt;dyn_block_index</title>
+<path fill="none" stroke="#000000" d="M97.32,-608.69C109.4,-611.68 122.4,-614.71 134.52,-617.13 159.94,-622.23 188.21,-626.73 212.5,-630.25"/>
+<polygon fill="#000000" stroke="#000000" points="211.82,-633.69 222.22,-631.63 212.81,-626.76 211.82,-633.69"/>
+</g>
+<!-- interface~dyn_debug_print -->
+<g id="proc~~init_physics_grid~~CallsGraph_node5" class="node">
+<title>interface~dyn_debug_print</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node5"><a xlink:href="../interface/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#a7506f" stroke="#a7506f" points="323.41,-608.27 223.39,-608.27 223.39,-584 323.41,-584 323.41,-608.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-592.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge4" class="edge">
+<title>proc~init_physics_grid&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M99.01,-596.13C132.2,-596.13 176.37,-596.13 211.82,-596.13"/>
+<polygon fill="#000000" stroke="#000000" points="211.49,-599.64 221.49,-596.14 211.49,-592.64 211.49,-599.64"/>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_node6" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node6"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="412.29,-318.27 134.52,-318.27 134.52,-294 412.29,-294 412.29,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge5" class="edge">
+<title>proc~init_physics_grid&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M59.81,-583.67C94.27,-538.68 212.53,-384.29 256.11,-327.4"/>
+<polygon fill="#000000" stroke="#000000" points="258.67,-329.82 261.97,-319.75 253.12,-325.56 258.67,-329.82"/>
+</g>
+<!-- phys_grid_init -->
+<g id="proc~~init_physics_grid~~CallsGraph_node7" class="node">
+<title>phys_grid_init</title>
+<polygon fill="#777777" stroke="#777777" points="315.54,-276.27 231.27,-276.27 231.27,-252 315.54,-252 315.54,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="273.4" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">phys_grid_init</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;phys_grid_init -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge6" class="edge">
+<title>proc~init_physics_grid&#45;&gt;phys_grid_init</title>
+<path fill="none" stroke="#000000" d="M51.83,-583.68C58.72,-530.91 88.09,-326.57 134.52,-285.13 157.3,-264.8 191.11,-259.4 219.54,-259.16"/>
+<polygon fill="#000000" stroke="#000000" points="219.38,-262.66 229.43,-259.31 219.48,-255.66 219.38,-262.66"/>
+</g>
+<!-- stringify -->
+<g id="proc~~init_physics_grid~~CallsGraph_node8" class="node">
+<title>stringify</title>
+<polygon fill="#777777" stroke="#777777" points="1024.83,-588.27 970.56,-588.27 970.56,-564 1024.83,-564 1024.83,-588.27"/>
+<text xml:space="preserve" text-anchor="middle" x="997.69" y="-572.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</g>
+<!-- proc~init_physics_grid&#45;&gt;stringify -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge7" class="edge">
+<title>proc~init_physics_grid&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M92.31,-583.51C105.68,-580.08 120.6,-576.84 134.52,-575.13 429.55,-538.92 506.07,-574.37 803.31,-575.13 857.32,-575.27 919.81,-575.63 958.8,-575.88"/>
+<polygon fill="#000000" stroke="#000000" points="958.57,-579.38 968.59,-575.94 958.62,-572.38 958.57,-579.38"/>
+</g>
+<!-- proc~dyn_debug_print -->
+<g id="proc~~init_physics_grid~~CallsGraph_node9" class="node">
+<title>proc~dyn_debug_print</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node9"><a xlink:href="../proc/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="675.81,-608.27 575.79,-608.27 575.79,-584 675.81,-584 675.81,-608.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-592.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge8" class="edge">
+<title>interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M323.86,-596.13C386.9,-596.13 495.85,-596.13 563.92,-596.13"/>
+<polygon fill="#000000" stroke="#000000" points="563.8,-599.64 573.8,-596.14 563.8,-592.64 563.8,-599.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node10" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node10"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-402.27 448.29,-402.27 448.29,-378 803.31,-378 803.31,-402.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-386.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge9" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M302.71,-318.68C336.62,-333.16 395.49,-356.61 448.29,-369.13 458.54,-371.57 469.2,-373.73 479.97,-375.64"/>
+<polygon fill="#000000" stroke="#000000" points="479.29,-379.07 489.73,-377.29 480.45,-372.17 479.29,-379.07"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node11" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node11"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-24.27 448.29,-24.27 448.29,0 803.31,0 803.31,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge10" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M402.09,-293.66C405.72,-291.15 409.14,-288.32 412.29,-285.13 491.92,-204.77 367.36,-112.19 448.29,-33.13 448.79,-32.65 449.3,-32.16 449.81,-31.69"/>
+<polygon fill="#000000" stroke="#000000" points="451.78,-34.6 457.3,-25.55 447.35,-29.18 451.78,-34.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="801.81,-486.27 449.79,-486.27 449.79,-462 801.81,-462 801.81,-486.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-470.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge11" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M284.58,-318.75C309.13,-348.18 375.06,-421.3 448.29,-453.13 452.39,-454.92 456.59,-456.57 460.87,-458.09"/>
+<polygon fill="#000000" stroke="#000000" points="459.62,-461.36 470.22,-461.15 461.8,-454.71 459.62,-461.36"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="801.81,-360.27 449.79,-360.27 449.79,-336 801.81,-336 801.81,-360.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-344.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge12" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M378.76,-318.77C401.67,-321.53 425.8,-324.44 448.29,-327.13 467.33,-329.42 487.53,-331.83 507.2,-334.17"/>
+<polygon fill="#000000" stroke="#000000" points="506.54,-337.62 516.89,-335.33 507.37,-330.67 506.54,-337.62"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="801.81,-318.27 449.79,-318.27 449.79,-294 801.81,-294 801.81,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge13" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M412.64,-306.13C421.02,-306.13 429.53,-306.13 438.07,-306.13"/>
+<polygon fill="#000000" stroke="#000000" points="437.79,-309.64 447.79,-306.14 437.79,-302.64 437.79,-309.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="801.81,-276.27 449.79,-276.27 449.79,-252 801.81,-252 801.81,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge14" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M378.76,-293.5C401.67,-290.74 425.8,-287.83 448.29,-285.13 467.33,-282.85 487.53,-280.44 507.2,-278.1"/>
+<polygon fill="#000000" stroke="#000000" points="507.37,-281.6 516.89,-276.94 506.54,-274.65 507.37,-281.6"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="801.81,-528.27 449.79,-528.27 449.79,-504 801.81,-504 801.81,-528.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-512.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge15" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M281.45,-318.62C301.93,-353.58 365.32,-452.71 448.29,-495.13 451.25,-496.65 454.28,-498.07 457.36,-499.41"/>
+<polygon fill="#000000" stroke="#000000" points="456.02,-502.65 466.61,-503.09 458.6,-496.14 456.02,-502.65"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-444.27 449.04,-444.27 449.04,-420 802.56,-420 802.56,-444.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-428.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge16" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M289.57,-318.42C318.46,-341.08 384.25,-389.14 448.29,-411.13 454.37,-413.22 460.62,-415.11 466.99,-416.81"/>
+<polygon fill="#000000" stroke="#000000" points="465.77,-420.12 476.32,-419.15 467.47,-413.33 465.77,-420.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node18" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node18"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-234.27 449.04,-234.27 449.04,-210 802.56,-210 802.56,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge17" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M393.94,-293.53C400.3,-291.15 406.47,-288.37 412.29,-285.13 433.79,-273.2 426.6,-254.71 448.29,-243.13 451,-241.69 453.77,-240.32 456.59,-239.03"/>
+<polygon fill="#000000" stroke="#000000" points="457.72,-242.35 465.59,-235.27 455.02,-235.89 457.72,-242.35"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node19" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node19"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-192.27 449.04,-192.27 449.04,-168 802.56,-168 802.56,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge18" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M399.17,-293.57C403.77,-291.12 408.17,-288.32 412.29,-285.13 444.41,-260.28 415.76,-225.46 448.29,-201.13 449.47,-200.25 450.67,-199.39 451.89,-198.56"/>
+<polygon fill="#000000" stroke="#000000" points="453.53,-201.66 460.22,-193.45 449.86,-195.69 453.53,-201.66"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node20" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node20"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-150.27 449.04,-150.27 449.04,-126 802.56,-126 802.56,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge19" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M400.63,-293.66C404.75,-291.16 408.65,-288.33 412.29,-285.13 456.01,-246.65 403.95,-196.9 448.29,-159.13 449.09,-158.46 449.89,-157.79 450.71,-157.14"/>
+<polygon fill="#000000" stroke="#000000" points="452.43,-160.22 458.56,-151.58 448.38,-154.5 452.43,-160.22"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node21" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node21"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-108.27 449.04,-108.27 449.04,-84 802.56,-84 802.56,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge20" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M401.51,-293.58C405.33,-291.09 408.94,-288.29 412.29,-285.13 467.88,-232.78 391.85,-168.57 448.29,-117.14 448.93,-116.55 449.58,-115.98 450.24,-115.41"/>
+<polygon fill="#000000" stroke="#000000" points="452.09,-118.4 457.93,-109.55 447.85,-112.83 452.09,-118.4"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~init_physics_grid~~CallsGraph_node22" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node22"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="802.56,-66.27 449.04,-66.27 449.04,-42 802.56,-42 802.56,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="625.8" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge21" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M401.98,-293.55C405.64,-291.07 409.09,-288.27 412.29,-285.13 479.87,-218.8 379.63,-140.35 448.29,-75.14 448.8,-74.65 449.31,-74.18 449.83,-73.71"/>
+<polygon fill="#000000" stroke="#000000" points="451.77,-76.63 457.4,-67.66 447.41,-71.16 451.77,-76.63"/>
+</g>
+<!-- proc~dyn_debug_print&#45;&gt;stringify -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge22" class="edge">
+<title>proc~dyn_debug_print&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M676.3,-593.46C751.14,-589.41 891.49,-581.82 958.8,-578.18"/>
+<polygon fill="#000000" stroke="#000000" points="958.79,-581.69 968.59,-577.65 958.42,-574.7 958.79,-581.69"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_node23" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1060.45,-234.27 934.93,-234.27 934.93,-210 1060.45,-210 1060.45,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="997.69" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge23" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M791.81,-377.57C795.82,-375.04 799.67,-372.24 803.31,-369.13 847.65,-331.37 795.24,-281.21 839.31,-243.13 862.05,-223.49 893.97,-216.76 923.12,-215.52"/>
+<polygon fill="#000000" stroke="#000000" points="923.11,-219.02 933.04,-215.33 922.98,-212.03 923.11,-219.02"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~init_physics_grid~~CallsGraph_node24" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1062.7,-465.27 932.68,-465.27 932.68,-441 1062.7,-441 1062.7,-465.27"/>
+<text xml:space="preserve" text-anchor="middle" x="997.69" y="-449.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge24" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M746.18,-402.77C765.33,-405.25 784.9,-408.05 803.31,-411.13 847.41,-418.53 896.65,-429.26 934.41,-438.03"/>
+<polygon fill="#000000" stroke="#000000" points="933.24,-441.34 943.77,-440.21 934.83,-434.53 933.24,-441.34"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_node26" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~init_physics_grid~~CallsGraph_node26"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1156.08,-276.27 839.31,-276.27 839.31,-252 1156.08,-252 1156.08,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="997.69" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge25" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M772.82,-377.56C783.25,-375.2 793.51,-372.42 803.31,-369.13 820.87,-363.25 823.14,-357.16 839.31,-348.13 881.34,-324.67 930.35,-298.73 962.37,-281.98"/>
+<polygon fill="#000000" stroke="#000000" points="963.96,-285.1 971.2,-277.36 960.72,-278.89 963.96,-285.1"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge26" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M782.48,-24.74C789.65,-27.16 796.63,-29.94 803.31,-33.13 884.91,-72.17 953.22,-159.5 982.03,-200.33"/>
+<polygon fill="#000000" stroke="#000000" points="979.05,-202.17 987.62,-208.4 984.8,-198.19 979.05,-202.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge27" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M793.01,-24.71C796.62,-27.25 800.07,-30.05 803.31,-33.13 871.97,-98.35 771.12,-177.43 839.31,-243.13 839.82,-243.63 840.34,-244.11 840.86,-244.59"/>
+<polygon fill="#000000" stroke="#000000" points="838.59,-247.26 848.6,-250.73 842.94,-241.77 838.59,-247.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge28" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M793.01,-461.56C796.62,-459.02 800.07,-456.22 803.31,-453.13 871.97,-387.92 771.12,-308.84 839.31,-243.13 861.31,-221.93 893.77,-215.16 923.5,-214.28"/>
+<polygon fill="#000000" stroke="#000000" points="923.24,-217.79 933.22,-214.23 923.2,-210.79 923.24,-217.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge29" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M802.27,-464.17C844.01,-461.8 886.39,-459.4 920.88,-457.44"/>
+<polygon fill="#000000" stroke="#000000" points="920.97,-460.94 930.76,-456.88 920.58,-453.95 920.97,-460.94"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~init_physics_grid~~CallsGraph_node25" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1073.95,-381.27 921.43,-381.27 921.43,-357 1073.95,-357 1073.95,-381.27"/>
+<text xml:space="preserve" text-anchor="middle" x="997.69" y="-365.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge30" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M772.82,-461.56C783.25,-459.2 793.51,-456.42 803.31,-453.13 820.87,-447.25 822.67,-440.27 839.31,-432.13 875.74,-414.34 918.54,-397.45 950.3,-385.65"/>
+<polygon fill="#000000" stroke="#000000" points="951.45,-388.96 959.62,-382.22 949.03,-382.39 951.45,-388.96"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge31" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M791.2,-461.55C795.42,-459.03 799.47,-456.24 803.31,-453.13 841.69,-422.14 807.32,-385.69 839.31,-348.13 866.85,-315.79 910.06,-293.99 944.24,-280.73"/>
+<polygon fill="#000000" stroke="#000000" points="945.42,-284.02 953.57,-277.24 942.98,-277.46 945.42,-284.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge32" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M790.09,-335.62C794.69,-333.09 799.11,-330.28 803.31,-327.13 835.84,-302.81 806.96,-267.69 839.31,-243.13 862.96,-225.18 894.57,-218.62 923.25,-217.04"/>
+<polygon fill="#000000" stroke="#000000" points="923.1,-220.55 932.98,-216.71 922.87,-213.55 923.1,-220.55"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge33" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M802.27,-358.1C839.65,-360.22 877.55,-362.37 909.84,-364.2"/>
+<polygon fill="#000000" stroke="#000000" points="909.33,-367.68 919.51,-364.75 909.72,-360.69 909.33,-367.68"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge34" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M757.42,-335.53C772.96,-333.16 788.54,-330.39 803.31,-327.13 856.42,-315.44 915.63,-295.02 954.37,-280.6"/>
+<polygon fill="#000000" stroke="#000000" points="955.18,-284.03 963.31,-277.23 952.72,-277.48 955.18,-284.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge35" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M784.61,-293.59C791.06,-291.13 797.32,-288.33 803.31,-285.13 825,-273.56 817.7,-254.87 839.31,-243.13 864.65,-229.38 895.55,-223.36 923.24,-221.05"/>
+<polygon fill="#000000" stroke="#000000" points="923.23,-224.56 932.98,-220.39 922.76,-217.57 923.23,-224.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge36" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M738.03,-293.51C780.99,-288.63 830.3,-283.03 874.26,-278.04"/>
+<polygon fill="#000000" stroke="#000000" points="874.57,-281.52 884.11,-276.92 873.78,-274.57 874.57,-281.52"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge37" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M738.03,-251.51C797.99,-244.7 870.31,-236.49 923.22,-230.48"/>
+<polygon fill="#000000" stroke="#000000" points="923.5,-233.97 933.04,-229.36 922.71,-227.01 923.5,-233.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge38" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M802.27,-264.13C810.67,-264.13 819.1,-264.13 827.48,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="827.37,-267.64 837.37,-264.14 827.37,-260.64 827.37,-267.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge39" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M746.18,-503.5C765.33,-501.02 784.9,-498.22 803.31,-495.13 847.41,-487.74 896.65,-477.01 934.41,-468.24"/>
+<polygon fill="#000000" stroke="#000000" points="934.83,-471.74 943.77,-466.06 933.24,-464.93 934.83,-471.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge40" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M791.96,-503.75C795.93,-501.17 799.73,-498.31 803.31,-495.13 853.68,-450.55 798.05,-401.26 839.31,-348.13 865.05,-314.99 907.63,-293.4 942.01,-280.42"/>
+<polygon fill="#000000" stroke="#000000" points="942.75,-283.87 950.97,-277.18 940.37,-277.29 942.75,-283.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge41" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M792.47,-419.63C796.26,-417.08 799.89,-414.25 803.31,-411.13 859.75,-359.7 783.24,-294.97 839.31,-243.13 861.66,-222.48 894,-215.73 923.56,-214.74"/>
+<polygon fill="#000000" stroke="#000000" points="923.25,-218.24 933.21,-214.64 923.17,-211.24 923.25,-218.24"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge42" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M802.81,-442.13C844.47,-444.49 886.74,-446.89 921.14,-448.85"/>
+<polygon fill="#000000" stroke="#000000" points="920.79,-452.33 930.97,-449.4 921.19,-445.34 920.79,-452.33"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge43" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M788.39,-419.59C793.56,-417.09 798.55,-414.29 803.31,-411.13 830.2,-393.33 816.18,-370.61 839.31,-348.13 870.98,-317.37 916.19,-294.82 950.03,-280.87"/>
+<polygon fill="#000000" stroke="#000000" points="951.2,-284.17 959.19,-277.21 948.6,-277.68 951.2,-284.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge44" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M802.81,-222.13C845.31,-222.13 888.44,-222.13 923.2,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="923.14,-225.64 933.14,-222.14 923.14,-218.64 923.14,-225.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M738.03,-234.76C780.99,-239.64 830.3,-245.24 874.26,-250.23"/>
+<polygon fill="#000000" stroke="#000000" points="873.78,-253.7 884.11,-251.35 874.57,-246.75 873.78,-253.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M738.03,-192.76C797.99,-199.57 870.31,-207.78 923.22,-213.79"/>
+<polygon fill="#000000" stroke="#000000" points="922.71,-217.26 933.04,-214.91 923.5,-210.3 922.71,-217.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M784.61,-192.68C791.06,-195.14 797.32,-197.94 803.31,-201.13 825,-212.71 817.7,-231.4 839.31,-243.13 842,-244.6 844.75,-245.97 847.56,-247.26"/>
+<polygon fill="#000000" stroke="#000000" points="845.95,-250.38 856.52,-251 848.64,-243.92 845.95,-250.38"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M757.42,-150.74C772.96,-153.11 788.54,-155.88 803.31,-159.13 856.42,-170.83 915.63,-191.25 954.37,-205.67"/>
+<polygon fill="#000000" stroke="#000000" points="952.72,-208.79 963.31,-209.04 955.18,-202.24 952.72,-208.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge49" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M790.09,-150.65C794.69,-153.18 799.11,-155.99 803.31,-159.13 835.84,-183.46 806.96,-218.58 839.31,-243.13 840.48,-244.03 841.68,-244.89 842.89,-245.72"/>
+<polygon fill="#000000" stroke="#000000" points="840.86,-248.59 851.22,-250.82 844.51,-242.61 840.86,-248.59"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge50" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M771.3,-108.75C782.24,-111.09 793.02,-113.86 803.31,-117.14 866.87,-137.35 933.68,-178.83 969.74,-203.16"/>
+<polygon fill="#000000" stroke="#000000" points="967.59,-205.93 977.82,-208.69 971.54,-200.15 967.59,-205.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge51" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M791.81,-108.7C795.82,-111.23 799.67,-114.03 803.31,-117.14 847.65,-154.9 795.24,-205.06 839.31,-243.13 840.11,-243.82 840.92,-244.5 841.74,-245.16"/>
+<polygon fill="#000000" stroke="#000000" points="839.49,-247.86 849.68,-250.76 843.53,-242.13 839.49,-247.86"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge52" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M778.37,-66.73C786.93,-69.11 795.3,-71.9 803.31,-75.14 875.81,-104.44 944.74,-168.42 977.24,-201.46"/>
+<polygon fill="#000000" stroke="#000000" points="974.53,-203.7 984,-208.45 979.56,-198.83 974.53,-203.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge53" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M792.47,-66.64C796.26,-69.19 799.89,-72.02 803.31,-75.14 859.75,-126.57 783.24,-191.3 839.31,-243.13 839.96,-243.73 840.61,-244.32 841.27,-244.89"/>
+<polygon fill="#000000" stroke="#000000" points="839,-247.56 849.09,-250.81 843.23,-241.98 839,-247.56"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~init_physics_grid~~CallsGraph_node27" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="1331.1,-276.27 1192.08,-276.27 1192.08,-252 1331.1,-252 1331.1,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1261.59" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~init_physics_grid~~CallsGraph_edge54" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1156.33,-264.13C1164.46,-264.13 1172.44,-264.13 1180.15,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="1180.11,-267.64 1190.11,-264.14 1180.11,-260.64 1180.11,-267.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocinit_physics_gridCallsGraph = svgPanZoom('#procinit_physics_gridCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~init_physics_grid~~CalledByGraph Pages: 1 -->
+<svg id="procinit_physics_gridCalledByGraph" width="365pt" height="32pt"
+ viewBox="0.00 0.00 365.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~init_physics_grid~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~init_physics_grid~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 361.06,-28.27 361.06,4 -4,4"/>
+<!-- proc~init_physics_grid -->
+<g id="proc~~init_physics_grid~~CalledByGraph_node1" class="node">
+<title>proc~init_physics_grid</title>
+<polygon fill="none" stroke="black" points="357.06,-24.27 258.54,-24.27 258.54,0 357.06,0 357.06,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="307.8" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">init_physics_grid</text>
+</g>
+<!-- proc~model_grid_init -->
+<g id="proc~~init_physics_grid~~CalledByGraph_node2" class="node">
+<title>proc~model_grid_init</title>
+<g id="a_proc~~init_physics_grid~~CalledByGraph_node2"><a xlink:href="../proc/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="222.54,-24.27 129.27,-24.27 129.27,0 222.54,0 222.54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="175.9" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- proc~model_grid_init&#45;&gt;proc~init_physics_grid -->
+<g id="proc~~init_physics_grid~~CalledByGraph_edge1" class="edge">
+<title>proc~model_grid_init&#45;&gt;proc~init_physics_grid</title>
+<path fill="none" stroke="#000000" d="M222.7,-12.13C230.55,-12.13 238.8,-12.13 246.94,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="246.82,-15.64 256.82,-12.14 246.82,-8.64 246.82,-15.64"/>
+</g>
+<!-- interface~model_grid_init -->
+<g id="proc~~init_physics_grid~~CalledByGraph_node3" class="node">
+<title>interface~model_grid_init</title>
+<g id="a_proc~~init_physics_grid~~CalledByGraph_node3"><a xlink:href="../interface/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="93.27,-24.27 0,-24.27 0,0 93.27,0 93.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="46.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- interface~model_grid_init&#45;&gt;proc~model_grid_init -->
+<g id="proc~~init_physics_grid~~CalledByGraph_edge2" class="edge">
+<title>interface~model_grid_init&#45;&gt;proc~model_grid_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M93.58,-12.13C101.42,-12.13 109.65,-12.13 117.74,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="117.51,-15.64 127.51,-12.14 117.51,-8.64 117.51,-15.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-areacell"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>areacell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cerr~2"></span>
+              character(len=len_cx),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cerr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dyn_attribute_name"></span>
+              character(len=max_hcoordname_len),
+            </td>
+              <td>private,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>dyn_attribute_name</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-dyn_column"></span>
+              type(physics_column_t),
+            </td>
+              <td>private,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>dyn_column</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-hdim1_d"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>hdim1_d</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-hdim2_d"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>hdim2_d</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ierr~2"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ierr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-indextocellid"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>indextocellid</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-latcell"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>latcell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-loncell"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>loncell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~4"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_grid::init_physics_grid&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">init_physics_grid</span><span class="p">()</span>
+<span class="w">        </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_abortutils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">check_allocate</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_debug</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">dyn_debug_print</span><span class="p">,</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dynconst</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">constant_pi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">pi</span><span class="p">,</span><span class="w"> </span><span class="n">rad_to_deg</span>
+<span class="w">        </span><span class="k">use </span><span class="n">physics_column_type</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">,</span><span class="w"> </span><span class="n">physics_column_t</span>
+<span class="w">        </span><span class="k">use </span><span class="n">physics_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">phys_grid_init</span>
+<span class="w">        </span><span class="k">use </span><span class="n">spmd_utils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">iam</span>
+<span class="w">        </span><span class="k">use </span><span class="n">string_utils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">stringify</span>
+<span class="w">        </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_r8</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_r8</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                </span><span class="n">len_cx</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_cx</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_grid::init_physics_grid&#39;</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="n">len_cx</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="n">max_hcoordname_len</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_attribute_name</span><span class="p">(:)</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">hdim1_d</span><span class="p">,</span><span class="w"> </span><span class="n">hdim2_d</span><span class="w"> </span><span class="c">! First and second horizontal dimensions of physics grid.</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indextocellid</span><span class="p">(:)</span><span class="w">        </span><span class="c">! Global indexes of cell centers.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">areacell</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Cell areas (m2).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">latcell</span><span class="p">(:)</span><span class="w">  </span><span class="c">! Cell center latitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">loncell</span><span class="p">(:)</span><span class="w">  </span><span class="c">! Cell center longitudes (rad).</span>
+<span class="w">        </span><span class="k">type</span><span class="p">(</span><span class="n">physics_column_t</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_column</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Grid and mapping information between global and local indexes.</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; entered&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latcell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">loncell</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">hdim1_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ncells_global</span>
+
+<span class="w">        </span><span class="c">! Setting `hdim2_d` to `1` indicates unstructured grid.</span>
+<span class="w">        </span><span class="n">hdim2_d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;areaCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;indexToCellID&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">loncell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lonCell&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">dyn_column</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dyn_column(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">            </span><span class="c">! Column information.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">lat_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">latcell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">lon_rad</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">loncell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">lat_deg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">latcell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">lon_deg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">loncell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+<span class="w">            </span><span class="c">! Cell areas normalized to unit sphere.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">area</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">areacell</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">sphere_radius</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+<span class="w">            </span><span class="c">! Cell weights normalized to unity.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">weight</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="kt">real</span><span class="p">(</span><span class="kt">real</span><span class="p">(</span><span class="n">areacell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0_kind_r8</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">constant_pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">sphere_radius</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">),</span><span class="w"> </span><span class="n">kind_pcol</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! File decomposition.</span>
+<span class="w">            </span><span class="c">! For unstructured grid, `coord_indices` is not used by `phys_grid_init`.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">coord_indices</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span>
+<span class="w">            </span><span class="c">! In this case, `global_col_num` is used instead.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">global_col_num</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">indextocellid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Dynamics decomposition.</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">dyn_task</span><span class="w">         </span><span class="o">=</span><span class="w"> </span><span class="n">iam</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">global_dyn_block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">indextocellid</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">            </span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">local_dyn_block</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">i</span>
+<span class="w">            </span><span class="c">! `dyn_block_index` is not used due to no dynamics block offset, but it still needs to be allocated.</span>
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">dyn_column</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">dyn_block_index</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dyn_column(&#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="n">stringify</span><span class="p">([</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39;) % dyn_block_index(0)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="k">        nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latcell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">loncell</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! `phys_grid_init` expects to receive the `area` attribute from dynamics.</span>
+<span class="w">        </span><span class="c">! However, do not let it because dynamics grid is different from physics grid.</span>
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">dyn_attribute_name</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dyn_attribute_name(0)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">phys_grid_init</span><span class="p">(</span><span class="n">hdim1_d</span><span class="p">,</span><span class="w"> </span><span class="n">hdim2_d</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mpas&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_column</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_attribute_name</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">deallocate</span><span class="p">(</span><span class="n">dyn_column</span><span class="p">)</span>
+<span class="w">        </span><span class="k">deallocate</span><span class="p">(</span><span class="n">dyn_attribute_name</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; completed&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">init_physics_grid</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

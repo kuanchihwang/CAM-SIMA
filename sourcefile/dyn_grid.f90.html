@@ -1,0 +1,499 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>dyn_grid.F90 – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      dyn_grid.F90
+      <small>Source File</small>
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 0.7% of total for source files.">30 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_grid.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+            <li class="breadcrumb-item active" aria-current="page">dyn_grid.F90</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#mods-0"
+         aria-expanded="false" aria-controls="mods-0">
+         <h4 class="card-header bg-primary text-white">Modules</h4>
+      </a>
+      <div id="mods-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../module/dyn_grid.html">dyn_grid</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../sourcefile/dyn_grid.f90.html#src">dyn_grid.F90</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+    <div class="col-md-9" id="text">
+      
+      <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">This file depends on</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: sourcefile~~dyn_grid.f90~~EfferentGraph Pages: 1 -->
+<svg id="sourcefiledyn_gridf90EfferentGraph" width="579pt" height="32pt"
+ viewBox="0.00 0.00 579.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>sourcefile~~dyn_grid.f90~~EfferentGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 575.08,-28.27 575.08,4 -4,4"/>
+<!-- sourcefile~dyn_grid.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_node1" class="node">
+<title>sourcefile~dyn_grid.f90</title>
+<polygon fill="none" stroke="black" points="571.08,-24.27 491.31,-24.27 491.31,0 571.08,0 571.08,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="531.2" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">dyn_grid.F90</text>
+</g>
+<!-- sourcefile~dyn_comp.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_node2" class="node">
+<title>sourcefile~dyn_comp.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~EfferentGraph_node2"><a xlink:href="../sourcefile/dyn_comp.f90.html" xlink:title="dyn_comp.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="455.31,-24.27 366.54,-24.27 366.54,0 455.31,0 455.31,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="410.93" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_grid.f90&#45;&gt;sourcefile~dyn_comp.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_edge1" class="edge">
+<title>sourcefile~dyn_grid.f90&#45;&gt;sourcefile~dyn_comp.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M490.81,-12.13C483.14,-12.13 474.97,-12.13 466.9,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="467.13,-8.64 457.13,-12.14 467.13,-15.64 467.13,-8.64"/>
+</g>
+<!-- sourcefile~dyn_mpas_subdriver.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_node3" class="node">
+<title>sourcefile~dyn_mpas_subdriver.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~EfferentGraph_node3"><a xlink:href="../sourcefile/dyn_mpas_subdriver.f90.html" xlink:title="dyn_mpas_subdriver.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="330.54,-24.27 188.52,-24.27 188.52,0 330.54,0 330.54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="259.53" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_subdriver.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_comp.f90&#45;&gt;sourcefile~dyn_mpas_subdriver.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_edge2" class="edge">
+<title>sourcefile~dyn_comp.f90&#45;&gt;sourcefile~dyn_mpas_subdriver.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M366.31,-12.13C358.67,-12.13 350.51,-12.13 342.23,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="342.41,-8.64 332.41,-12.14 342.41,-15.64 342.41,-8.64"/>
+</g>
+<!-- sourcefile~dyn_mpas_procedures.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_node4" class="node">
+<title>sourcefile~dyn_mpas_procedures.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~EfferentGraph_node4"><a xlink:href="../sourcefile/dyn_mpas_procedures.f90.html" xlink:title="dyn_mpas_procedures.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="152.52,-24.27 0,-24.27 0,0 152.52,0 152.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="76.26" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_procedures.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_mpas_subdriver.f90&#45;&gt;sourcefile~dyn_mpas_procedures.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~EfferentGraph_edge3" class="edge">
+<title>sourcefile~dyn_mpas_subdriver.f90&#45;&gt;sourcefile~dyn_mpas_procedures.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.19,-12.13C180.34,-12.13 172.28,-12.13 164.26,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="164.48,-8.64 154.48,-12.14 164.48,-15.64 164.48,-8.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#EfferentGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="EfferentGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="200pt" height="32pt"
+ viewBox="0.00 0.00 200.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 195.52,-28.27 195.52,4 -4,4"/>
+<!-- Source File -->
+<g id="node1" class="node">
+<title>Source File</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Source File</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node2" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="191.52,-24.27 87.75,-24.27 87.75,0 191.52,0 191.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="139.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a file to a file which it depends on. A file
+is dependent upon another if the latter must be compiled before the former
+can be.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Files dependent on this one</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: sourcefile~~dyn_grid.f90~~AfferentGraph Pages: 1 -->
+<svg id="sourcefiledyn_gridf90AfferentGraph" width="257pt" height="116pt"
+ viewBox="0.00 0.00 257.00 116.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 112.27)">
+<title>sourcefile~~dyn_grid.f90~~AfferentGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-112.27 252.79,-112.27 252.79,4 -4,4"/>
+<!-- sourcefile~dyn_grid.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_node1" class="node">
+<title>sourcefile~dyn_grid.f90</title>
+<polygon fill="none" stroke="black" points="79.77,-66.27 0,-66.27 0,-42 79.77,-42 79.77,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="39.88" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50">dyn_grid.F90</text>
+</g>
+<!-- sourcefile~dyn_comp_impl.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_node2" class="node">
+<title>sourcefile~dyn_comp_impl.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~AfferentGraph_node2"><a xlink:href="../sourcefile/dyn_comp_impl.f90.html" xlink:title="dyn_comp_impl.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="240.91,-108.27 123.65,-108.27 123.65,-84 240.91,-84 240.91,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="182.28" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp_impl.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_comp_impl.f90&#45;&gt;sourcefile~dyn_grid.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_edge1" class="edge">
+<title>sourcefile~dyn_comp_impl.f90&#45;&gt;sourcefile~dyn_grid.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M139.16,-83.53C123.93,-78.98 106.6,-73.79 90.77,-69.06"/>
+<polygon fill="#000000" stroke="#000000" points="92.13,-65.81 81.55,-66.3 90.13,-72.52 92.13,-65.81"/>
+</g>
+<!-- sourcefile~dyn_coupling_impl.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_node3" class="node">
+<title>sourcefile~dyn_coupling_impl.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~AfferentGraph_node3"><a xlink:href="../sourcefile/dyn_coupling_impl.f90.html" xlink:title="dyn_coupling_impl.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="248.79,-66.27 115.77,-66.27 115.77,-42 248.79,-42 248.79,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="182.28" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_coupling_impl.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_coupling_impl.f90&#45;&gt;sourcefile~dyn_grid.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_edge2" class="edge">
+<title>sourcefile~dyn_coupling_impl.f90&#45;&gt;sourcefile~dyn_grid.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M115.6,-54.13C107.55,-54.13 99.41,-54.13 91.62,-54.13"/>
+<polygon fill="#000000" stroke="#000000" points="91.64,-50.64 81.64,-54.14 91.64,-57.64 91.64,-50.64"/>
+</g>
+<!-- sourcefile~dyn_grid_impl.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_node4" class="node">
+<title>sourcefile~dyn_grid_impl.f90</title>
+<g id="a_sourcefile~~dyn_grid.f90~~AfferentGraph_node4"><a xlink:href="../sourcefile/dyn_grid_impl.f90.html" xlink:title="dyn_grid_impl.F90">
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="236.41,-24.27 128.15,-24.27 128.15,0 236.41,0 236.41,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="182.28" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_grid_impl.F90</text>
+</a>
+</g>
+</g>
+<!-- sourcefile~dyn_grid_impl.f90&#45;&gt;sourcefile~dyn_grid.f90 -->
+<g id="sourcefile~~dyn_grid.f90~~AfferentGraph_edge3" class="edge">
+<title>sourcefile~dyn_grid_impl.f90&#45;&gt;sourcefile~dyn_grid.f90</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M139.16,-24.74C123.93,-29.29 106.6,-34.48 90.77,-39.21"/>
+<polygon fill="#000000" stroke="#000000" points="90.13,-35.75 81.55,-41.97 92.13,-42.46 90.13,-35.75"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#AfferentGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="AfferentGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="200pt" height="32pt"
+ viewBox="0.00 0.00 200.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 195.52,-28.27 195.52,4 -4,4"/>
+<!-- Source File -->
+<g id="node1" class="node">
+<title>Source File</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Source File</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node2" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="191.52,-24.27 87.75,-24.27 87.75,0 191.52,0 191.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="139.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a file to a file which it depends on. A file
+is dependent upon another if the latter must be compiled before the former
+can be.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+<br>
+      <section>
+        <h2><span class="anchor" id="src"></span>Source Code</h2>
+        <div class="hl codehilite"><pre><span></span><a id="ln-1" name="ln-1" href="#ln-1"></a><span class="c">! Copyright (C) 2025 University Corporation for Atmospheric Research (UCAR)</span>
+<a id="ln-2" name="ln-2" href="#ln-2"></a><span class="c">! SPDX-License-Identifier: Apache-2.0</span>
+<a id="ln-3" name="ln-3" href="#ln-3"></a>
+<a id="ln-4" name="ln-4" href="#ln-4"></a><span class="c">!&gt; This module, part of the MPAS interface, integrates MPAS dynamical core with CAM-SIMA by</span>
+<a id="ln-5" name="ln-5" href="#ln-5"></a><span class="c">!&gt; implementing the necessary APIs and managing their interaction.</span>
+<a id="ln-6" name="ln-6" href="#ln-6"></a><span class="c">!&gt;</span>
+<a id="ln-7" name="ln-7" href="#ln-7"></a><span class="c">!&gt; It reads and uses the information from MPAS mesh to initialize various model grids</span>
+<a id="ln-8" name="ln-8" href="#ln-8"></a><span class="c">!&gt; (e.g., dynamics, physics) for CAM-SIMA in terms of dynamics decomposition.</span>
+<a id="ln-9" name="ln-9" href="#ln-9"></a><span class="k">module </span><span class="n">dyn_grid</span>
+<a id="ln-10" name="ln-10" href="#ln-10"></a><span class="w">    </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<a id="ln-11" name="ln-11" href="#ln-11"></a><span class="w">    </span><span class="k">use </span><span class="n">cam_grid_support</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">max_hcoordname_len</span>
+<a id="ln-12" name="ln-12" href="#ln-12"></a><span class="w">    </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_dyn_mpas</span>
+<a id="ln-13" name="ln-13" href="#ln-13"></a>
+<a id="ln-14" name="ln-14" href="#ln-14"></a><span class="w">    </span><span class="k">implicit none</span>
+<a id="ln-15" name="ln-15" href="#ln-15"></a>
+<a id="ln-16" name="ln-16" href="#ln-16"></a><span class="k">    private</span>
+<a id="ln-17" name="ln-17" href="#ln-17"></a><span class="w">    </span><span class="c">! Provide APIs required by CAM-SIMA.</span>
+<a id="ln-18" name="ln-18" href="#ln-18"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">model_grid_init</span>
+<a id="ln-19" name="ln-19" href="#ln-19"></a>
+<a id="ln-20" name="ln-20" href="#ln-20"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_grid_id</span>
+<a id="ln-21" name="ln-21" href="#ln-21"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_grid_name</span>
+<a id="ln-22" name="ln-22" href="#ln-22"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_inquire_mesh_dimensions</span>
+<a id="ln-23" name="ln-23" href="#ln-23"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncells</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nedges</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span>
+<a id="ln-24" name="ln-24" href="#ln-24"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_global</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_global</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_max</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_max</span>
+<a id="ln-25" name="ln-25" href="#ln-25"></a><span class="w">    </span><span class="k">public</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sphere_radius</span>
+<a id="ln-26" name="ln-26" href="#ln-26"></a>
+<a id="ln-27" name="ln-27" href="#ln-27"></a><span class="w">    </span><span class="k">interface</span>
+<a id="ln-28" name="ln-28" href="#ln-28"></a><span class="k">        module subroutine </span><span class="n">model_grid_init</span><span class="p">()</span>
+<a id="ln-29" name="ln-29" href="#ln-29"></a><span class="w">            </span><span class="k">implicit none</span>
+<a id="ln-30" name="ln-30" href="#ln-30"></a><span class="k">        end subroutine </span><span class="n">model_grid_init</span>
+<a id="ln-31" name="ln-31" href="#ln-31"></a>
+<a id="ln-32" name="ln-32" href="#ln-32"></a><span class="w">        </span><span class="k">module subroutine </span><span class="n">dyn_inquire_mesh_dimensions</span><span class="p">()</span>
+<a id="ln-33" name="ln-33" href="#ln-33"></a><span class="w">            </span><span class="k">implicit none</span>
+<a id="ln-34" name="ln-34" href="#ln-34"></a><span class="k">        end subroutine </span><span class="n">dyn_inquire_mesh_dimensions</span>
+<a id="ln-35" name="ln-35" href="#ln-35"></a>
+<a id="ln-36" name="ln-36" href="#ln-36"></a><span class="w">        </span><span class="k">module pure function </span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<a id="ln-37" name="ln-37" href="#ln-37"></a><span class="w">            </span><span class="k">implicit none</span>
+<a id="ln-38" name="ln-38" href="#ln-38"></a><span class="k">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">name</span>
+<a id="ln-39" name="ln-39" href="#ln-39"></a><span class="w">            </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_grid_id</span>
+<a id="ln-40" name="ln-40" href="#ln-40"></a><span class="w">        </span><span class="k">end function </span><span class="n">dyn_grid_id</span>
+<a id="ln-41" name="ln-41" href="#ln-41"></a><span class="w">    </span><span class="k">end interface</span>
+<a id="ln-42" name="ln-42" href="#ln-42"></a>
+<a id="ln-43" name="ln-43" href="#ln-43"></a><span class="w">    </span><span class="c">! Grid names that are to be registered with CAM-SIMA by calling `cam_grid_register`.</span>
+<a id="ln-44" name="ln-44" href="#ln-44"></a><span class="w">    </span><span class="c">! Grid ids can be determined by calling `dyn_grid_id`.</span>
+<a id="ln-45" name="ln-45" href="#ln-45"></a><span class="w">    </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">dyn_grid_name</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="kt">character</span><span class="p">(</span><span class="n">max_hcoordname_len</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="ln-46" name="ln-46" href="#ln-46"></a><span class="w">        </span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">,</span><span class="w">  </span><span class="p">&amp;</span>
+<a id="ln-47" name="ln-47" href="#ln-47"></a><span class="w">        </span><span class="s1">&#39;cam_cell&#39;</span><span class="p">,</span><span class="w">   </span><span class="p">&amp;</span>
+<a id="ln-48" name="ln-48" href="#ln-48"></a><span class="w">        </span><span class="s1">&#39;mpas_edge&#39;</span><span class="p">,</span><span class="w">  </span><span class="p">&amp;</span>
+<a id="ln-49" name="ln-49" href="#ln-49"></a><span class="w">        </span><span class="s1">&#39;mpas_vertex&#39;</span><span class="w"> </span><span class="p">&amp;</span>
+<a id="ln-50" name="ln-50" href="#ln-50"></a><span class="w">    </span><span class="p">]</span>
+<a id="ln-51" name="ln-51" href="#ln-51"></a>
+<a id="ln-52" name="ln-52" href="#ln-52"></a><span class="w">    </span><span class="c">! Local and global mesh dimensions of MPAS dynamical core.</span>
+<a id="ln-53" name="ln-53" href="#ln-53"></a><span class="w">    </span><span class="c">! Protected module variables that can only be initialized by `dyn_inquire_mesh_dimensions`.</span>
+<a id="ln-54" name="ln-54" href="#ln-54"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">protected</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncells</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nedges</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span><span class="p">,</span><span class="w"> </span><span class="n">nvertlevels</span>
+<a id="ln-55" name="ln-55" href="#ln-55"></a><span class="w">    </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">protected</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_global</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_global</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_max</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_max</span>
+<a id="ln-56" name="ln-56" href="#ln-56"></a><span class="w">    </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">protected</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">sphere_radius</span>
+<a id="ln-57" name="ln-57" href="#ln-57"></a><span class="k">end module </span><span class="n">dyn_grid</span>
+</pre></div>
+
+      </section>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,2168 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>physics_to_dynamics_coupling – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      physics_to_dynamics_coupling
+      <small
+        >          Module
+          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 3.7% of total for procedures.">141 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_coupling_impl.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_coupling_impl.f90.html'>dyn_coupling_impl.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_coupling_impl.html'>dyn_coupling_impl</a></li>
+            <li class="breadcrumb-item active" aria-current="page">physics_to_dynamics_coupling</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-index_qv~5">index_qv</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-qv_prev">qv_prev</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-rho_zz~2">rho_zz</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-scalars~5">scalars</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-subname~74">subname</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#variable-zz~3">zz</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#subs-0"
+         aria-expanded="false" aria-controls="subs-0">
+         <h4 class="card-header bg-primary text-white">Subroutines</h4>
+      </a>
+      <div id="subs-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#proc-final_shared_variables~3">final_shared_variables</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#proc-init_shared_variables~3">init_shared_variables</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rho">set_mpas_physics_tendency_rho</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rtheta">set_mpas_physics_tendency_rtheta</a>
+            <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_ru">set_mpas_physics_tendency_ru</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/physics_to_dynamics_coupling.html#src">physics_to_dynamics_coupling</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2>module subroutine physics_to_dynamics_coupling()  
+    <a href="../interface/physics_to_dynamics_coupling.html"><button type="button" class="btn btn-info depwarn">Interface →</button></a>
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">cam_logfile</li>
+                  <li class="list-inline-item"><a href='../module/dyn_comp.html'>dyn_comp</a></li>
+                  <li class="list-inline-item">shr_kind_mod</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~physics_to_dynamics_coupling~~UsesGraph Pages: 1 -->
+<svg id="procphysics_to_dynamics_couplingUsesGraph" width="616pt" height="158pt"
+ viewBox="0.00 0.00 616.00 158.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 154.27)">
+<title>proc~~physics_to_dynamics_coupling~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-154.27 611.83,-154.27 611.83,4 -4,4"/>
+<!-- proc~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node1" class="node">
+<title>proc~physics_to_dynamics_coupling</title>
+<polygon fill="none" stroke="black" points="607.83,-87.27 434.31,-87.27 434.31,-63 607.83,-63 607.83,-87.27"/>
+<text xml:space="preserve" text-anchor="middle" x="521.07" y="-71.54" font-family="Helvetica,sans-Serif" font-size="10.50">physics_to_dynamics_coupling</text>
+</g>
+<!-- cam_logfile -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node2" class="node">
+<title>cam_logfile</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="392.31,-129.27 319.29,-129.27 319.29,-105 392.31,-105 392.31,-129.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-113.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_logfile</text>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;cam_logfile -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge1" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;cam_logfile</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M471.08,-87.74C449.75,-93.23 424.84,-99.63 403.74,-105.06"/>
+<polygon fill="#000000" stroke="#000000" points="403.05,-101.62 394.24,-107.5 404.8,-108.4 403.05,-101.62"/>
+</g>
+<!-- module~dyn_comp -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node3" class="node">
+<title>module~dyn_comp</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~UsesGraph_node3"><a xlink:href="../module/dyn_comp.html" xlink:title="dyn_comp">
+<polygon fill="#337ab7" stroke="#337ab7" points="388.93,-87.27 322.66,-87.27 322.66,-63 388.93,-63 388.93,-87.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-71.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;module~dyn_comp -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge2" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;module~dyn_comp</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M434.13,-75.14C422.52,-75.14 411.03,-75.14 400.59,-75.14"/>
+<polygon fill="#000000" stroke="#000000" points="400.83,-71.64 390.83,-75.14 400.83,-78.64 400.83,-71.64"/>
+</g>
+<!-- shr_kind_mod -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node4" class="node">
+<title>shr_kind_mod</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="398.31,-45.27 313.29,-45.27 313.29,-21 398.31,-21 398.31,-45.27"/>
+<text xml:space="preserve" text-anchor="middle" x="355.8" y="-29.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">shr_kind_mod</text>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;shr_kind_mod -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge3" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;shr_kind_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M471.08,-62.53C451.68,-57.54 429.32,-51.79 409.56,-46.71"/>
+<polygon fill="#000000" stroke="#000000" points="410.6,-43.36 400.04,-44.26 408.86,-50.14 410.6,-43.36"/>
+</g>
+<!-- module~dyn_mpas_subdriver -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node5" class="node">
+<title>module~dyn_mpas_subdriver</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~UsesGraph_node5"><a xlink:href="../module/dyn_mpas_subdriver.html" xlink:title="dyn_mpas_subdriver">
+<polygon fill="#337ab7" stroke="#337ab7" points="277.29,-87.27 156.27,-87.27 156.27,-63 277.29,-63 277.29,-87.27"/>
+<text xml:space="preserve" text-anchor="middle" x="216.78" y="-71.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_subdriver</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge4" class="edge">
+<title>module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M322.33,-75.14C312.19,-75.14 300.59,-75.14 288.88,-75.14"/>
+<polygon fill="#000000" stroke="#000000" points="289.18,-71.64 279.18,-75.14 289.18,-78.64 289.18,-71.64"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node6" class="node">
+<title>iso_fortran_env</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~UsesGraph_node6"><a xlink:href="https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-fortran-env-module.html" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="106.77,-150.27 13.5,-150.27 13.5,-126 106.77,-126 106.77,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge5" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-87.62C169.82,-96.26 143.67,-107.85 120.27,-117.14 116.45,-118.65 112.47,-120.18 108.47,-121.67"/>
+<polygon fill="#000000" stroke="#000000" points="107.49,-118.3 99.3,-125.03 109.9,-124.88 107.49,-118.3"/>
+</g>
+<!-- mpas_derived_types -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node7" class="node">
+<title>mpas_derived_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="120.27,-108.27 0,-108.27 0,-84 120.27,-84 120.27,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-92.54" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_derived_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge6" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-83.25C148.13,-84.32 140.02,-85.42 132,-86.51"/>
+<polygon fill="#000000" stroke="#000000" points="131.7,-83.02 122.27,-87.83 132.65,-89.96 131.7,-83.02"/>
+</g>
+<!-- mpas_kind_types -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node8" class="node">
+<title>mpas_kind_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="111.27,-66.27 9,-66.27 9,-42 111.27,-42 111.27,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_kind_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge7" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-67.02C145.14,-65.54 133.8,-64 122.9,-62.52"/>
+<polygon fill="#000000" stroke="#000000" points="123.61,-59.09 113.23,-61.21 122.67,-66.02 123.61,-59.09"/>
+</g>
+<!-- mpi -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_node9" class="node">
+<title>mpi</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~UsesGraph_node9"><a xlink:href="https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node467.htm" xlink:title="mpi">
+<polygon fill="#337ab7" stroke="#337ab7" points="87.13,-24.27 33.13,-24.27 33.13,0 87.13,0 87.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpi</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpi -->
+<g id="proc~~physics_to_dynamics_coupling~~UsesGraph_edge8" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpi</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-62.65C169.82,-54.01 143.67,-42.42 120.27,-33.13 113.21,-30.33 105.61,-27.5 98.28,-24.86"/>
+<polygon fill="#000000" stroke="#000000" points="99.51,-21.58 88.91,-21.54 97.17,-28.18 99.51,-21.58"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>Perform one-way coupling from the physics output states to the dynamics input states.
+The other coupling direction is implemented by its counterpart, <code>dynamics_to_physics_coupling</code>.
+(KCW, 2024-09-20)</p>
+
+
+      <h3>Arguments</h3>
+        <em>None</em>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~physics_to_dynamics_coupling~~CallsGraph Pages: 1 -->
+<svg id="procphysics_to_dynamics_couplingCallsGraph" width="641pt" height="265pt"
+ viewBox="0.00 0.00 641.00 265.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph" class="graph" transform="scale(0.306421 0.306421) rotate(0) translate(4 860.27)">
+<title>proc~~physics_to_dynamics_coupling~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-860.27 2087.89,-860.27 2087.89,4 -4,4"/>
+<!-- proc~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node1" class="node">
+<title>proc~physics_to_dynamics_coupling</title>
+<polygon fill="none" stroke="black" points="173.52,-478.27 0,-478.27 0,-454 173.52,-454 173.52,-478.27"/>
+<text xml:space="preserve" text-anchor="middle" x="86.76" y="-462.53" font-family="Helvetica,sans-Serif" font-size="10.50">physics_to_dynamics_coupling</text>
+</g>
+<!-- interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node2" class="node">
+<title>interface~dyn_debug_print</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node2"><a xlink:href="../interface/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#a7506f" stroke="#a7506f" points="1036.45,-478.27 936.43,-478.27 936.43,-454 1036.45,-454 1036.45,-478.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-462.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge1" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M106.1,-478.77C129.07,-493.74 170.18,-517.83 209.52,-527.13 331.12,-555.89 657.67,-577.97 771.81,-527.13 793.66,-517.4 786.57,-498.13 807.81,-487.13 843.64,-468.58 888.86,-463.45 924.71,-462.9"/>
+<polygon fill="#000000" stroke="#000000" points="924.49,-466.4 934.48,-462.87 924.47,-459.4 924.49,-466.4"/>
+</g>
+<!-- interface~dyn_exchange_constituent_states -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node3" class="node">
+<title>interface~dyn_exchange_constituent_states</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node3"><a xlink:href="../interface/dyn_exchange_constituent_states.html" xlink:title="dyn_exchange_constituent_states">
+<polygon fill="#a7506f" stroke="#a7506f" points="398.79,-599.27 209.52,-599.27 209.52,-575 398.79,-575 398.79,-599.27"/>
+<text xml:space="preserve" text-anchor="middle" x="304.15" y="-583.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_exchange_constituent_states</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_exchange_constituent_states -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge2" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;interface~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" d="M100.49,-478.66C121.49,-498.66 165.45,-537.8 209.52,-560.13 217.87,-564.37 226.99,-568.03 236.15,-571.18"/>
+<polygon fill="#000000" stroke="#000000" points="234.85,-574.43 245.44,-574.17 236.99,-567.77 234.85,-574.43"/>
+</g>
+<!-- none~final_shared_variables~3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node4" class="node">
+<title>none~final_shared_variables~3</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node4"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-final_shared_variables~3" xlink:title="final_shared_variables">
+<polygon fill="#d9534f" stroke="#d9534f" points="369.16,-518.27 239.14,-518.27 239.14,-494 369.16,-494 369.16,-518.27"/>
+<text xml:space="preserve" text-anchor="middle" x="304.15" y="-502.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">final_shared_variables</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~final_shared_variables~3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge3" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~final_shared_variables~3</title>
+<path fill="none" stroke="#000000" d="M155.62,-478.74C178.51,-482.99 204.19,-487.76 227.64,-492.11"/>
+<polygon fill="#000000" stroke="#000000" points="226.99,-495.55 237.46,-493.93 228.26,-488.67 226.99,-495.55"/>
+</g>
+<!-- none~init_shared_variables~3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node5" class="node">
+<title>none~init_shared_variables~3</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node5"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-init_shared_variables~3" xlink:title="init_shared_variables">
+<polygon fill="#d9534f" stroke="#d9534f" points="664.93,-518.27 541.66,-518.27 541.66,-494 664.93,-494 664.93,-518.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-502.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">init_shared_variables</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~init_shared_variables~3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge4" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~init_shared_variables~3</title>
+<path fill="none" stroke="#000000" d="M173.97,-470.43C236.44,-473.78 322.9,-478.9 398.79,-485.13 442.45,-488.72 491.27,-493.72 530.15,-497.95"/>
+<polygon fill="#000000" stroke="#000000" points="529.54,-501.4 539.86,-499.01 530.3,-494.44 529.54,-501.4"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rho -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node6" class="node">
+<title>none~set_mpas_physics_tendency_rho</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node6"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rho" xlink:title="set_mpas_physics_tendency_rho">
+<polygon fill="#d9534f" stroke="#d9534f" points="695.31,-438.27 511.29,-438.27 511.29,-414 695.31,-414 695.31,-438.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-422.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_rho</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rho -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge5" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rho</title>
+<path fill="none" stroke="#000000" d="M173.88,-459.44C263.64,-452.46 404.27,-441.53 499.71,-434.11"/>
+<polygon fill="#000000" stroke="#000000" points="499.92,-437.6 509.62,-433.34 499.37,-430.63 499.92,-437.6"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node7" class="node">
+<title>none~set_mpas_physics_tendency_rtheta</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node7"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rtheta" xlink:title="set_mpas_physics_tendency_rtheta">
+<polygon fill="#d9534f" stroke="#d9534f" points="702.43,-194.27 504.16,-194.27 504.16,-170 702.43,-170 702.43,-194.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-178.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_rtheta</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rtheta -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge6" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_rtheta</title>
+<path fill="none" stroke="#000000" d="M95.5,-453.75C112.96,-426.65 157.9,-361.32 209.52,-321.13 297.29,-252.81 329,-246.48 434.79,-212.13 453.88,-205.94 474.63,-200.92 494.81,-196.89"/>
+<polygon fill="#000000" stroke="#000000" points="495.31,-200.35 504.47,-195.03 493.99,-193.48 495.31,-200.35"/>
+</g>
+<!-- none~set_mpas_physics_tendency_ru -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node8" class="node">
+<title>none~set_mpas_physics_tendency_ru</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node8"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_ru" xlink:title="set_mpas_physics_tendency_ru">
+<polygon fill="#d9534f" stroke="#d9534f" points="392.79,-354.27 215.52,-354.27 215.52,-330 392.79,-330 392.79,-354.27"/>
+<text xml:space="preserve" text-anchor="middle" x="304.15" y="-338.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_ru</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge7" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru</title>
+<path fill="none" stroke="#000000" d="M109.6,-453.56C147.82,-431.56 226.98,-385.99 271.31,-360.47"/>
+<polygon fill="#000000" stroke="#000000" points="273.03,-363.52 279.95,-355.5 269.53,-357.45 273.03,-363.52"/>
+</g>
+<!-- proc~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node14" class="node">
+<title>proc~dyn_debug_print</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node14"><a xlink:href="../proc/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="1428.6,-835.27 1328.58,-835.27 1328.58,-811 1428.6,-811 1428.6,-835.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-819.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge8" class="edge">
+<title>interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1036.68,-456.98C1076.87,-452.6 1132.21,-454.13 1165.08,-487.13 1264.53,-586.97 1101.67,-702.27 1201.08,-802.13 1230.7,-831.9 1278.7,-835.95 1317.17,-833.22"/>
+<polygon fill="#000000" stroke="#000000" points="1317.1,-836.74 1326.75,-832.37 1316.48,-829.77 1317.1,-836.74"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node15" class="node">
+<title>proc~dyn_exchange_constituent_states</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node15"><a xlink:href="../proc/dyn_exchange_constituent_states.html" xlink:title="dyn_exchange_constituent_states">
+<polygon fill="#d9534f" stroke="#d9534f" points="697.93,-601.27 508.66,-601.27 508.66,-577 697.93,-577 697.93,-601.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-585.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_exchange_constituent_states</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_exchange_constituent_states&#45;&gt;proc~dyn_exchange_constituent_states -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge9" class="edge">
+<title>interface~dyn_exchange_constituent_states&#45;&gt;proc~dyn_exchange_constituent_states</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M399.17,-587.77C430.35,-587.98 465.25,-588.21 497.21,-588.43"/>
+<polygon fill="#000000" stroke="#000000" points="496.85,-591.93 506.87,-588.49 496.89,-584.93 496.85,-591.93"/>
+</g>
+<!-- none~init_shared_variables~3&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge11" class="edge">
+<title>none~init_shared_variables~3&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M665.12,-499.75C736.29,-492.28 853.45,-479.99 924.62,-472.52"/>
+<polygon fill="#000000" stroke="#000000" points="924.98,-476 934.56,-471.47 924.25,-469.04 924.98,-476"/>
+</g>
+<!-- check_allocate -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node9" class="node">
+<title>check_allocate</title>
+<polygon fill="#777777" stroke="#777777" points="1031.95,-520.27 940.93,-520.27 940.93,-496 1031.95,-496 1031.95,-520.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-504.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_allocate</text>
+</g>
+<!-- none~init_shared_variables~3&#45;&gt;check_allocate -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge10" class="edge">
+<title>none~init_shared_variables~3&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M665.12,-506.45C737.88,-506.84 858.71,-507.47 929.33,-507.84"/>
+<polygon fill="#000000" stroke="#000000" points="929.11,-511.34 939.13,-507.89 929.15,-504.34 929.11,-511.34"/>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node13" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node13"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="1125.33,-436.27 847.56,-436.27 847.56,-412 1125.33,-412 1125.33,-436.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-420.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- none~init_shared_variables~3&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge12" class="edge">
+<title>none~init_shared_variables~3&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M639.48,-493.55C679.68,-479.66 747.68,-457.6 807.81,-445.13 819.92,-442.62 832.57,-440.39 845.28,-438.4"/>
+<polygon fill="#000000" stroke="#000000" points="845.6,-441.89 854.97,-436.94 844.56,-434.97 845.6,-441.89"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rho&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge13" class="edge">
+<title>none~set_mpas_physics_tendency_rho&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M695.59,-435.72C766.6,-443.17 863.13,-453.3 924.87,-459.78"/>
+<polygon fill="#000000" stroke="#000000" points="924.16,-463.22 934.47,-460.79 924.89,-456.26 924.16,-463.22"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rho&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge14" class="edge">
+<title>none~set_mpas_physics_tendency_rho&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M695.59,-425.66C737.59,-425.44 788.52,-425.17 835.9,-424.92"/>
+<polygon fill="#000000" stroke="#000000" points="835.72,-428.42 845.7,-424.87 835.68,-421.42 835.72,-428.42"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_exchange_halo</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_exchange_halo.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_exchange_halo">
+<polygon fill="#d9534f" stroke="#d9534f" points="1140.33,-314.27 832.56,-314.27 832.56,-290 1140.33,-290 1140.33,-314.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-298.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_exchange_halo</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rho&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge15" class="edge">
+<title>none~set_mpas_physics_tendency_rho&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M695.38,-420.15C720.49,-417.04 747.49,-412.31 771.81,-405.13 840.83,-384.76 915.19,-344.2 955.42,-320.51"/>
+<polygon fill="#000000" stroke="#000000" points="957.03,-323.63 963.83,-315.5 953.45,-317.61 957.03,-323.63"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge18" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M692.01,-194.71C721.34,-203.19 751.67,-217.39 771.81,-241.13 831.36,-311.35 740.88,-381.91 807.81,-445.13 838.53,-474.15 886.78,-478.25 925.24,-475.73"/>
+<polygon fill="#000000" stroke="#000000" points="925.14,-479.25 934.81,-474.93 924.55,-472.28 925.14,-479.25"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;check_allocate -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge16" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M693.71,-194.77C722.67,-203.26 752.31,-217.45 771.81,-241.13 842.04,-326.45 728.6,-410.09 807.81,-487.13 839.31,-517.78 890.28,-520.96 929.55,-517.68"/>
+<polygon fill="#000000" stroke="#000000" points="929.71,-521.18 939.31,-516.69 929.01,-514.21 929.71,-521.18"/>
+</g>
+<!-- dtdt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node10" class="node">
+<title>dtdt_total</title>
+<polygon fill="#777777" stroke="#777777" points="1017.33,-66.27 955.56,-66.27 955.56,-42 1017.33,-42 1017.33,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dtdt_total</text>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;dtdt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge17" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;dtdt_total</title>
+<path fill="none" stroke="#000000" d="M622.37,-169.67C656.74,-146.68 734.61,-97.85 807.81,-75.13 853.04,-61.1 907.42,-56.34 943.99,-54.78"/>
+<polygon fill="#000000" stroke="#000000" points="943.83,-58.28 953.7,-54.43 943.58,-51.29 943.83,-58.28"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge19" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M679.22,-194.73C710.95,-203.29 746.38,-217.54 771.81,-241.13 800.99,-268.2 781.16,-293.58 807.81,-323.13 843.75,-362.99 899.24,-391.01 938.63,-407.27"/>
+<polygon fill="#000000" stroke="#000000" points="937.29,-410.5 947.88,-410.98 939.9,-404.01 937.29,-410.5"/>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge20" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M644.37,-194.75C714.14,-216.72 857.8,-261.95 934.52,-286.1"/>
+<polygon fill="#000000" stroke="#000000" points="933.31,-289.39 943.9,-289.05 935.41,-282.71 933.31,-289.39"/>
+</g>
+<!-- proc~reverse -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node18" class="node">
+<title>proc~reverse</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node18"><a xlink:href="../proc/reverse.html" xlink:title="reverse">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1013.44,-234.27 959.44,-234.27 959.44,-210 1013.44,-210 1013.44,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">reverse</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~reverse -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge21" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~reverse</title>
+<path fill="none" stroke="#000000" d="M702.45,-192.44C782.56,-200.84 891.4,-212.27 947.92,-218.2"/>
+<polygon fill="#000000" stroke="#000000" points="947.34,-221.65 957.65,-219.22 948.07,-214.69 947.34,-221.65"/>
+</g>
+<!-- proc~t_of_theta_rhod_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node19" class="node">
+<title>proc~t_of_theta_rhod_qv</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node19"><a xlink:href="../proc/t_of_theta_rhod_qv.html" xlink:title="t_of_theta_rhod_qv">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1042.45,-24.27 930.43,-24.27 930.43,0 1042.45,0 1042.45,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">t_of_theta_rhod_qv</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~t_of_theta_rhod_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge22" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~t_of_theta_rhod_qv</title>
+<path fill="none" stroke="#000000" d="M616.22,-169.8C645.59,-140.3 725.09,-65.68 807.81,-33.13 842.86,-19.35 884.57,-13.91 918.77,-12"/>
+<polygon fill="#000000" stroke="#000000" points="918.71,-15.51 928.54,-11.56 918.39,-8.52 918.71,-15.51"/>
+</g>
+<!-- proc~t_of_tm_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node20" class="node">
+<title>proc~t_of_tm_qv</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node20"><a xlink:href="../proc/t_of_tm_qv.html" xlink:title="t_of_tm_qv">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1020.7,-192.27 952.18,-192.27 952.18,-168 1020.7,-168 1020.7,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">t_of_tm_qv</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~t_of_tm_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge23" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~t_of_tm_qv</title>
+<path fill="none" stroke="#000000" d="M702.45,-181.62C779.22,-181.22 882.38,-180.68 940.58,-180.37"/>
+<polygon fill="#000000" stroke="#000000" points="940.45,-183.87 950.43,-180.32 940.41,-176.87 940.45,-183.87"/>
+</g>
+<!-- proc~theta_of_t_rhod_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node21" class="node">
+<title>proc~theta_of_t_rhod_qv</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node21"><a xlink:href="../proc/theta_of_t_rhod_qv.html" xlink:title="theta_of_t_rhod_qv">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1042.45,-150.27 930.43,-150.27 930.43,-126 1042.45,-126 1042.45,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">theta_of_t_rhod_qv</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~theta_of_t_rhod_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge24" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~theta_of_t_rhod_qv</title>
+<path fill="none" stroke="#000000" d="M702.45,-170.8C770.42,-162.96 859.08,-152.72 918.9,-145.82"/>
+<polygon fill="#000000" stroke="#000000" points="919.06,-149.32 928.6,-144.7 918.26,-142.37 919.06,-149.32"/>
+</g>
+<!-- proc~tm_of_t_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node22" class="node">
+<title>proc~tm_of_t_qv</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node22"><a xlink:href="../proc/tm_of_t_qv.html" xlink:title="tm_of_t_qv">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1020.7,-108.27 952.18,-108.27 952.18,-84 1020.7,-84 1020.7,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">tm_of_t_qv</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~tm_of_t_qv -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge25" class="edge">
+<title>none~set_mpas_physics_tendency_rtheta&#45;&gt;proc~tm_of_t_qv</title>
+<path fill="none" stroke="#000000" d="M636.91,-169.58C676.66,-154.77 746.19,-130.49 807.81,-117.13 852.45,-107.46 904.43,-101.97 940.58,-99.05"/>
+<polygon fill="#000000" stroke="#000000" points="940.52,-102.57 950.23,-98.31 939.99,-95.59 940.52,-102.57"/>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge28" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M315.33,-354.53C335.34,-377.82 382.43,-427.57 434.79,-447.13 522.98,-480.09 801.15,-473.6 924.97,-468.84"/>
+<polygon fill="#000000" stroke="#000000" points="924.74,-472.35 934.59,-468.46 924.46,-465.36 924.74,-472.35"/>
+</g>
+<!-- dudt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node11" class="node">
+<title>dudt_total</title>
+<polygon fill="#777777" stroke="#777777" points="635.68,-396.27 570.91,-396.27 570.91,-372 635.68,-372 635.68,-396.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-380.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dudt_total</text>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;dudt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge26" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;dudt_total</title>
+<path fill="none" stroke="#000000" d="M380.15,-354.75C398.03,-357.63 417.07,-360.59 434.79,-363.13 476.96,-369.19 525.25,-375.14 559.11,-379.15"/>
+<polygon fill="#000000" stroke="#000000" points="558.61,-382.62 568.95,-380.31 559.43,-375.67 558.61,-382.62"/>
+</g>
+<!-- dvdt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node12" class="node">
+<title>dvdt_total</title>
+<polygon fill="#777777" stroke="#777777" points="635.31,-354.27 571.29,-354.27 571.29,-330 635.31,-330 635.31,-354.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-338.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dvdt_total</text>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;dvdt_total -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge27" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;dvdt_total</title>
+<path fill="none" stroke="#000000" d="M393.1,-342.13C448.13,-342.13 516.54,-342.13 559.83,-342.13"/>
+<polygon fill="#000000" stroke="#000000" points="559.56,-345.64 569.56,-342.14 559.56,-338.64 559.56,-345.64"/>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge29" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M364.26,-329.5C453.72,-312.61 628.31,-288.35 771.81,-321.13 842.89,-337.38 917.86,-380.43 957.32,-405.44"/>
+<polygon fill="#000000" stroke="#000000" points="955.22,-408.24 965.52,-410.71 959,-402.36 955.22,-408.24"/>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_compute_edge_wind</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_compute_edge_wind.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_compute_edge_wind">
+<polygon fill="#d9534f" stroke="#d9534f" points="771.81,-274.27 434.79,-274.27 434.79,-250 771.81,-250 771.81,-274.27"/>
+<text xml:space="preserve" text-anchor="middle" x="603.3" y="-258.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_compute_edge_wind</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge30" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind</title>
+<path fill="none" stroke="#000000" d="M330.33,-329.51C355.99,-317.15 397.24,-298.7 434.79,-288.13 450.71,-283.65 467.71,-279.89 484.55,-276.74"/>
+<polygon fill="#000000" stroke="#000000" points="484.87,-280.24 494.09,-275.03 483.63,-273.35 484.87,-280.24"/>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;proc~reverse -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge31" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;proc~reverse</title>
+<path fill="none" stroke="#000000" d="M316.08,-329.5C336.62,-306.8 383.57,-259.73 434.79,-241.13 529.26,-206.85 839.63,-216.05 947.83,-220.44"/>
+<polygon fill="#000000" stroke="#000000" points="947.48,-223.93 957.61,-220.85 947.77,-216.94 947.48,-223.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node33" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node33"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1556.1,-373.27 1201.08,-373.27 1201.08,-349 1556.1,-349 1556.1,-373.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-357.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge32" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1045.26,-411.54C1088.13,-402.5 1148.06,-390.49 1201.08,-382.13 1216.81,-379.66 1233.37,-377.32 1249.78,-375.18"/>
+<polygon fill="#000000" stroke="#000000" points="1250.13,-378.66 1259.61,-373.92 1249.24,-371.72 1250.13,-378.66"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node34" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node34"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1556.1,-541.27 1201.08,-541.27 1201.08,-517 1556.1,-517 1556.1,-541.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-525.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge33" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.43,-427.3C1139.51,-431.4 1153.04,-437.17 1165.08,-445.13 1191.97,-462.93 1174.19,-490.33 1201.08,-508.13 1202.72,-509.22 1204.38,-510.26 1206.07,-511.26"/>
+<polygon fill="#000000" stroke="#000000" points="1204.2,-514.23 1214.67,-515.87 1207.51,-508.06 1204.2,-514.23"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node35" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node35"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1554.6,-331.27 1202.58,-331.27 1202.58,-307 1554.6,-307 1554.6,-331.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-315.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge34" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1013.04,-411.57C1052.44,-392.82 1130.74,-357.84 1201.08,-340.13 1210.54,-337.75 1220.35,-335.64 1230.29,-333.77"/>
+<polygon fill="#000000" stroke="#000000" points="1230.83,-337.23 1240.06,-332.02 1229.6,-330.34 1230.83,-337.23"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node36" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node36"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1554.6,-457.27 1202.58,-457.27 1202.58,-433 1554.6,-433 1554.6,-457.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-441.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge35" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.82,-431.58C1146.9,-432.72 1168.96,-433.91 1190.87,-435.08"/>
+<polygon fill="#000000" stroke="#000000" points="1190.62,-438.58 1200.8,-435.62 1191,-431.59 1190.62,-438.58"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node37" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node37"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1554.6,-499.27 1202.58,-499.27 1202.58,-475 1554.6,-475 1554.6,-499.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-483.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge36" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.43,-434.76C1139,-437.49 1152.42,-440.9 1165.08,-445.13 1182.65,-451.01 1183.52,-460.25 1201.08,-466.13 1207.36,-468.24 1213.83,-470.14 1220.41,-471.85"/>
+<polygon fill="#000000" stroke="#000000" points="1219.56,-475.25 1230.1,-474.2 1221.21,-468.44 1219.56,-475.25"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node38" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node38"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1554.6,-793.27 1202.58,-793.27 1202.58,-769 1554.6,-769 1554.6,-793.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-777.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge37" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.67,-421.53C1140.4,-426.48 1154.01,-434.02 1165.08,-445.13 1264.53,-544.97 1101.67,-660.27 1201.08,-760.13 1201.46,-760.52 1201.85,-760.9 1202.23,-761.27"/>
+<polygon fill="#000000" stroke="#000000" points="1199.73,-763.74 1209.62,-767.55 1204.27,-758.41 1199.73,-763.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node39" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node39"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1554.6,-289.27 1202.58,-289.27 1202.58,-265 1554.6,-265 1554.6,-289.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-273.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge38" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1011.12,-411.56C1045.54,-393.07 1111.2,-357.07 1165.08,-323.13 1181.56,-312.75 1182.87,-305.05 1201.08,-298.13 1206.35,-296.13 1211.78,-294.31 1217.3,-292.65"/>
+<polygon fill="#000000" stroke="#000000" points="1217.87,-296.12 1226.56,-290.06 1215.99,-289.38 1217.87,-296.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node40" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node40"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-415.27 1201.83,-415.27 1201.83,-391 1555.35,-391 1555.35,-415.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-399.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge39" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.82,-416.69C1146.72,-415.56 1168.57,-414.39 1190.29,-413.22"/>
+<polygon fill="#000000" stroke="#000000" points="1190.32,-416.72 1200.12,-412.69 1189.94,-409.73 1190.32,-416.72"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node41" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node41"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-751.27 1201.83,-751.27 1201.83,-727 1555.35,-727 1555.35,-751.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-735.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge40" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.49,-421.71C1140.25,-426.63 1153.92,-434.12 1165.08,-445.13 1252.2,-531.09 1113.99,-632.15 1201.08,-718.13 1201.58,-718.63 1202.08,-719.11 1202.59,-719.59"/>
+<polygon fill="#000000" stroke="#000000" points="1200.11,-722.08 1210.05,-725.76 1204.57,-716.69 1200.11,-722.08"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node42" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node42"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-709.27 1201.83,-709.27 1201.83,-685 1555.35,-685 1555.35,-709.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-693.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge41" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.68,-422.11C1140.31,-426.99 1153.9,-434.36 1165.08,-445.13 1239.9,-517.24 1126.29,-604 1201.08,-676.13 1201.58,-676.62 1202.09,-677.1 1202.6,-677.57"/>
+<polygon fill="#000000" stroke="#000000" points="1200.16,-680.1 1210.14,-683.67 1204.57,-674.66 1200.16,-680.1"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node43" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node43"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-667.27 1201.83,-667.27 1201.83,-643 1555.35,-643 1555.35,-667.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-651.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge42" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.77,-422.63C1140.3,-427.44 1153.83,-434.66 1165.08,-445.13 1227.64,-503.43 1138.54,-575.82 1201.08,-634.13 1201.71,-634.73 1202.36,-635.31 1203.01,-635.88"/>
+<polygon fill="#000000" stroke="#000000" points="1200.59,-638.43 1210.63,-641.81 1204.89,-632.91 1200.59,-638.43"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node44" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node44"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-625.27 1201.83,-625.27 1201.83,-601 1555.35,-601 1555.35,-625.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-609.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge43" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.69,-423.35C1140.14,-428.06 1153.68,-435.05 1165.08,-445.13 1215.46,-489.7 1150.71,-547.55 1201.08,-592.13 1201.86,-592.83 1202.66,-593.51 1203.46,-594.17"/>
+<polygon fill="#000000" stroke="#000000" points="1201.07,-596.76 1211.21,-599.86 1205.21,-591.12 1201.07,-596.76"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node45" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node45"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="1555.35,-583.27 1201.83,-583.27 1201.83,-559 1555.35,-559 1555.35,-583.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-567.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge44" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M1125.72,-424.66C1139.99,-429.18 1153.48,-435.77 1165.08,-445.13 1203.47,-476.12 1162.7,-519.14 1201.08,-550.13 1202.04,-550.91 1203.01,-551.67 1204,-552.41"/>
+<polygon fill="#000000" stroke="#000000" points="1201.67,-555.06 1211.93,-557.71 1205.57,-549.24 1201.67,-555.06"/>
+</g>
+<!-- stringify -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node49" class="node">
+<title>stringify</title>
+<polygon fill="#777777" stroke="#777777" points="1777.62,-835.27 1723.35,-835.27 1723.35,-811 1777.62,-811 1777.62,-835.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-819.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</g>
+<!-- proc~dyn_debug_print&#45;&gt;stringify -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_debug_print&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M1429.09,-823.13C1503.93,-823.13 1644.28,-823.13 1711.59,-823.13"/>
+<polygon fill="#000000" stroke="#000000" points="1711.38,-826.64 1721.38,-823.14 1711.38,-819.64 1711.38,-826.64"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge51" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M698.29,-588.29C724.12,-584.16 750.77,-575.86 771.81,-560.13 800.78,-538.47 778.27,-508.01 807.81,-487.13 841.48,-463.34 888,-458.58 924.99,-459.51"/>
+<polygon fill="#000000" stroke="#000000" points="924.49,-462.99 934.63,-459.9 924.78,-456 924.49,-462.99"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;check_allocate -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M698.31,-581.94C723.04,-577.64 749.12,-570.85 771.81,-560.13 790.9,-551.12 788.48,-537.63 807.81,-529.13 846.03,-512.33 893.1,-507.38 929.18,-506.48"/>
+<polygon fill="#000000" stroke="#000000" points="929.03,-509.98 938.97,-506.33 928.92,-502.98 929.03,-509.98"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge52" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M674.22,-576.5C707.19,-567.49 745.07,-552.34 771.81,-527.13 800.77,-499.84 775.82,-468.82 807.81,-445.13 816.61,-438.62 826.35,-433.5 836.61,-429.52"/>
+<polygon fill="#000000" stroke="#000000" points="837.74,-432.83 846.05,-426.26 835.45,-426.22 837.74,-432.83"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge55" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M680.79,-576.61C712.82,-567.74 748.04,-552.67 771.81,-527.13 810.9,-485.12 772.26,-448.18 807.81,-403.13 840.43,-361.81 894.92,-334.46 934.96,-318.76"/>
+<polygon fill="#000000" stroke="#000000" points="936.06,-322.09 944.17,-315.28 933.58,-315.55 936.06,-322.09"/>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;proc~reverse -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge58" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;proc~reverse</title>
+<path fill="none" stroke="#000000" d="M688.13,-576.53C718.85,-567.7 751.12,-552.68 771.81,-527.13 841.36,-441.27 736.82,-365.81 807.81,-281.13 842.39,-239.89 906.6,-227.32 947.61,-223.58"/>
+<polygon fill="#000000" stroke="#000000" points="947.81,-227.08 957.51,-222.83 947.28,-220.1 947.81,-227.08"/>
+</g>
+<!-- cam_constituents_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node23" class="node">
+<title>cam_constituents_array</title>
+<polygon fill="#777777" stroke="#777777" points="1055.58,-688.27 917.31,-688.27 917.31,-664 1055.58,-664 1055.58,-688.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-672.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_constituents_array</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;cam_constituents_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;cam_constituents_array</title>
+<path fill="none" stroke="#000000" d="M636.54,-601.77C676.22,-616.81 745.95,-641.58 807.81,-655.13 839.56,-662.09 875.03,-666.87 905.88,-670.09"/>
+<polygon fill="#000000" stroke="#000000" points="905.22,-673.54 915.52,-671.05 905.91,-666.57 905.22,-673.54"/>
+</g>
+<!-- const_is_dry -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node24" class="node">
+<title>const_is_dry</title>
+<polygon fill="#777777" stroke="#777777" points="1024.45,-646.27 948.43,-646.27 948.43,-622 1024.45,-622 1024.45,-646.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-630.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">const_is_dry</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;const_is_dry -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;const_is_dry</title>
+<path fill="none" stroke="#000000" d="M698.03,-600.2C773.66,-609.13 877,-621.33 936.95,-628.41"/>
+<polygon fill="#000000" stroke="#000000" points="936.5,-631.88 946.84,-629.58 937.32,-624.93 936.5,-631.88"/>
+</g>
+<!-- const_is_water_species -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node25" class="node">
+<title>const_is_water_species</title>
+<polygon fill="#777777" stroke="#777777" points="1053.33,-604.27 919.56,-604.27 919.56,-580 1053.33,-580 1053.33,-604.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-588.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">const_is_water_species</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;const_is_water_species -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge49" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;const_is_water_species</title>
+<path fill="none" stroke="#000000" d="M698.03,-589.87C762.53,-590.38 847.19,-591.05 907.9,-591.52"/>
+<polygon fill="#000000" stroke="#000000" points="907.78,-595.02 917.81,-591.6 907.84,-588.02 907.78,-595.02"/>
+</g>
+<!-- endrun -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node26" class="node">
+<title>endrun</title>
+<polygon fill="#777777" stroke="#777777" points="1013.44,-562.27 959.44,-562.27 959.44,-538 1013.44,-538 1013.44,-562.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-546.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">endrun</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;endrun -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge50" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;endrun</title>
+<path fill="none" stroke="#000000" d="M698.03,-579.54C778.49,-571.31 890.32,-559.87 947.88,-553.98"/>
+<polygon fill="#000000" stroke="#000000" points="948.22,-557.46 957.81,-552.96 947.5,-550.5 948.22,-557.46"/>
+</g>
+<!-- pdel -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node30" class="node">
+<title>pdel</title>
+<polygon fill="#777777" stroke="#777777" points="1013.44,-856.27 959.44,-856.27 959.44,-832 1013.44,-832 1013.44,-856.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-840.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">pdel</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;pdel -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge53" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;pdel</title>
+<path fill="none" stroke="#000000" d="M610.71,-601.62C632.18,-641.95 705.95,-769.28 807.81,-823.13 851.66,-846.32 909.93,-848.75 947.57,-847.3"/>
+<polygon fill="#000000" stroke="#000000" points="947.7,-850.79 957.51,-846.79 947.34,-843.8 947.7,-850.79"/>
+</g>
+<!-- pdeldry -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node31" class="node">
+<title>pdeldry</title>
+<polygon fill="#777777" stroke="#777777" points="1013.44,-814.27 959.44,-814.27 959.44,-790 1013.44,-790 1013.44,-814.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-798.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">pdeldry</text>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;pdeldry -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge54" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;pdeldry</title>
+<path fill="none" stroke="#000000" d="M612.88,-601.58C638.02,-636.9 715.61,-738.07 807.81,-781.13 852.62,-802.07 910.43,-805.08 947.72,-804.37"/>
+<polygon fill="#000000" stroke="#000000" points="947.66,-807.88 957.55,-804.07 947.45,-800.88 947.66,-807.88"/>
+</g>
+<!-- proc~dyn_mpas_map_constituent_index -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node46" class="node">
+<title>proc~dyn_mpas_map_constituent_index</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node46"><a xlink:href="../proc/dyn_mpas_map_constituent_index.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_map_constituent_index">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1161.33,-772.27 811.56,-772.27 811.56,-748 1161.33,-748 1161.33,-772.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-756.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_map_constituent_index</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_map_constituent_index -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge56" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_map_constituent_index</title>
+<path fill="none" stroke="#000000" d="M616.2,-601.55C645.53,-631.25 724.95,-706.38 807.81,-739.13 812.57,-741.02 817.45,-742.74 822.42,-744.32"/>
+<polygon fill="#000000" stroke="#000000" points="821.39,-747.67 831.97,-747.14 823.37,-740.96 821.39,-747.67"/>
+</g>
+<!-- proc~dyn_mpas_map_mpas_scalar_index -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node47" class="node">
+<title>proc~dyn_mpas_map_mpas_scalar_index</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node47"><a xlink:href="../proc/dyn_mpas_map_mpas_scalar_index.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_map_mpas_scalar_index">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1165.08,-730.27 807.81,-730.27 807.81,-706 1165.08,-706 1165.08,-730.27"/>
+<text xml:space="preserve" text-anchor="middle" x="986.44" y="-714.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_map_mpas_scalar_index</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_map_mpas_scalar_index -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge57" class="edge">
+<title>proc~dyn_exchange_constituent_states&#45;&gt;proc~dyn_mpas_map_mpas_scalar_index</title>
+<path fill="none" stroke="#000000" d="M622.35,-601.72C656.68,-624.94 734.51,-674.24 807.81,-697.13 814.8,-699.32 822,-701.28 829.33,-703.03"/>
+<polygon fill="#000000" stroke="#000000" points="828.53,-706.44 839.05,-705.22 830.06,-699.61 828.53,-706.44"/>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge59" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M736.57,-274.7C748.81,-278.21 760.75,-282.62 771.81,-288.13 791.78,-298.09 789.97,-309.73 807.81,-323.13 853.32,-357.31 911.54,-388.31 948.68,-406.7"/>
+<polygon fill="#000000" stroke="#000000" points="946.69,-409.62 957.21,-410.88 949.77,-403.34 946.69,-409.62"/>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge61" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M724.64,-274.76C765.7,-279.07 811.82,-283.91 853.73,-288.31"/>
+<polygon fill="#000000" stroke="#000000" points="853.33,-291.79 863.64,-289.35 854.06,-284.83 853.33,-291.79"/>
+</g>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node32" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node32"><a xlink:href="../proc/dyn_mpas_debug_print.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="1524.22,-83.27 1232.95,-83.27 1232.95,-59 1524.22,-59 1524.22,-83.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-67.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge60" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M772.23,-266.53C926.29,-268.95 1135.03,-267.51 1165.08,-243.13 1216.99,-201.04 1151.62,-142.08 1201.08,-97.13 1207.54,-91.27 1214.71,-86.38 1222.36,-82.32"/>
+<polygon fill="#000000" stroke="#000000" points="1223.75,-85.53 1231.3,-78.1 1220.77,-79.2 1223.75,-85.53"/>
+</g>
+<!-- mpas_dmpar_exch_halo_field -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node27" class="node">
+<title>mpas_dmpar_exch_halo_field</title>
+<polygon fill="#777777" stroke="#777777" points="1462.72,-205.27 1294.45,-205.27 1294.45,-181 1462.72,-181 1462.72,-205.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-189.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dmpar_exch_halo_field</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_dmpar_exch_halo_field -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge62" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_dmpar_exch_halo_field</title>
+<path fill="none" stroke="#000000" d="M1139.79,-289.56C1148.69,-285.89 1157.21,-281.46 1165.08,-276.13 1191.47,-258.27 1174.45,-231.64 1201.08,-214.13 1224.98,-198.42 1254.72,-191.33 1282.93,-188.69"/>
+<polygon fill="#000000" stroke="#000000" points="1282.84,-192.2 1292.55,-187.97 1282.32,-185.22 1282.84,-192.2"/>
+</g>
+<!-- mpas_pool_get_field -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node28" class="node">
+<title>mpas_pool_get_field</title>
+<polygon fill="#777777" stroke="#777777" points="1438.72,-163.27 1318.45,-163.27 1318.45,-139 1438.72,-139 1438.72,-163.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-147.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_field</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge63" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field</title>
+<path fill="none" stroke="#000000" d="M1140.65,-291.46C1149.39,-287.35 1157.64,-282.3 1165.08,-276.13 1202.76,-244.95 1162.98,-202.81 1201.08,-172.13 1230.36,-148.56 1271.74,-142.66 1307.08,-142.96"/>
+<polygon fill="#000000" stroke="#000000" points="1306.71,-146.45 1316.8,-143.22 1306.9,-139.45 1306.71,-146.45"/>
+</g>
+<!-- mpas_pool_get_field_info -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node29" class="node">
+<title>mpas_pool_get_field_info</title>
+<polygon fill="#777777" stroke="#777777" points="1451.47,-247.27 1305.7,-247.27 1305.7,-223 1451.47,-223 1451.47,-247.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1378.59" y="-231.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_field_info</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field_info -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge64" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field_info</title>
+<path fill="none" stroke="#000000" d="M1113.02,-289.56C1130.75,-286.12 1148.55,-281.73 1165.08,-276.13 1182.42,-270.27 1183.66,-261.77 1201.08,-256.13 1230.63,-246.58 1264.23,-241.29 1294.12,-238.39"/>
+<polygon fill="#000000" stroke="#000000" points="1294.22,-241.9 1303.87,-237.53 1293.6,-234.92 1294.22,-241.9"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge65" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M1140.82,-293.01C1149.64,-288.55 1157.84,-283 1165.08,-276.13 1223.96,-220.3 1142.22,-153 1201.08,-97.13 1207.48,-91.06 1214.65,-86.01 1222.33,-81.84"/>
+<polygon fill="#000000" stroke="#000000" points="1223.85,-84.99 1231.34,-77.5 1220.81,-78.69 1223.85,-84.99"/>
+</g>
+<!-- proc~stringify -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node48" class="node">
+<title>proc~stringify</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node48"><a xlink:href="../proc/stringify.html" xlink:title="stringify">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1777.62,-103.27 1723.35,-103.27 1723.35,-79 1777.62,-79 1777.62,-103.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-87.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;proc~stringify -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge66" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M1133.83,-289.58C1145.26,-284.38 1155.9,-277.69 1165.08,-269.13 1211.75,-225.61 1152.03,-170.96 1201.08,-130.13 1240.18,-97.59 1594.44,-92.2 1711.87,-91.31"/>
+<polygon fill="#000000" stroke="#000000" points="1711.62,-94.81 1721.59,-91.25 1711.57,-87.81 1711.62,-94.81"/>
+</g>
+<!-- proc~dyn_mpas_debug_print&#45;&gt;proc~stringify -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge67" class="edge">
+<title>proc~dyn_mpas_debug_print&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M1524.72,-78.98C1592.58,-82.65 1667.94,-86.73 1711.88,-89.1"/>
+<polygon fill="#000000" stroke="#000000" points="1711.46,-92.58 1721.64,-89.63 1711.84,-85.59 1711.46,-92.58"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node50" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1813.24,-583.27 1687.72,-583.27 1687.72,-559 1813.24,-559 1813.24,-583.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-567.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge68" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1545.26,-373.64C1549.05,-376.19 1552.68,-379.02 1556.1,-382.13 1612.54,-433.57 1536.03,-498.3 1592.1,-550.13 1614.45,-570.79 1646.79,-577.54 1676.35,-578.53"/>
+<polygon fill="#000000" stroke="#000000" points="1675.96,-582.03 1686,-578.63 1676.04,-575.03 1675.96,-582.03"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node51" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1815.49,-352.27 1685.47,-352.27 1685.47,-328 1815.49,-328 1815.49,-352.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-336.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge69" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1556.41,-351.1C1597.8,-348.75 1639.73,-346.37 1673.89,-344.43"/>
+<polygon fill="#000000" stroke="#000000" points="1673.87,-347.93 1683.66,-343.87 1673.47,-340.94 1673.87,-347.93"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node53" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CallsGraph_node53"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1908.87,-541.27 1592.1,-541.27 1592.1,-517 1908.87,-517 1908.87,-541.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-525.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge70" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1539.59,-373.6C1545.3,-376.09 1550.83,-378.93 1556.1,-382.13 1580.43,-396.93 1571.39,-415.59 1592.1,-435.13 1627.45,-468.48 1676.63,-495.49 1710.56,-511.86"/>
+<polygon fill="#000000" stroke="#000000" points="1708.66,-514.84 1719.2,-515.95 1711.65,-508.51 1708.66,-514.84"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge71" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1490.82,-541.76C1550.78,-548.57 1623.1,-556.78 1676.01,-562.79"/>
+<polygon fill="#000000" stroke="#000000" points="1675.5,-566.26 1685.83,-563.91 1676.29,-559.3 1675.5,-566.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge72" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1556.41,-529.13C1564.43,-529.13 1572.47,-529.13 1580.46,-529.13"/>
+<polygon fill="#000000" stroke="#000000" points="1580.22,-532.64 1590.22,-529.14 1580.22,-525.64 1580.22,-532.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge73" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1545.8,-331.71C1549.41,-334.25 1552.86,-337.05 1556.1,-340.13 1624.76,-405.35 1523.91,-484.43 1592.1,-550.13 1614.1,-571.34 1646.56,-578.11 1676.29,-578.99"/>
+<polygon fill="#000000" stroke="#000000" points="1675.99,-582.48 1686.01,-579.04 1676.03,-575.48 1675.99,-582.48"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge74" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1555.06,-329.1C1596.8,-331.47 1639.18,-333.87 1673.67,-335.83"/>
+<polygon fill="#000000" stroke="#000000" points="1673.37,-339.32 1683.55,-336.39 1673.76,-332.33 1673.37,-339.32"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node52" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1826.74,-426.27 1674.22,-426.27 1674.22,-402 1826.74,-402 1826.74,-426.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1750.48" y="-410.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge75" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1525.61,-331.71C1536.04,-334.07 1546.3,-336.85 1556.1,-340.13 1573.66,-346.02 1575.24,-353.47 1592.1,-361.13 1624.71,-375.95 1662.74,-388.87 1693.24,-398.24"/>
+<polygon fill="#000000" stroke="#000000" points="1692.09,-401.55 1702.67,-401.09 1694.11,-394.85 1692.09,-401.55"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge76" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1543.46,-331.65C1547.86,-334.18 1552.09,-337 1556.1,-340.13 1591.67,-367.94 1563.11,-400.52 1592.1,-435.13 1622.2,-471.06 1669.75,-496.76 1704.71,-512.11"/>
+<polygon fill="#000000" stroke="#000000" points="1703.16,-515.26 1713.74,-515.95 1705.9,-508.81 1703.16,-515.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge77" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1542.88,-457.65C1547.48,-460.18 1551.9,-462.99 1556.1,-466.13 1588.63,-490.46 1559.75,-525.58 1592.1,-550.13 1615.75,-568.09 1647.36,-574.65 1676.04,-576.23"/>
+<polygon fill="#000000" stroke="#000000" points="1675.66,-579.72 1685.77,-576.56 1675.89,-572.72 1675.66,-579.72"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge78" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1530.31,-432.5C1575.24,-428.74 1622.97,-424.74 1662.38,-421.43"/>
+<polygon fill="#000000" stroke="#000000" points="1662.62,-424.93 1672.29,-420.6 1662.03,-417.95 1662.62,-424.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge79" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1510.21,-457.74C1525.75,-460.11 1541.33,-462.88 1556.1,-466.13 1609.21,-477.83 1668.42,-498.25 1707.16,-512.67"/>
+<polygon fill="#000000" stroke="#000000" points="1705.51,-515.79 1716.1,-516.04 1707.97,-509.24 1705.51,-515.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge80" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1537.4,-499.68C1543.85,-502.14 1550.11,-504.94 1556.1,-508.13 1577.79,-519.71 1570.49,-538.4 1592.1,-550.13 1617.44,-563.89 1648.34,-569.91 1676.03,-572.22"/>
+<polygon fill="#000000" stroke="#000000" points="1675.55,-575.7 1685.77,-572.88 1676.02,-568.71 1675.55,-575.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge81" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1490.82,-499.76C1533.78,-504.64 1583.09,-510.24 1627.05,-515.23"/>
+<polygon fill="#000000" stroke="#000000" points="1626.57,-518.7 1636.9,-516.35 1627.36,-511.75 1626.57,-518.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge82" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1535.27,-768.53C1542.44,-766.11 1549.42,-763.33 1556.1,-760.13 1637.7,-721.1 1706.01,-633.77 1734.82,-592.94"/>
+<polygon fill="#000000" stroke="#000000" points="1737.59,-595.08 1740.41,-584.87 1731.84,-591.1 1737.59,-595.08"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge83" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1545.8,-768.56C1549.41,-766.02 1552.86,-763.22 1556.1,-760.13 1624.76,-694.92 1523.91,-615.84 1592.1,-550.13 1592.61,-549.64 1593.13,-549.16 1593.65,-548.68"/>
+<polygon fill="#000000" stroke="#000000" points="1595.73,-551.5 1601.39,-542.54 1591.38,-546.01 1595.73,-551.5"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge84" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1498.97,-289.77C1518.12,-292.25 1537.69,-295.05 1556.1,-298.13 1600.2,-305.53 1649.44,-316.26 1687.2,-325.03"/>
+<polygon fill="#000000" stroke="#000000" points="1686.03,-328.34 1696.56,-327.21 1687.62,-321.53 1686.03,-328.34"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge85" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1544.68,-289.6C1548.67,-292.16 1552.49,-294.99 1556.1,-298.13 1603.59,-339.46 1554.27,-384.81 1592.1,-435.13 1619.83,-472.02 1666.64,-497.28 1702.02,-512.25"/>
+<polygon fill="#000000" stroke="#000000" points="1700.61,-515.45 1711.2,-515.99 1703.26,-508.97 1700.61,-515.45"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge86" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1544.6,-415.7C1548.61,-418.23 1552.46,-421.03 1556.1,-424.13 1600.44,-461.9 1548.03,-512.06 1592.1,-550.13 1614.84,-569.78 1646.76,-576.51 1675.91,-577.75"/>
+<polygon fill="#000000" stroke="#000000" points="1675.77,-581.24 1685.83,-577.94 1675.9,-574.25 1675.77,-581.24"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge87" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1498.97,-390.5C1518.12,-388.02 1537.69,-385.22 1556.1,-382.13 1600.2,-374.74 1649.44,-364.01 1687.2,-355.24"/>
+<polygon fill="#000000" stroke="#000000" points="1687.62,-358.74 1696.56,-353.06 1686.03,-351.93 1687.62,-358.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge88" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1524.09,-415.75C1535.03,-418.09 1545.81,-420.86 1556.1,-424.13 1619.66,-444.35 1686.47,-485.83 1722.53,-510.16"/>
+<polygon fill="#000000" stroke="#000000" points="1720.38,-512.93 1730.61,-515.69 1724.33,-507.15 1720.38,-512.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge89" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1531.16,-726.54C1539.72,-724.16 1548.09,-721.37 1556.1,-718.13 1628.6,-688.83 1697.53,-624.85 1730.03,-591.81"/>
+<polygon fill="#000000" stroke="#000000" points="1732.35,-594.44 1736.79,-584.82 1727.32,-589.57 1732.35,-594.44"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge90" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1545.26,-726.63C1549.05,-724.08 1552.68,-721.25 1556.1,-718.13 1612.54,-666.7 1536.03,-601.97 1592.1,-550.13 1592.75,-549.54 1593.4,-548.95 1594.06,-548.38"/>
+<polygon fill="#000000" stroke="#000000" points="1596.02,-551.29 1601.88,-542.46 1591.79,-545.71 1596.02,-551.29"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge91" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1524.09,-684.52C1535.03,-682.18 1545.81,-679.41 1556.1,-676.13 1619.66,-655.92 1686.47,-614.44 1722.53,-590.11"/>
+<polygon fill="#000000" stroke="#000000" points="1724.33,-593.12 1730.61,-584.58 1720.38,-587.34 1724.33,-593.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge92" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1544.6,-684.57C1548.61,-682.04 1552.46,-679.24 1556.1,-676.13 1600.44,-638.37 1548.03,-588.21 1592.1,-550.13 1592.9,-549.45 1593.71,-548.77 1594.53,-548.11"/>
+<polygon fill="#000000" stroke="#000000" points="1596.32,-551.14 1602.47,-542.51 1592.28,-545.41 1596.32,-551.14"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge93" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1510.21,-642.53C1525.75,-640.16 1541.33,-637.39 1556.1,-634.13 1609.21,-622.44 1668.42,-602.02 1707.16,-587.6"/>
+<polygon fill="#000000" stroke="#000000" points="1707.97,-591.03 1716.1,-584.23 1705.51,-584.48 1707.97,-591.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge94" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1542.88,-642.62C1547.48,-640.09 1551.9,-637.28 1556.1,-634.13 1588.63,-609.81 1559.75,-574.69 1592.1,-550.13 1593.27,-549.24 1594.47,-548.38 1595.68,-547.55"/>
+<polygon fill="#000000" stroke="#000000" points="1597.3,-550.66 1604.01,-542.45 1593.65,-544.68 1597.3,-550.66"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge95" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1490.82,-600.51C1550.78,-593.7 1623.1,-585.49 1676.01,-579.48"/>
+<polygon fill="#000000" stroke="#000000" points="1676.29,-582.97 1685.83,-578.36 1675.5,-576.01 1676.29,-582.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge96" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1537.4,-600.59C1543.85,-598.13 1550.11,-595.33 1556.1,-592.13 1577.79,-580.56 1570.49,-561.87 1592.1,-550.13 1594.79,-548.67 1597.54,-547.3 1600.35,-546.01"/>
+<polygon fill="#000000" stroke="#000000" points="1601.43,-549.35 1609.31,-542.27 1598.74,-542.89 1601.43,-549.35"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge97" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1555.6,-571.13C1598.1,-571.13 1641.23,-571.13 1675.99,-571.13"/>
+<polygon fill="#000000" stroke="#000000" points="1675.93,-574.64 1685.93,-571.14 1675.93,-567.64 1675.93,-574.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge98" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1490.82,-558.51C1533.78,-553.63 1583.09,-548.03 1627.05,-543.04"/>
+<polygon fill="#000000" stroke="#000000" points="1627.36,-546.52 1636.9,-541.92 1626.57,-539.57 1627.36,-546.52"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_node54" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="2083.89,-541.27 1944.87,-541.27 1944.87,-517 2083.89,-517 2083.89,-541.27"/>
+<text xml:space="preserve" text-anchor="middle" x="2014.38" y="-525.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~physics_to_dynamics_coupling~~CallsGraph_edge99" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1909.12,-529.13C1917.25,-529.13 1925.23,-529.13 1932.94,-529.13"/>
+<polygon fill="#000000" stroke="#000000" points="1932.9,-532.64 1942.9,-529.14 1932.9,-525.64 1932.9,-532.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocphysics_to_dynamics_couplingCallsGraph = svgPanZoom('#procphysics_to_dynamics_couplingCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~physics_to_dynamics_coupling~~CalledByGraph Pages: 1 -->
+<svg id="procphysics_to_dynamics_couplingCalledByGraph" width="505pt" height="32pt"
+ viewBox="0.00 0.00 505.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~physics_to_dynamics_coupling~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 500.56,-28.27 500.56,4 -4,4"/>
+<!-- proc~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph_node1" class="node">
+<title>proc~physics_to_dynamics_coupling</title>
+<polygon fill="none" stroke="black" points="496.56,-24.27 323.04,-24.27 323.04,0 496.56,0 496.56,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="409.8" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">physics_to_dynamics_coupling</text>
+</g>
+<!-- interface~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph_node2" class="node">
+<title>interface~physics_to_dynamics_coupling</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CalledByGraph_node2"><a xlink:href="../interface/physics_to_dynamics_coupling.html" xlink:title="physics_to_dynamics_coupling">
+<polygon fill="#a7506f" stroke="#a7506f" points="287.04,-24.27 113.52,-24.27 113.52,0 287.04,0 287.04,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="200.28" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_to_dynamics_coupling</text>
+</a>
+</g>
+</g>
+<!-- interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph_edge1" class="edge">
+<title>interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M287.48,-12.13C295.43,-12.13 303.52,-12.13 311.56,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="311.35,-15.64 321.35,-12.14 311.35,-8.64 311.35,-15.64"/>
+</g>
+<!-- proc~stepon_run2 -->
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph_node3" class="node">
+<title>proc~stepon_run2</title>
+<g id="a_proc~~physics_to_dynamics_coupling~~CalledByGraph_node3"><a xlink:href="../proc/stepon_run2.html" xlink:title="stepon_run2">
+<polygon fill="#d9534f" stroke="#d9534f" points="77.52,-24.27 0,-24.27 0,0 77.52,0 77.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="38.76" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_run2</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling -->
+<g id="proc~~physics_to_dynamics_coupling~~CalledByGraph_edge2" class="edge">
+<title>proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" d="M77.97,-12.13C85.47,-12.13 93.65,-12.13 102.1,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="101.82,-15.64 111.82,-12.14 101.82,-8.64 101.82,-15.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-index_qv~5"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>index_qv</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-qv_prev"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+              allocatable
+            </td>
+            <td>::</td>
+            <td><strong>qv_prev</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-rho_zz~2"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>rho_zz</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-scalars~5"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>scalars</strong>(:,:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~74"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_coupling::physics_to_dynamics_coupling&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-zz~3"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>zz</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+        <section>
+          <h2>Subroutines</h2>
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-final_shared_variables~3"></span> <h3> subroutine <a href='physics_to_dynamics_coupling.html#proc-final_shared_variables~3'>final_shared_variables</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Finalize variables that are shared and repeatedly used by the <code>set_mpas_physics_tendency_*</code> internal subroutines.
+(KCW, 2024-09-13)</p>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-init_shared_variables~3"></span> <h3> subroutine <a href='physics_to_dynamics_coupling.html#proc-init_shared_variables~3'>init_shared_variables</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Initialize variables that are shared and repeatedly used by the <code>set_mpas_physics_tendency_*</code> internal subroutines.
+(KCW, 2024-09-13)</p>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-set_mpas_physics_tendency_rho"></span> <h3> subroutine <a href='physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rho'>set_mpas_physics_tendency_rho</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Set MPAS physics tendency <code>tend_rho_physics</code> (i.e., "coupled" tendency of dry air density due to physics).
+In MPAS, a "coupled" variable means that it is multiplied by a vertical metric term, <code>rho_zz</code>.
+(KCW, 2024-09-11)</p>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-set_mpas_physics_tendency_rtheta"></span> <h3> subroutine <a href='physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_rtheta'>set_mpas_physics_tendency_rtheta</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Set MPAS physics tendency <code>tend_rtheta_physics</code> (i.e., "coupled" tendency of modified "moist" potential temperature
+due to physics). In MPAS, a "coupled" variable means that it is multiplied by a vertical metric term, <code>rho_zz</code>.
+(KCW, 2024-09-19)</p>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+              <div class="card">
+    <div class="card-header codesum"><span class="anchor" id="proc-set_mpas_physics_tendency_ru"></span> <h3> subroutine <a href='physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_ru'>set_mpas_physics_tendency_ru</a>()  
+</h3></div>
+    <div class="card-body">
+          
+  <p>Set MPAS physics tendency <code>tend_ru_physics</code> (i.e., "coupled" tendency of horizontal velocity at edge interfaces
+due to physics). In MPAS, a "coupled" variable means that it is multiplied by a vertical metric term, <code>rho_zz</code>.
+(KCW, 2024-09-11)</p>
+
+  <h4>Arguments</h4>
+    <em>None</em>
+
+    </div>
+  </div>
+
+        </section>
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">module subroutine </span><span class="n">physics_to_dynamics_coupling</span><span class="p">()</span>
+<span class="w">        </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_debug</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">dyn_debug_print</span><span class="p">,</span><span class="w"> </span><span class="n">kind_dyn_mpas</span>
+<span class="w">        </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_r8</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_r8</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling&#39;</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">index_qv</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">qv_prev</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span><span class="w"> </span><span class="c">! Water vapor mixing ratio (kg kg-1)</span>
+<span class="w">                                                    </span><span class="c">! before being updated by physics.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">rho_zz</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">scalars</span><span class="p">(:,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">zz</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; entered&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">init_shared_variables</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_exchange_constituent_states</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s1">&#39;e&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">exchange</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="n">conversion</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">set_mpas_physics_tendency_ru</span><span class="p">()</span>
+<span class="w">        </span><span class="k">call </span><span class="n">set_mpas_physics_tendency_rho</span><span class="p">()</span>
+<span class="w">        </span><span class="k">call </span><span class="n">set_mpas_physics_tendency_rtheta</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">final_shared_variables</span><span class="p">()</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; completed&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">contains</span>
+<span class="w">        </span><span class="c">!&gt; Initialize variables that are shared and repeatedly used by the `set_mpas_physics_tendency_*` internal subroutines.</span>
+<span class="w">        </span><span class="c">!&gt; (KCW, 2024-09-13)</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">init_shared_variables</span><span class="p">()</span>
+<span class="w">            </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_abortutils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">check_allocate</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_info</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">            </span><span class="k">use </span><span class="n">vert_coord</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">pver</span>
+<span class="w">            </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">len_cx</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_cx</span>
+
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling::init_shared_variables&#39;</span>
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="n">len_cx</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">            </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Preparing for physics-dynamics coupling&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">index_qv</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">zz</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">index_qv</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dim&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;index_qv&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;rho_zz&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">time_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">scalars</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;scalars&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">time_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">zz</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;zz&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">qv_prev</span><span class="p">(</span><span class="n">pver</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;qv_prev(pver, ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="c">! Save water vapor mixing ratio before being updated by physics because `set_mpas_physics_tendency_rtheta`</span>
+<span class="w">            </span><span class="c">! needs it. This must be done before calling `dyn_exchange_constituent_states`.</span>
+<span class="w">            </span><span class="n">qv_prev</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">scalars</span><span class="p">(</span><span class="n">index_qv</span><span class="p">,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">init_shared_variables</span>
+
+<span class="w">        </span><span class="c">!&gt; Finalize variables that are shared and repeatedly used by the `set_mpas_physics_tendency_*` internal subroutines.</span>
+<span class="w">        </span><span class="c">!&gt; (KCW, 2024-09-13)</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">final_shared_variables</span><span class="p">()</span>
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling::final_shared_variables&#39;</span>
+
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">qv_prev</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">index_qv</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">scalars</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">zz</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">final_shared_variables</span>
+
+<span class="w">        </span><span class="c">!&gt; Set MPAS physics tendency `tend_ru_physics` (i.e., &quot;coupled&quot; tendency of horizontal velocity at edge interfaces</span>
+<span class="w">        </span><span class="c">!&gt; due to physics). In MPAS, a &quot;coupled&quot; variable means that it is multiplied by a vertical metric term, `rho_zz`.</span>
+<span class="w">        </span><span class="c">!&gt; (KCW, 2024-09-11)</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">set_mpas_physics_tendency_ru</span><span class="p">()</span>
+<span class="w">            </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_info</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_procedures</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">reverse</span>
+<span class="w">            </span><span class="k">use </span><span class="n">physics_types</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">phys_tend</span>
+
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling::set_mpas_physics_tendency_ru&#39;</span>
+<span class="w">            </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">u_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="p">:),</span><span class="w"> </span><span class="n">v_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Setting MPAS physics tendency &quot;tend_ru_physics&quot;&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">u_tendency</span><span class="p">,</span><span class="w"> </span><span class="n">v_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">u_tendency</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_uzonal&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">v_tendency</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_umerid&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Vertical index order is reversed between CAM-SIMA and MPAS.</span>
+<span class="w">            </span><span class="c">! Always call `reverse` when assigning anything to/from the `physics_tend` derived type.</span>
+<span class="w">            </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">                </span><span class="n">u_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="n">phys_tend</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">dudt_total</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">:))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="n">kind_dyn_mpas</span><span class="p">)</span>
+<span class="w">                </span><span class="n">v_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="n">phys_tend</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">dvdt_total</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">:))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="n">kind_dyn_mpas</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end do</span>
+
+<span class="k">            nullify</span><span class="p">(</span><span class="n">u_tendency</span><span class="p">,</span><span class="w"> </span><span class="n">v_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">compute_edge_wind</span><span class="p">(</span><span class="n">wind_tendency</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.)</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">set_mpas_physics_tendency_ru</span>
+
+<span class="w">        </span><span class="c">!&gt; Set MPAS physics tendency `tend_rho_physics` (i.e., &quot;coupled&quot; tendency of dry air density due to physics).</span>
+<span class="w">        </span><span class="c">!&gt; In MPAS, a &quot;coupled&quot; variable means that it is multiplied by a vertical metric term, `rho_zz`.</span>
+<span class="w">        </span><span class="c">!&gt; (KCW, 2024-09-11)</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">set_mpas_physics_tendency_rho</span><span class="p">()</span>
+<span class="w">            </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_info</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">ncells_solve</span>
+
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling::set_mpas_physics_tendency_rho&#39;</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">rho_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Setting MPAS physics tendency &quot;tend_rho_physics&quot;&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">rho_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">rho_tendency</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_rho_physics&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! The material derivative of `rho` (i.e., dry air density) is zero for incompressible fluid.</span>
+<span class="w">            </span><span class="n">rho_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="n">ncells_solve</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0_kind_dyn_mpas</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">rho_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Because we are injecting data directly into MPAS memory, halo layers need to be updated manually.</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;tend_rho_physics&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">set_mpas_physics_tendency_rho</span>
+
+<span class="w">        </span><span class="c">!&gt; Set MPAS physics tendency `tend_rtheta_physics` (i.e., &quot;coupled&quot; tendency of modified &quot;moist&quot; potential temperature</span>
+<span class="w">        </span><span class="c">!&gt; due to physics). In MPAS, a &quot;coupled&quot; variable means that it is multiplied by a vertical metric term, `rho_zz`.</span>
+<span class="w">        </span><span class="c">!&gt; (KCW, 2024-09-19)</span>
+<span class="w">        </span><span class="k">subroutine </span><span class="n">set_mpas_physics_tendency_rtheta</span><span class="p">()</span>
+<span class="w">            </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_abortutils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">check_allocate</span>
+<span class="w">            </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_info</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_grid</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dyn_procedures</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">t_of_theta_rhod_qv</span><span class="p">,</span><span class="w"> </span><span class="n">t_of_tm_qv</span><span class="p">,</span><span class="w"> </span><span class="n">theta_of_t_rhod_qv</span><span class="p">,</span><span class="w"> </span><span class="n">tm_of_t_qv</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                     </span><span class="n">reverse</span>
+<span class="w">            </span><span class="k">use </span><span class="n">dynconst</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">constant_cpd</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">cpair</span><span class="p">,</span><span class="w"> </span><span class="n">constant_p0</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">pref</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                </span><span class="n">constant_rd</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">rair</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rv</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">rh2o</span>
+<span class="w">            </span><span class="k">use </span><span class="n">physics_types</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">dtime_phys</span><span class="p">,</span><span class="w"> </span><span class="n">phys_tend</span>
+<span class="w">            </span><span class="k">use </span><span class="n">vert_coord</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">pver</span>
+<span class="w">            </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">            </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">len_cx</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_cx</span>
+
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_coupling::physics_to_dynamics_coupling::set_mpas_physics_tendency_rtheta&#39;</span>
+<span class="w">            </span><span class="kt">character</span><span class="p">(</span><span class="n">len_cx</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">            </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">            </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">            </span><span class="c">! Variable name suffixes have the following meanings:</span>
+<span class="w">            </span><span class="c">! `*_col`: Variable is of each column.</span>
+<span class="w">            </span><span class="c">! `*_prev`: Variable is before being updated by physics.</span>
+<span class="w">            </span><span class="c">! `*_curr`: Variable is after being updated by physics.</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">qv_col_prev</span><span class="p">(:),</span><span class="w"> </span><span class="n">qv_col_curr</span><span class="p">(:)</span><span class="w">         </span><span class="c">! Water vapor mixing ratio (kg kg-1).</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">rhod_col</span><span class="p">(:)</span><span class="w">                            </span><span class="c">! Dry air density (kg m-3).</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">t_col_prev</span><span class="p">(:),</span><span class="w"> </span><span class="n">t_col_curr</span><span class="p">(:)</span><span class="w">           </span><span class="c">! Temperature (K).</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">theta_col_prev</span><span class="p">(:),</span><span class="w"> </span><span class="n">theta_col_curr</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Potential temperature (K).</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">allocatable</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">thetam_col_prev</span><span class="p">(:),</span><span class="w"> </span><span class="n">thetam_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Modified &quot;moist&quot; potential temperature (K).</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">theta_m</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">            </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">theta_m_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Setting MPAS physics tendency &quot;tend_rtheta_physics&quot;&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">theta_m</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">theta_m_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">qv_col_prev</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">qv_col_curr</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;qv_col_prev(pver), qv_col_curr(pver)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">rhod_col</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;rhod_col(pver)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">t_col_prev</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">t_col_curr</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;t_col_prev(pver), t_col_curr(pver)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">theta_col_prev</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">theta_col_curr</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;theta_col_prev(pver), theta_col_curr(pver)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">allocate</span><span class="p">(</span><span class="n">thetam_col_prev</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">thetam_col_curr</span><span class="p">(</span><span class="n">pver</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="s1">&#39;thetam_col_prev(pver), thetam_col_curr(pver)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_coupling&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">theta_m</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;theta_m&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">time_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">theta_m_tendency</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_rtheta_physics&#39;</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Set `theta_m_tendency` column by column. This way, peak memory usage can be reduced.</span>
+<span class="w">            </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">                </span><span class="n">qv_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">scalars</span><span class="p">(</span><span class="n">index_qv</span><span class="p">,</span><span class="w"> </span><span class="p">:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span>
+<span class="w">                </span><span class="n">qv_col_prev</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qv_prev</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">                </span><span class="n">rhod_col</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">zz</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span>
+
+<span class="w">                </span><span class="n">thetam_col_prev</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">theta_m</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span>
+<span class="w">                </span><span class="n">theta_col_prev</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_of_tm_qv</span><span class="p">(</span><span class="n">constant_rd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rv</span><span class="p">,</span><span class="w"> </span><span class="n">thetam_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">qv_col_prev</span><span class="p">)</span>
+<span class="w">                </span><span class="n">t_col_prev</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_of_theta_rhod_qv</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                    </span><span class="n">constant_cpd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_p0</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rv</span><span class="p">,</span><span class="w"> </span><span class="n">theta_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">rhod_col</span><span class="p">,</span><span class="w"> </span><span class="n">qv_col_prev</span><span class="p">)</span>
+
+<span class="w">                </span><span class="c">! Vertical index order is reversed between CAM-SIMA and MPAS.</span>
+<span class="w">                </span><span class="c">! Always call `reverse` when assigning anything to/from the `physics_tend` derived type.</span>
+<span class="w">                </span><span class="n">t_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">t_col_prev</span><span class="p">(:)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">reverse</span><span class="p">(</span><span class="n">phys_tend</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">dtdt_total</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="p">:))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">dtime_phys</span>
+<span class="w">                </span><span class="n">theta_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">theta_of_t_rhod_qv</span><span class="p">(</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                    </span><span class="n">constant_cpd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_p0</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rv</span><span class="p">,</span><span class="w"> </span><span class="n">t_col_curr</span><span class="p">,</span><span class="w"> </span><span class="n">rhod_col</span><span class="p">,</span><span class="w"> </span><span class="n">qv_col_curr</span><span class="p">)</span>
+<span class="w">                </span><span class="n">thetam_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tm_of_t_qv</span><span class="p">(</span><span class="n">constant_rd</span><span class="p">,</span><span class="w"> </span><span class="n">constant_rv</span><span class="p">,</span><span class="w"> </span><span class="n">theta_col_curr</span><span class="p">,</span><span class="w"> </span><span class="n">qv_col_curr</span><span class="p">)</span>
+
+<span class="w">                </span><span class="n">theta_m_tendency</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                    </span><span class="kt">real</span><span class="p">((</span><span class="n">thetam_col_curr</span><span class="p">(:)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">thetam_col_prev</span><span class="p">(:))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">rho_zz</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">dtime_phys</span><span class="p">,</span><span class="w"> </span><span class="n">kind_dyn_mpas</span><span class="p">)</span>
+<span class="w">            </span><span class="k">end do</span>
+
+<span class="k">            deallocate</span><span class="p">(</span><span class="n">qv_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">qv_col_curr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">rhod_col</span><span class="p">)</span>
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">t_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">t_col_curr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">theta_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">theta_col_curr</span><span class="p">)</span>
+<span class="w">            </span><span class="k">deallocate</span><span class="p">(</span><span class="n">thetam_col_prev</span><span class="p">,</span><span class="w"> </span><span class="n">thetam_col_curr</span><span class="p">)</span>
+
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">theta_m</span><span class="p">)</span>
+<span class="w">            </span><span class="k">nullify</span><span class="p">(</span><span class="n">theta_m_tendency</span><span class="p">)</span>
+
+<span class="w">            </span><span class="c">! Because we are injecting data directly into MPAS memory, halo layers need to be updated manually.</span>
+<span class="w">            </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;tend_rtheta_physics&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end subroutine </span><span class="n">set_mpas_physics_tendency_rtheta</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">physics_to_dynamics_coupling</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1486 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>dyn_mpas_compute_edge_wind – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      dyn_mpas_compute_edge_wind
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+            <li class="list-inline-item" id="meta-author"><i class="fa fa-pencil"></i> Michael Duda</li>
+            <li class="list-inline-item" id="meta-date"><i class="fa fa-calendar-o"></i> 16 January 2020</li>
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 1.7% of total for procedures.">65 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_mpas_subdriver.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_mpas_subdriver.f90.html'>dyn_mpas_subdriver.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_mpas_subdriver.html'>dyn_mpas_subdriver</a></li>
+            <li class="breadcrumb-item active" aria-current="page">dyn_mpas_compute_edge_wind</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-cell1">cell1</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-cell2">cell2</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-cellsonedge">cellsonedge</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-east~2">east</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-edgenormalvectors">edgenormalvectors</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-i~18">i</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-nedges~2">nedges</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-north~2">north</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-subname~33">subname</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-ucellmeridional~2">ucellmeridional</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-ucellzonal~2">ucellzonal</a>
+            <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#variable-uedge">uedge</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/dyn_mpas_compute_edge_wind.html#src">dyn_mpas_compute_edge_wind</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2>private  subroutine dyn_mpas_compute_edge_wind(self, wind_tendency)  
+</h2>
+      
+
+        <p>This subroutine computes the edge-normal wind vectors at edge points (i.e.,
+the "u" variable in MPAS "state" pool) from the wind components at cell
+points (i.e., the "uReconstruct{Zonal,Meridional}" variables in MPAS "diag"
+pool). In MPAS, the former are PROGNOSTIC variables, while the latter are
+DIAGNOSTIC variables that are "reconstructed" from the former.
+This subroutine is essentially the inverse function of that reconstruction.
+The purpose is to provide an alternative way for MPAS to initialize from
+zonal and meridional wind components at cell points.
+If <code>wind_tendency</code> is <code>.true.</code>, this subroutine operates on the wind
+tendency due to physics instead.
+Ported and refactored for CAM-SIMA. (KCW, 2024-05-08)</p>
+
+        <h3>Type Bound</h3>
+        <p><a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a></p>
+
+      <h3>Arguments</h3>
+          <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Intent</th><th scope="col">Optional</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-self~12"></span>
+              class(<a href='../type/mpas_dynamical_core_type.html'>mpas_dynamical_core_type</a>),
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>self</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-wind_tendency"></span>
+              logical,
+            </td>
+<td>intent(in)</td>
+              <td></td>            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>wind_tendency</strong></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_compute_edge_wind~~CallsGraph Pages: 1 -->
+<svg id="procdyn_mpas_compute_edge_windCallsGraph" width="641pt" height="296pt"
+ viewBox="0.00 0.00 641.00 296.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph" class="graph" transform="scale(0.398731 0.398731) rotate(0) translate(4 738.27)">
+<title>proc~~dyn_mpas_compute_edge_wind~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-738.27 1603.6,-738.27 1603.6,4 -4,4"/>
+<!-- proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node1" class="node">
+<title>proc~dyn_mpas_compute_edge_wind</title>
+<polygon fill="none" stroke="black" points="337.02,-188.27 0,-188.27 0,-164 337.02,-164 337.02,-188.27"/>
+<text xml:space="preserve" text-anchor="middle" x="168.51" y="-172.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_compute_edge_wind</text>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node2" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node2"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="665.79,-461.27 388.02,-461.27 388.02,-437 665.79,-437 665.79,-461.27"/>
+<text xml:space="preserve" text-anchor="middle" x="526.9" y="-445.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge1" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M185.75,-188.57C242.45,-232.01 431.93,-377.15 500.69,-429.82"/>
+<polygon fill="#000000" stroke="#000000" points="498.3,-432.4 508.37,-435.7 502.56,-426.84 498.3,-432.4"/>
+</g>
+<!-- proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node3" class="node">
+<title>proc~dyn_mpas_debug_print</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node3"><a xlink:href="../proc/dyn_mpas_debug_print.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="1039.93,-188.27 748.66,-188.27 748.66,-164 1039.93,-164 1039.93,-188.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-172.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge2" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M337.38,-176.13C457.94,-176.13 619.28,-176.13 737.09,-176.13"/>
+<polygon fill="#000000" stroke="#000000" points="736.84,-179.64 746.84,-176.14 736.84,-172.64 736.84,-179.64"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node4" class="node">
+<title>proc~dyn_mpas_exchange_halo</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node4"><a xlink:href="../proc/dyn_mpas_exchange_halo.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_exchange_halo">
+<polygon fill="#d9534f" stroke="#d9534f" points="680.79,-125.27 373.02,-125.27 373.02,-101 680.79,-101 680.79,-125.27"/>
+<text xml:space="preserve" text-anchor="middle" x="526.9" y="-109.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_exchange_halo</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge3" class="edge">
+<title>proc~dyn_mpas_compute_edge_wind&#45;&gt;proc~dyn_mpas_exchange_halo</title>
+<path fill="none" stroke="#000000" d="M240.78,-163.54C299.2,-153.21 381.95,-138.58 443.27,-127.74"/>
+<polygon fill="#000000" stroke="#000000" points="443.73,-131.22 452.97,-126.03 442.51,-124.32 443.73,-131.22"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node8" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node8"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.81,-650.27 716.79,-650.27 716.79,-626 1071.81,-626 1071.81,-650.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-634.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge4" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M537.27,-461.61C562.28,-493.86 634.34,-580.05 716.79,-617.13 720.6,-618.85 724.51,-620.44 728.48,-621.92"/>
+<polygon fill="#000000" stroke="#000000" points="727.12,-625.15 737.72,-625.08 729.39,-618.53 727.12,-625.15"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node9" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node9"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.81,-272.27 716.79,-272.27 716.79,-248 1071.81,-248 1071.81,-272.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-256.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge5" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M537.27,-436.66C562.28,-404.41 634.34,-318.22 716.79,-281.13 720.6,-279.42 724.51,-277.83 728.48,-276.35"/>
+<polygon fill="#000000" stroke="#000000" points="729.39,-279.74 737.72,-273.19 727.12,-273.12 729.39,-279.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node10" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node10"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1070.31,-692.27 718.29,-692.27 718.29,-668 1070.31,-668 1070.31,-692.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-676.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge6" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M534.7,-461.64C555.86,-499.2 624.72,-611.39 716.79,-659.13 719.68,-660.63 722.63,-662.04 725.63,-663.37"/>
+<polygon fill="#000000" stroke="#000000" points="724.04,-666.5 734.62,-667 726.66,-660.01 724.04,-666.5"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node11" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node11"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1070.31,-566.27 718.29,-566.27 718.29,-542 1070.31,-542 1070.31,-566.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-550.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge7" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M550.06,-461.64C584.53,-480.47 653.64,-515.76 716.79,-533.13 725.16,-535.44 733.82,-537.49 742.61,-539.31"/>
+<polygon fill="#000000" stroke="#000000" points="741.82,-542.72 752.31,-541.21 743.17,-535.85 741.82,-542.72"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1070.31,-230.27 718.29,-230.27 718.29,-206 1070.31,-206 1070.31,-230.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-214.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge8" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M534.7,-436.63C555.86,-399.07 624.72,-286.88 716.79,-239.13 719.68,-237.64 722.63,-236.23 725.63,-234.9"/>
+<polygon fill="#000000" stroke="#000000" points="726.66,-238.26 734.62,-231.27 724.04,-231.77 726.66,-238.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1070.31,-524.27 718.29,-524.27 718.29,-500 1070.31,-500 1070.31,-524.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-508.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge9" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M578.14,-461.75C616.05,-470.91 669.43,-483.07 716.79,-491.13 731.48,-493.64 746.9,-495.94 762.27,-498.03"/>
+<polygon fill="#000000" stroke="#000000" points="761.56,-501.47 771.93,-499.32 762.48,-494.53 761.56,-501.47"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1070.31,-734.27 718.29,-734.27 718.29,-710 1070.31,-710 1070.31,-734.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-718.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge10" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M532.93,-461.64C550.64,-503.94 614.71,-642.28 716.79,-701.13 719.02,-702.42 721.28,-703.64 723.59,-704.8"/>
+<polygon fill="#000000" stroke="#000000" points="721.99,-707.92 732.54,-708.91 724.91,-701.56 721.99,-707.92"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-608.27 717.54,-608.27 717.54,-584 1071.06,-584 1071.06,-608.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-592.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge11" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M541.32,-461.45C570.62,-487.52 643.56,-548.13 716.79,-575.13 722.17,-577.12 727.7,-578.93 733.33,-580.57"/>
+<polygon fill="#000000" stroke="#000000" points="732.24,-583.9 742.8,-583.14 734.07,-577.15 732.24,-583.9"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-482.27 717.54,-482.27 717.54,-458 1071.06,-458 1071.06,-482.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-466.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge12" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M666.05,-457.07C679.07,-457.82 692.42,-458.59 705.8,-459.36"/>
+<polygon fill="#000000" stroke="#000000" points="705.35,-462.84 715.53,-459.92 705.75,-455.85 705.35,-462.84"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-440.27 717.54,-440.27 717.54,-416 1071.06,-416 1071.06,-440.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-424.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge13" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M666.05,-441.2C679.07,-440.45 692.42,-439.68 705.8,-438.91"/>
+<polygon fill="#000000" stroke="#000000" points="705.75,-442.42 715.53,-438.35 705.35,-435.43 705.75,-442.42"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node18" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node18"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-398.27 717.54,-398.27 717.54,-374 1071.06,-374 1071.06,-398.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-382.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge14" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M578.14,-436.52C616.05,-427.36 669.43,-415.2 716.79,-407.13 731.48,-404.63 746.9,-402.33 762.27,-400.24"/>
+<polygon fill="#000000" stroke="#000000" points="762.48,-403.74 771.93,-398.95 761.56,-396.8 762.48,-403.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node19" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node19"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-356.27 717.54,-356.27 717.54,-332 1071.06,-332 1071.06,-356.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-340.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge15" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M550.06,-436.63C584.53,-417.8 653.64,-382.51 716.79,-365.13 725.16,-362.83 733.82,-360.78 742.61,-358.96"/>
+<polygon fill="#000000" stroke="#000000" points="743.17,-362.42 752.31,-357.06 741.82,-355.55 743.17,-362.42"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node20" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node20"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="1071.06,-314.27 717.54,-314.27 717.54,-290 1071.06,-290 1071.06,-314.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-298.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge16" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M541.32,-436.82C570.62,-410.75 643.56,-350.14 716.79,-323.13 722.17,-321.15 727.7,-319.34 733.33,-317.7"/>
+<polygon fill="#000000" stroke="#000000" points="734.07,-321.12 742.8,-315.13 732.24,-314.37 734.07,-321.12"/>
+</g>
+<!-- proc~stringify -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node21" class="node">
+<title>proc~stringify</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node21"><a xlink:href="../proc/stringify.html" xlink:title="stringify">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="1293.33,-126.27 1239.06,-126.27 1239.06,-102 1293.33,-102 1293.33,-126.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1266.19" y="-110.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_debug_print&#45;&gt;proc~stringify -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge17" class="edge">
+<title>proc~dyn_mpas_debug_print&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M1013.72,-163.54C1033.17,-161.05 1053.08,-158.23 1071.81,-155.13 1126.51,-146.1 1189.19,-132.14 1227.99,-123.07"/>
+<polygon fill="#000000" stroke="#000000" points="1228.35,-126.58 1237.28,-120.88 1226.74,-119.77 1228.35,-126.58"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge21" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;proc~dyn_mpas_debug_print</title>
+<path fill="none" stroke="#000000" d="M578.14,-125.75C616.05,-134.91 669.43,-147.07 716.79,-155.13 731.48,-157.64 746.9,-159.94 762.27,-162.03"/>
+<polygon fill="#000000" stroke="#000000" points="761.56,-165.47 771.93,-163.32 762.48,-158.53 761.56,-165.47"/>
+</g>
+<!-- mpas_dmpar_exch_halo_field -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node5" class="node">
+<title>mpas_dmpar_exch_halo_field</title>
+<polygon fill="#777777" stroke="#777777" points="978.43,-24.27 810.16,-24.27 810.16,0 978.43,0 978.43,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dmpar_exch_halo_field</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_dmpar_exch_halo_field -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge18" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_dmpar_exch_halo_field</title>
+<path fill="none" stroke="#000000" d="M553.84,-100.6C589.65,-83.81 656.64,-54.27 716.79,-38.13 742.97,-31.11 771.87,-25.85 798.58,-21.97"/>
+<polygon fill="#000000" stroke="#000000" points="798.96,-25.45 808.38,-20.6 797.99,-18.52 798.96,-25.45"/>
+</g>
+<!-- mpas_pool_get_field -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node6" class="node">
+<title>mpas_pool_get_field</title>
+<polygon fill="#777777" stroke="#777777" points="954.43,-146.27 834.16,-146.27 834.16,-122 954.43,-122 954.43,-146.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-130.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_field</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge19" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field</title>
+<path fill="none" stroke="#000000" d="M681.28,-121.95C730.44,-124.78 782.52,-127.77 822.76,-130.08"/>
+<polygon fill="#000000" stroke="#000000" points="822.35,-133.56 832.53,-130.64 822.75,-126.57 822.35,-133.56"/>
+</g>
+<!-- mpas_pool_get_field_info -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node7" class="node">
+<title>mpas_pool_get_field_info</title>
+<polygon fill="#777777" stroke="#777777" points="967.18,-104.27 821.41,-104.27 821.41,-80 967.18,-80 967.18,-104.27"/>
+<text xml:space="preserve" text-anchor="middle" x="894.3" y="-88.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_field_info</text>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field_info -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge20" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;mpas_pool_get_field_info</title>
+<path fill="none" stroke="#000000" d="M681.28,-104.32C725.36,-101.79 771.78,-99.12 809.91,-96.93"/>
+<polygon fill="#000000" stroke="#000000" points="809.66,-100.45 819.44,-96.38 809.26,-93.46 809.66,-100.45"/>
+</g>
+<!-- proc~dyn_mpas_exchange_halo&#45;&gt;proc~stringify -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge22" class="edge">
+<title>proc~dyn_mpas_exchange_halo&#45;&gt;proc~stringify</title>
+<path fill="none" stroke="#000000" d="M571.72,-100.53C609.71,-90.29 666.37,-76.67 716.79,-71.13 873.63,-53.91 914.97,-53.91 1071.81,-71.13 1126.89,-77.18 1189.23,-92.65 1227.88,-103.28"/>
+<polygon fill="#000000" stroke="#000000" points="1226.57,-106.55 1237.14,-105.87 1228.45,-99.81 1226.57,-106.55"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node22" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1328.95,-440.27 1203.43,-440.27 1203.43,-416 1328.95,-416 1328.95,-440.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1266.19" y="-424.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge23" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1060.97,-625.63C1064.76,-623.08 1068.39,-620.25 1071.81,-617.13 1128.25,-565.7 1051.74,-500.97 1107.81,-449.13 1130.16,-428.48 1162.5,-421.73 1192.06,-420.74"/>
+<polygon fill="#000000" stroke="#000000" points="1191.75,-424.24 1201.71,-420.64 1191.67,-417.24 1191.75,-424.24"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node23" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1331.2,-671.27 1201.18,-671.27 1201.18,-647 1331.2,-647 1331.2,-671.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1266.19" y="-655.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge24" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1072.12,-648.17C1113.51,-650.52 1155.44,-652.9 1189.6,-654.84"/>
+<polygon fill="#000000" stroke="#000000" points="1189.18,-658.33 1199.37,-655.4 1189.58,-651.34 1189.18,-658.33"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node25" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node25"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1424.58,-482.27 1107.81,-482.27 1107.81,-458 1424.58,-458 1424.58,-482.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1266.19" y="-466.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge25" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1053.11,-625.59C1059.56,-623.13 1065.82,-620.33 1071.81,-617.13 1093.5,-605.56 1089.41,-591.44 1107.81,-575.13 1147.46,-539.99 1199.63,-507.44 1232.8,-488.18"/>
+<polygon fill="#000000" stroke="#000000" points="1234.21,-491.41 1241.14,-483.39 1230.72,-485.34 1234.21,-491.41"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge26" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1046.87,-272.73C1055.43,-275.11 1063.8,-277.9 1071.81,-281.13 1144.31,-310.44 1213.24,-374.42 1245.74,-407.46"/>
+<polygon fill="#000000" stroke="#000000" points="1243.03,-409.7 1252.5,-414.45 1248.06,-404.83 1243.03,-409.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge27" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1060.97,-272.64C1064.76,-275.19 1068.39,-278.02 1071.81,-281.13 1128.25,-332.57 1051.74,-397.3 1107.81,-449.13 1108.46,-449.73 1109.11,-450.32 1109.77,-450.89"/>
+<polygon fill="#000000" stroke="#000000" points="1107.5,-453.56 1117.59,-456.81 1111.73,-447.98 1107.5,-453.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge28" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1061.51,-667.56C1065.12,-665.02 1068.57,-662.22 1071.81,-659.13 1140.47,-593.92 1039.62,-514.84 1107.81,-449.13 1129.81,-427.93 1162.27,-421.16 1192,-420.28"/>
+<polygon fill="#000000" stroke="#000000" points="1191.74,-423.79 1201.72,-420.23 1191.7,-416.79 1191.74,-423.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge29" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1070.77,-670.17C1112.51,-667.8 1154.89,-665.4 1189.38,-663.44"/>
+<polygon fill="#000000" stroke="#000000" points="1189.47,-666.94 1199.26,-662.88 1189.08,-659.95 1189.47,-666.94"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node24" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1342.45,-608.27 1189.93,-608.27 1189.93,-584 1342.45,-584 1342.45,-608.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1266.19" y="-592.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge30" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1041.32,-667.56C1051.75,-665.2 1062.01,-662.42 1071.81,-659.13 1089.37,-653.25 1090.71,-645.25 1107.81,-638.13 1134.43,-627.06 1164.81,-618.14 1191.73,-611.42"/>
+<polygon fill="#000000" stroke="#000000" points="1192.28,-614.89 1201.17,-609.13 1190.63,-608.09 1192.28,-614.89"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge31" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1058.59,-667.62C1063.19,-665.09 1067.61,-662.28 1071.81,-659.13 1104.34,-634.81 1081.84,-606.37 1107.81,-575.13 1140.59,-535.71 1191.91,-505.33 1226.97,-487.62"/>
+<polygon fill="#000000" stroke="#000000" points="1228.07,-490.98 1235.49,-483.41 1224.97,-484.7 1228.07,-490.98"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge32" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1058.59,-541.62C1063.19,-539.09 1067.61,-536.28 1071.81,-533.13 1104.34,-508.81 1075.46,-473.69 1107.81,-449.13 1131.46,-431.18 1163.07,-424.62 1191.75,-423.04"/>
+<polygon fill="#000000" stroke="#000000" points="1191.6,-426.55 1201.48,-422.71 1191.37,-419.55 1191.6,-426.55"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge33" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M1006.53,-566.76C1061.52,-573.01 1126.9,-580.43 1178.18,-586.25"/>
+<polygon fill="#000000" stroke="#000000" points="1177.72,-589.73 1188.05,-587.38 1178.51,-582.77 1177.72,-589.73"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge34" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1025.92,-541.53C1041.46,-539.16 1057.04,-536.39 1071.81,-533.13 1124.92,-521.44 1184.13,-501.02 1222.87,-486.6"/>
+<polygon fill="#000000" stroke="#000000" points="1223.68,-490.03 1231.81,-483.23 1221.22,-483.48 1223.68,-490.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge35" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1050.98,-230.74C1058.15,-233.16 1065.13,-235.94 1071.81,-239.13 1153.41,-278.17 1221.72,-365.5 1250.53,-406.33"/>
+<polygon fill="#000000" stroke="#000000" points="1247.55,-408.17 1256.12,-414.4 1253.3,-404.19 1247.55,-408.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge36" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1061.51,-230.71C1065.12,-233.25 1068.57,-236.05 1071.81,-239.13 1140.47,-304.35 1039.62,-383.43 1107.81,-449.13 1108.32,-449.63 1108.84,-450.11 1109.36,-450.59"/>
+<polygon fill="#000000" stroke="#000000" points="1107.09,-453.26 1117.1,-456.73 1111.44,-447.77 1107.09,-453.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge37" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1053.11,-499.59C1059.56,-497.13 1065.82,-494.33 1071.81,-491.13 1093.5,-479.56 1086.2,-460.87 1107.81,-449.13 1133.15,-435.38 1164.05,-429.36 1191.74,-427.05"/>
+<polygon fill="#000000" stroke="#000000" points="1191.73,-430.56 1201.48,-426.39 1191.26,-423.57 1191.73,-430.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge38" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1006.53,-499.51C1049.49,-494.63 1098.8,-489.03 1142.76,-484.04"/>
+<polygon fill="#000000" stroke="#000000" points="1143.07,-487.52 1152.61,-482.92 1142.28,-480.57 1143.07,-487.52"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge39" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1014.68,-709.5C1033.83,-707.02 1053.4,-704.22 1071.81,-701.13 1115.91,-693.74 1165.15,-683.01 1202.91,-674.24"/>
+<polygon fill="#000000" stroke="#000000" points="1203.33,-677.74 1212.27,-672.06 1201.74,-670.93 1203.33,-677.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge40" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1060.31,-709.57C1064.32,-707.04 1068.17,-704.24 1071.81,-701.13 1116.15,-663.37 1073.48,-622.18 1107.81,-575.13 1137.59,-534.32 1188.4,-504.65 1224.22,-487.46"/>
+<polygon fill="#000000" stroke="#000000" points="1225.4,-490.77 1232.98,-483.38 1222.44,-484.43 1225.4,-490.77"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge41" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1060.31,-583.57C1064.32,-581.04 1068.17,-578.24 1071.81,-575.13 1116.15,-537.37 1063.74,-487.21 1107.81,-449.13 1130.55,-429.49 1162.47,-422.76 1191.62,-421.52"/>
+<polygon fill="#000000" stroke="#000000" points="1191.61,-425.02 1201.54,-421.33 1191.48,-418.03 1191.61,-425.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge42" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M1014.68,-608.77C1033.83,-611.25 1053.4,-614.05 1071.81,-617.13 1115.91,-624.53 1165.15,-635.26 1202.91,-644.03"/>
+<polygon fill="#000000" stroke="#000000" points="1201.74,-647.34 1212.27,-646.21 1203.33,-640.53 1201.74,-647.34"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge43" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1039.8,-583.52C1050.74,-581.18 1061.52,-578.41 1071.81,-575.13 1135.37,-554.92 1202.18,-513.44 1238.24,-489.11"/>
+<polygon fill="#000000" stroke="#000000" points="1240.04,-492.12 1246.32,-483.58 1236.09,-486.34 1240.04,-492.12"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge44" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1006.53,-457.51C1066.49,-450.7 1138.81,-442.49 1191.72,-436.48"/>
+<polygon fill="#000000" stroke="#000000" points="1192,-439.97 1201.54,-435.36 1191.21,-433.01 1192,-439.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1071.31,-470.13C1079.63,-470.13 1087.98,-470.13 1096.28,-470.13"/>
+<polygon fill="#000000" stroke="#000000" points="1096.06,-473.64 1106.06,-470.14 1096.06,-466.64 1096.06,-473.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1071.31,-428.13C1113.81,-428.13 1156.94,-428.13 1191.7,-428.13"/>
+<polygon fill="#000000" stroke="#000000" points="1191.64,-431.64 1201.64,-428.14 1191.64,-424.64 1191.64,-431.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1006.53,-440.76C1049.49,-445.64 1098.8,-451.24 1142.76,-456.23"/>
+<polygon fill="#000000" stroke="#000000" points="1142.28,-459.7 1152.61,-457.35 1143.07,-452.75 1142.28,-459.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1006.53,-398.76C1066.49,-405.57 1138.81,-413.78 1191.72,-419.79"/>
+<polygon fill="#000000" stroke="#000000" points="1191.21,-423.26 1201.54,-420.91 1192,-416.3 1191.21,-423.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge49" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1053.11,-398.68C1059.56,-401.14 1065.82,-403.94 1071.81,-407.13 1093.5,-418.71 1086.2,-437.4 1107.81,-449.13 1110.5,-450.6 1113.25,-451.97 1116.06,-453.26"/>
+<polygon fill="#000000" stroke="#000000" points="1114.45,-456.38 1125.02,-457 1117.14,-449.92 1114.45,-456.38"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge50" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1025.92,-356.74C1041.46,-359.11 1057.04,-361.88 1071.81,-365.13 1124.92,-376.83 1184.13,-397.25 1222.87,-411.67"/>
+<polygon fill="#000000" stroke="#000000" points="1221.22,-414.79 1231.81,-415.04 1223.68,-408.24 1221.22,-414.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge51" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1058.59,-356.65C1063.19,-359.18 1067.61,-361.99 1071.81,-365.13 1104.34,-389.46 1075.46,-424.58 1107.81,-449.13 1108.98,-450.03 1110.18,-450.89 1111.39,-451.72"/>
+<polygon fill="#000000" stroke="#000000" points="1109.36,-454.59 1119.72,-456.82 1113.01,-448.61 1109.36,-454.59"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge52" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M1039.8,-314.75C1050.74,-317.09 1061.52,-319.86 1071.81,-323.13 1135.37,-343.35 1202.18,-384.83 1238.24,-409.16"/>
+<polygon fill="#000000" stroke="#000000" points="1236.09,-411.93 1246.32,-414.69 1240.04,-406.15 1236.09,-411.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge53" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M1060.31,-314.7C1064.32,-317.23 1068.17,-320.03 1071.81,-323.13 1116.15,-360.9 1063.74,-411.06 1107.81,-449.13 1108.61,-449.82 1109.42,-450.5 1110.24,-451.16"/>
+<polygon fill="#000000" stroke="#000000" points="1107.99,-453.86 1118.18,-456.76 1112.03,-448.13 1107.99,-453.86"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_node26" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="1599.6,-482.27 1460.58,-482.27 1460.58,-458 1599.6,-458 1599.6,-482.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1530.09" y="-466.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CallsGraph_edge54" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1424.83,-470.13C1432.96,-470.13 1440.94,-470.13 1448.65,-470.13"/>
+<polygon fill="#000000" stroke="#000000" points="1448.61,-473.64 1458.61,-470.14 1448.61,-466.64 1448.61,-473.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocdyn_mpas_compute_edge_windCallsGraph = svgPanZoom('#procdyn_mpas_compute_edge_windCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~dyn_mpas_compute_edge_wind~~CalledByGraph Pages: 1 -->
+<svg id="procdyn_mpas_compute_edge_windCalledByGraph" width="641pt" height="44pt"
+ viewBox="0.00 0.00 641.00 44.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph" class="graph" transform="scale(0.587615 0.587615) rotate(0) translate(4 70.27)">
+<title>proc~~dyn_mpas_compute_edge_wind~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-70.27 1086.85,-70.27 1086.85,4 -4,4"/>
+<!-- proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node1" class="node">
+<title>proc~dyn_mpas_compute_edge_wind</title>
+<polygon fill="none" stroke="black" points="1082.85,-45.27 745.83,-45.27 745.83,-21 1082.85,-21 1082.85,-45.27"/>
+<text xml:space="preserve" text-anchor="middle" x="914.34" y="-29.53" font-family="Helvetica,sans-Serif" font-size="10.50">mpas_dynamical_core_type%dyn_mpas_compute_edge_wind</text>
+</g>
+<!-- none~set_mpas_physics_tendency_ru -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node2" class="node">
+<title>none~set_mpas_physics_tendency_ru</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node2"><a xlink:href="../proc/physics_to_dynamics_coupling.html#proc-set_mpas_physics_tendency_ru" xlink:title="set_mpas_physics_tendency_ru">
+<polygon fill="#d9534f" stroke="#d9534f" points="709.83,-66.27 532.56,-66.27 532.56,-42 709.83,-42 709.83,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="621.19" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_physics_tendency_ru</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge1" class="edge">
+<title>none~set_mpas_physics_tendency_ru&#45;&gt;proc~dyn_mpas_compute_edge_wind</title>
+<path fill="none" stroke="#000000" d="M709.94,-47.81C717.77,-47.24 725.86,-46.66 734.11,-46.06"/>
+<polygon fill="#000000" stroke="#000000" points="734.21,-49.56 743.93,-45.35 733.7,-42.58 734.21,-49.56"/>
+</g>
+<!-- none~set_mpas_state_u -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node3" class="node">
+<title>none~set_mpas_state_u</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node3"><a xlink:href="../proc/set_analytic_initial_condition.html#proc-set_mpas_state_u" xlink:title="set_mpas_state_u">
+<polygon fill="#d9534f" stroke="#d9534f" points="673.83,-24.27 568.56,-24.27 568.56,0 673.83,0 673.83,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="621.19" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_mpas_state_u</text>
+</a>
+</g>
+</g>
+<!-- none~set_mpas_state_u&#45;&gt;proc~dyn_mpas_compute_edge_wind -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge2" class="edge">
+<title>none~set_mpas_state_u&#45;&gt;proc~dyn_mpas_compute_edge_wind</title>
+<path fill="none" stroke="#000000" d="M674.25,-15.89C691.73,-17.15 712.33,-18.64 733.98,-20.2"/>
+<polygon fill="#000000" stroke="#000000" points="733.66,-23.68 743.88,-20.91 734.16,-16.7 733.66,-23.68"/>
+</g>
+<!-- proc~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node4" class="node">
+<title>proc~physics_to_dynamics_coupling</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node4"><a xlink:href="../proc/physics_to_dynamics_coupling.html" xlink:title="physics_to_dynamics_coupling">
+<polygon fill="#d9534f" stroke="#d9534f" points="496.56,-66.27 323.04,-66.27 323.04,-42 496.56,-42 496.56,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="409.8" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_to_dynamics_coupling</text>
+</a>
+</g>
+</g>
+<!-- proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge3" class="edge">
+<title>proc~physics_to_dynamics_coupling&#45;&gt;none~set_mpas_physics_tendency_ru</title>
+<path fill="none" stroke="#000000" d="M496.88,-54.13C504.77,-54.13 512.82,-54.13 520.82,-54.13"/>
+<polygon fill="#000000" stroke="#000000" points="520.57,-57.64 530.57,-54.14 520.57,-50.64 520.57,-57.64"/>
+</g>
+<!-- proc~set_analytic_initial_condition -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node5" class="node">
+<title>proc~set_analytic_initial_condition</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node5"><a xlink:href="../proc/set_analytic_initial_condition.html" xlink:title="set_analytic_initial_condition">
+<polygon fill="#d9534f" stroke="#d9534f" points="491.68,-24.27 327.91,-24.27 327.91,0 491.68,0 491.68,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="409.8" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">set_analytic_initial_condition</text>
+</a>
+</g>
+</g>
+<!-- proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_u -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge4" class="edge">
+<title>proc~set_analytic_initial_condition&#45;&gt;none~set_mpas_state_u</title>
+<path fill="none" stroke="#000000" d="M492.06,-12.13C513.59,-12.13 536.51,-12.13 556.93,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="556.8,-15.64 566.8,-12.14 556.8,-8.64 556.8,-15.64"/>
+</g>
+<!-- interface~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node6" class="node">
+<title>interface~physics_to_dynamics_coupling</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node6"><a xlink:href="../interface/physics_to_dynamics_coupling.html" xlink:title="physics_to_dynamics_coupling">
+<polygon fill="#a7506f" stroke="#a7506f" points="287.04,-66.27 113.52,-66.27 113.52,-42 287.04,-42 287.04,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="200.28" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">physics_to_dynamics_coupling</text>
+</a>
+</g>
+</g>
+<!-- interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge5" class="edge">
+<title>interface~physics_to_dynamics_coupling&#45;&gt;proc~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M287.48,-54.13C295.43,-54.13 303.52,-54.13 311.56,-54.13"/>
+<polygon fill="#000000" stroke="#000000" points="311.35,-57.64 321.35,-54.14 311.35,-50.64 311.35,-57.64"/>
+</g>
+<!-- proc~dyn_init -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node7" class="node">
+<title>proc~dyn_init</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node7"><a xlink:href="../proc/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="227.28,-24.27 173.28,-24.27 173.28,0 227.28,0 227.28,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="200.28" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_init&#45;&gt;proc~set_analytic_initial_condition -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge6" class="edge">
+<title>proc~dyn_init&#45;&gt;proc~set_analytic_initial_condition</title>
+<path fill="none" stroke="#000000" d="M227.56,-12.13C250.1,-12.13 283.97,-12.13 316.35,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="316.2,-15.64 326.2,-12.14 316.2,-8.64 316.2,-15.64"/>
+</g>
+<!-- interface~dyn_init -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node8" class="node">
+<title>interface~dyn_init</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node8"><a xlink:href="../interface/dyn_init.html" xlink:title="dyn_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="65.76,-24.27 11.76,-24.27 11.76,0 65.76,0 65.76,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="38.76" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_init</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_init&#45;&gt;proc~dyn_init -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge8" class="edge">
+<title>interface~dyn_init&#45;&gt;proc~dyn_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M66.1,-12.13C92.08,-12.13 132.05,-12.13 161.42,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="161.39,-15.64 171.39,-12.14 161.39,-8.64 161.39,-15.64"/>
+</g>
+<!-- proc~stepon_run2 -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node9" class="node">
+<title>proc~stepon_run2</title>
+<g id="a_proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_node9"><a xlink:href="../proc/stepon_run2.html" xlink:title="stepon_run2">
+<polygon fill="#d9534f" stroke="#d9534f" points="77.52,-66.27 0,-66.27 0,-42 77.52,-42 77.52,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="38.76" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stepon_run2</text>
+</a>
+</g>
+</g>
+<!-- proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling -->
+<g id="proc~~dyn_mpas_compute_edge_wind~~CalledByGraph_edge7" class="edge">
+<title>proc~stepon_run2&#45;&gt;interface~physics_to_dynamics_coupling</title>
+<path fill="none" stroke="#000000" d="M77.97,-54.13C85.47,-54.13 93.65,-54.13 102.1,-54.13"/>
+<polygon fill="#000000" stroke="#000000" points="101.82,-57.64 111.82,-54.14 101.82,-50.64 101.82,-57.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocdyn_mpas_compute_edge_windCalledByGraph = svgPanZoom('#procdyn_mpas_compute_edge_windCalledByGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cell1"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cell1</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cell2"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cell2</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cellsonedge"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>cellsonedge</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-east~2"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>east</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-edgenormalvectors"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>edgenormalvectors</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i~18"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-nedges~2"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>nedges</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-north~2"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>north</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~33"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_mpas_subdriver::dyn_mpas_compute_edge_wind&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ucellmeridional~2"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>ucellmeridional</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ucellzonal~2"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>ucellzonal</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-uedge"></span>
+              real(kind=rkind),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>uedge</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">dyn_mpas_compute_edge_wind</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">wind_tendency</span><span class="p">)</span>
+<span class="w">        </span><span class="k">class</span><span class="p">(</span><span class="n">mpas_dynamical_core_type</span><span class="p">),</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">self</span>
+<span class="w">        </span><span class="kt">logical</span><span class="p">,</span><span class="w"> </span><span class="k">intent</span><span class="p">(</span><span class="n">in</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">wind_tendency</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_mpas_subdriver::dyn_mpas_compute_edge_wind&#39;</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cell1</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cellsonedge</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">nedges</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">east</span><span class="p">(:,</span><span class="w"> </span><span class="p">:),</span><span class="w"> </span><span class="n">north</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">edgenormalvectors</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ucellzonal</span><span class="p">(:,</span><span class="w"> </span><span class="p">:),</span><span class="w"> </span><span class="n">ucellmeridional</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">rkind</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">uedge</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">debug_print</span><span class="p">(</span><span class="n">log_level_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; entered&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">nedges</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">ucellzonal</span><span class="p">,</span><span class="w"> </span><span class="n">ucellmeridional</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">cellsonedge</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">east</span><span class="p">,</span><span class="w"> </span><span class="n">north</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">uedge</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Make sure halo layers are up-to-date before computation.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wind_tendency</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;tend_uzonal&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;tend_umerid&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;uReconstructZonal&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;uReconstructMeridional&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="w">        </span><span class="c">! Input.</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">nedges</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;dim&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nEdges&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wind_tendency</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">ucellzonal</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_uzonal&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">ucellmeridional</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_umerid&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">ucellzonal</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;diag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;uReconstructZonal&#39;</span><span class="p">)</span>
+<span class="w">            </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">ucellmeridional</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;diag&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;uReconstructMeridional&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="k">        call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">cellsonedge</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cellsOnEdge&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">east</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;east&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">north</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;north&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;edgeNormalVectors&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Output.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wind_tendency</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">uedge</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_physics&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;tend_ru_physics&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">uedge</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;state&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;u&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">time_level</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="k">        if</span><span class="w"> </span><span class="p">(</span><span class="n">wind_tendency</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">debug_print</span><span class="p">(</span><span class="n">log_level_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Computing edge-normal wind tendency vectors&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">debug_print</span><span class="p">(</span><span class="n">log_level_info</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Computing edge-normal wind vectors&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="k">        do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nedges</span>
+<span class="w">            </span><span class="n">cell1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cellsonedge</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">            </span><span class="n">cell2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cellsonedge</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+
+<span class="w">            </span><span class="n">uedge</span><span class="p">(:,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ucellzonal</span><span class="p">(:,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5_rkind</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                              </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                              </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                          </span><span class="n">ucellmeridional</span><span class="p">(:,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5_rkind</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                                   </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                                   </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">cell1</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                          </span><span class="n">ucellzonal</span><span class="p">(:,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5_rkind</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                              </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                              </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">east</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                          </span><span class="n">ucellmeridional</span><span class="p">(:,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.5_rkind</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                                   </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">)</span><span class="w">  </span><span class="o">+</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                                                   </span><span class="n">edgenormalvectors</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">north</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">cell2</span><span class="p">))</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="k">        nullify</span><span class="p">(</span><span class="n">nedges</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">ucellzonal</span><span class="p">,</span><span class="w"> </span><span class="n">ucellmeridional</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">cellsonedge</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">east</span><span class="p">,</span><span class="w"> </span><span class="n">north</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">edgenormalvectors</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">uedge</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Make sure halo layers are up-to-date after computation.</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">wind_tendency</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;tend_ru_physics&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="k">            call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">exchange_halo</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end if</span>
+
+<span class="k">        call </span><span class="n">self</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">debug_print</span><span class="p">(</span><span class="n">log_level_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; completed&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">dyn_mpas_compute_edge_wind</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>

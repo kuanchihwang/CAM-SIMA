@@ -1,0 +1,1916 @@
+<!-- -*- mode: jinja2 -*- -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="description" content="MPAS dynamical core solves the fully compressible non-hydrostatic equations of atmospheric motion.">
+    <meta name="author" content="CAM-SIMA & MPAS Developers">
+    <link href="../favicon.png" rel="icon">
+
+    <title>define_cam_grid – MPAS Dynamical Core</title>
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      crossorigin="anonymous"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      rel="stylesheet"
+    >
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      crossorigin="anonymous"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    ></script>
+    <!-- Font Awesome -->
+    <link href="../css/fontawesome.min.css" rel="stylesheet">
+    <link href="../css/brands.min.css" rel="stylesheet">
+    <link href="../css/regular.min.css" rel="stylesheet">
+    <link href="../css/solid.min.css" rel="stylesheet">
+    <link href="../css/v4-font-face.min.css" rel="stylesheet">
+    <link href="../css/v4-shims.min.css" rel="stylesheet">
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        TeX: { equationNumbers: { autoNumber: "AMS" } }
+      });
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
+      async
+      crossorigin="anonymous"
+      integrity="sha256-DViIOMYdwlM/axqoGDPeUyf0urLoHMN4QACBKyB58Uw="
+    ></script>
+    <!-- Other scripts and stylesheets -->
+    <link href="../css/local.css" rel="stylesheet">
+    <link href="../css/pygments.css" rel="stylesheet">
+    <script src="../js/svg-pan-zoom.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Fixed navbar -->
+    <div class="container-fluid mb-sm-4 mb-xl-2">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+          <a class="navbar-brand" href="../index.html"
+            >MPAS Dynamical Core </a
+          >
+          <button
+            class="navbar-toggler"
+            data-bs-target="#navbar"
+            data-bs-toggle="collapse"
+            type="button"
+            aria-controls="navbar"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="navbar-collapse collapse" id="navbar">
+            <ul class="navbar-nav">
+                  <li class="nav-item">
+                    <a class="nav-link" href="../lists/files.html">Source Files</a>
+                  </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/modules.html">Modules</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/procedures.html">Procedures</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/absint.html">Abstract Interfaces</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../lists/types.html">Derived Types</a>
+                </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="container">
+  <div class="row">
+    <h1>
+      define_cam_grid
+      <small
+        >          Subroutine
+</small
+      >
+      
+    </h1>
+      <div class="container p-2 mb-4 bg-light border rounded-3">
+    <div class="row align-items-center justify-content-between" id="info-bar">
+      <div class="col">
+        <ul class="list-inline">
+
+            <li class="list-inline-item" id="statements"><i class="fa fa-list-ol"></i>
+              <a data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-html="true"
+                 title=" 3.2% of total for procedures.">122 statements</a>
+            </li>
+
+            <li class="list-inline-item" id="source-file">
+              <i class="fa fa-code"></i>
+              <a href="../src/dyn_grid_impl.F90">Source File</a>
+            </li>
+        </ul>
+      </div>
+      <div class="col">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb justify-content-end mb-0">
+                <li class="breadcrumb-item"><a href='../sourcefile/dyn_grid_impl.f90.html'>dyn_grid_impl.F90</a></li>
+                <li class="breadcrumb-item"><a href='../module/dyn_grid_impl.html'>dyn_grid_impl</a></li>
+            <li class="breadcrumb-item active" aria-current="page">define_cam_grid</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Enable Bootstrap tooltips
+    (function () {
+      const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    })();
+  </script>
+
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 hidden-xs hidden-sm visible-md visible-lg">  <div id="sidebar">
+      <h3>Contents</h3>
+  
+      <div class="card mb-4">
+      <a data-bs-toggle="collapse" href="#vars-0"
+         aria-expanded="false" aria-controls="vars-0">
+         <h4 class="card-header bg-primary text-white">Variables</h4>
+      </a>
+      <div id="vars-0" class="collapse">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-areacell~2">areacell</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-cell_area">cell_area</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-cell_weight">cell_weight</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-cerr~3">cerr</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-global_grid_index">global_grid_index</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-global_grid_map">global_grid_map</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-i~2">i</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-ierr~3">ierr</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-indextocellid~2">indextocellid</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-indextoedgeid">indextoedgeid</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-indextovertexid">indextovertexid</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-lat_coord">lat_coord</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-latcell~2">latcell</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-latedge">latedge</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-latvertex">latvertex</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-lon_coord">lon_coord</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-loncell~2">loncell</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-lonedge">lonedge</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-lonvertex">lonvertex</a>
+            <a class="list-group-item" href="../proc/define_cam_grid.html#variable-subname~5">subname</a>
+        </div>
+      </div>
+    </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+    <div class="card card-primary">
+      <div class="card-header text-left"><h3 class="card-title">Source Code</h3></div>
+      <div class="list-group">
+        <a class="list-group-item" href="../proc/define_cam_grid.html#src">define_cam_grid</a>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+    <div class="col-md-9" id="text">
+      <h2> subroutine define_cam_grid()  
+</h2>
+          <div class="card mb-4">
+      <h3 class="card-header card-title bg-light">Uses</h3>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <ul class="list-inline">
+                  <li class="list-inline-item">string_utils</li>
+                  <li class="list-inline-item">cam_grid_support</li>
+                  <li class="list-inline-item">cam_logfile</li>
+                  <li class="list-inline-item"><a href='../module/dyn_comp.html'>dyn_comp</a></li>
+                  <li class="list-inline-item">cam_abortutils</li>
+                  <li class="list-inline-item">cam_map_utils</li>
+                  <li class="list-inline-item">dynconst</li>
+                  <li class="list-inline-item">shr_kind_mod</li>
+              </ul>
+            </li>
+            <li class="list-group-item">
+              <div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~define_cam_grid~~UsesGraph Pages: 1 -->
+<svg id="procdefine_cam_gridUsesGraph" width="564pt" height="326pt"
+ viewBox="0.00 0.00 564.00 326.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~define_cam_grid~~UsesGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 322.27)">
+<title>proc~~define_cam_grid~~UsesGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-322.27 560.08,-322.27 560.08,4 -4,4"/>
+<!-- proc~define_cam_grid -->
+<g id="proc~~define_cam_grid~~UsesGraph_node1" class="node">
+<title>proc~define_cam_grid</title>
+<polygon fill="none" stroke="black" points="556.08,-171.27 456.06,-171.27 456.06,-147 556.08,-147 556.08,-171.27"/>
+<text xml:space="preserve" text-anchor="middle" x="506.07" y="-155.53" font-family="Helvetica,sans-Serif" font-size="10.50">define_cam_grid</text>
+</g>
+<!-- cam_abortutils -->
+<g id="proc~~define_cam_grid~~UsesGraph_node2" class="node">
+<title>cam_abortutils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="411.81,-318.27 321.54,-318.27 321.54,-294 411.81,-294 411.81,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_abortutils</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_abortutils -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge1" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_abortutils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M499.71,-171.68C488.46,-196.62 460.1,-252.81 420.06,-285.13 418.92,-286.05 417.74,-286.93 416.52,-287.78"/>
+<polygon fill="#000000" stroke="#000000" points="414.77,-284.75 407.94,-292.85 418.33,-290.78 414.77,-284.75"/>
+</g>
+<!-- cam_grid_support -->
+<g id="proc~~define_cam_grid~~UsesGraph_node3" class="node">
+<title>cam_grid_support</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="420.06,-276.27 313.29,-276.27 313.29,-252 420.06,-252 420.06,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_grid_support</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_grid_support -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge2" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_grid_support</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M495.3,-171.53C480.63,-189.45 451.29,-222.66 420.06,-243.13 418.25,-244.32 416.36,-245.46 414.41,-246.55"/>
+<polygon fill="#000000" stroke="#000000" points="413.11,-243.29 405.76,-250.92 416.26,-249.54 413.11,-243.29"/>
+</g>
+<!-- cam_logfile -->
+<g id="proc~~define_cam_grid~~UsesGraph_node4" class="node">
+<title>cam_logfile</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="403.18,-234.27 330.16,-234.27 330.16,-210 403.18,-210 403.18,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_logfile</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_logfile -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge3" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_logfile</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M481.12,-171.59C464.22,-180.22 440.95,-191.8 420.06,-201.13 417.08,-202.46 413.99,-203.8 410.87,-205.13"/>
+<polygon fill="#000000" stroke="#000000" points="409.55,-201.89 401.65,-208.95 412.23,-208.35 409.55,-201.89"/>
+</g>
+<!-- cam_map_utils -->
+<g id="proc~~define_cam_grid~~UsesGraph_node5" class="node">
+<title>cam_map_utils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="412.18,-192.27 321.16,-192.27 321.16,-168 412.18,-168 412.18,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_map_utils</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_map_utils -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge4" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_map_utils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M455.86,-166.66C445.45,-168.25 434.4,-169.94 423.76,-171.56"/>
+<polygon fill="#000000" stroke="#000000" points="423.28,-168.09 413.93,-173.07 424.34,-175.01 423.28,-168.09"/>
+</g>
+<!-- dynconst -->
+<g id="proc~~define_cam_grid~~UsesGraph_node6" class="node">
+<title>dynconst</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="396.43,-150.27 336.91,-150.27 336.91,-126 396.43,-126 396.43,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dynconst</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;dynconst -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge5" class="edge">
+<title>proc~define_cam_grid&#45;&gt;dynconst</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M455.86,-151.61C440.02,-149.19 422.69,-146.54 407.61,-144.24"/>
+<polygon fill="#000000" stroke="#000000" points="408.49,-140.83 398.08,-142.78 407.43,-147.75 408.49,-140.83"/>
+</g>
+<!-- module~dyn_comp -->
+<g id="proc~~define_cam_grid~~UsesGraph_node7" class="node">
+<title>module~dyn_comp</title>
+<g id="a_proc~~define_cam_grid~~UsesGraph_node7"><a xlink:href="../module/dyn_comp.html" xlink:title="dyn_comp">
+<polygon fill="#337ab7" stroke="#337ab7" points="399.81,-108.27 333.54,-108.27 333.54,-84 399.81,-84 399.81,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_comp</text>
+</a>
+</g>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;module~dyn_comp -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge6" class="edge">
+<title>proc~define_cam_grid&#45;&gt;module~dyn_comp</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M481.12,-146.68C464.22,-138.05 440.95,-126.47 420.06,-117.13 417.08,-115.81 413.99,-114.47 410.87,-113.14"/>
+<polygon fill="#000000" stroke="#000000" points="412.23,-109.92 401.65,-109.32 409.55,-116.38 412.23,-109.92"/>
+</g>
+<!-- shr_kind_mod -->
+<g id="proc~~define_cam_grid~~UsesGraph_node8" class="node">
+<title>shr_kind_mod</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="409.18,-66.27 324.16,-66.27 324.16,-42 409.18,-42 409.18,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">shr_kind_mod</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;shr_kind_mod -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge7" class="edge">
+<title>proc~define_cam_grid&#45;&gt;shr_kind_mod</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M495.3,-146.74C480.63,-128.82 451.29,-95.61 420.06,-75.13 418.25,-73.95 416.36,-72.81 414.41,-71.72"/>
+<polygon fill="#000000" stroke="#000000" points="416.26,-68.73 405.76,-67.35 413.11,-74.98 416.26,-68.73"/>
+</g>
+<!-- string_utils -->
+<g id="proc~~define_cam_grid~~UsesGraph_node9" class="node">
+<title>string_utils</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="400.93,-24.27 332.41,-24.27 332.41,0 400.93,0 400.93,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="366.67" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">string_utils</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;string_utils -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge8" class="edge">
+<title>proc~define_cam_grid&#45;&gt;string_utils</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M499.71,-146.59C488.46,-121.65 460.1,-65.46 420.06,-33.13 417.36,-30.96 414.41,-28.98 411.33,-27.19"/>
+<polygon fill="#000000" stroke="#000000" points="413.04,-24.13 402.53,-22.78 409.9,-30.39 413.04,-24.13"/>
+</g>
+<!-- module~dyn_mpas_subdriver -->
+<g id="proc~~define_cam_grid~~UsesGraph_node10" class="node">
+<title>module~dyn_mpas_subdriver</title>
+<g id="a_proc~~define_cam_grid~~UsesGraph_node10"><a xlink:href="../module/dyn_mpas_subdriver.html" xlink:title="dyn_mpas_subdriver">
+<polygon fill="#337ab7" stroke="#337ab7" points="277.29,-108.27 156.27,-108.27 156.27,-84 277.29,-84 277.29,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="216.78" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_mpas_subdriver</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge9" class="edge">
+<title>module~dyn_comp&#45;&gt;module~dyn_mpas_subdriver</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M333.22,-96.13C320.08,-96.13 304.36,-96.13 288.81,-96.13"/>
+<polygon fill="#000000" stroke="#000000" points="289.08,-92.64 279.08,-96.14 289.08,-99.64 289.08,-92.64"/>
+</g>
+<!-- iso_fortran_env -->
+<g id="proc~~define_cam_grid~~UsesGraph_node11" class="node">
+<title>iso_fortran_env</title>
+<g id="a_proc~~define_cam_grid~~UsesGraph_node11"><a xlink:href="https://www.intel.com/content/www/us/en/docs/fortran-compiler/developer-guide-reference/2024-2/iso-fortran-env-module.html" xlink:title="iso_fortran_env">
+<polygon fill="#337ab7" stroke="#337ab7" points="106.77,-171.27 13.5,-171.27 13.5,-147 106.77,-147 106.77,-171.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-155.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">iso_fortran_env</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge10" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;iso_fortran_env</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-108.62C169.82,-117.26 143.67,-128.85 120.27,-138.13 116.45,-139.65 112.47,-141.18 108.47,-142.67"/>
+<polygon fill="#000000" stroke="#000000" points="107.49,-139.3 99.3,-146.03 109.9,-145.88 107.49,-139.3"/>
+</g>
+<!-- mpas_derived_types -->
+<g id="proc~~define_cam_grid~~UsesGraph_node12" class="node">
+<title>mpas_derived_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="120.27,-129.27 0,-129.27 0,-105 120.27,-105 120.27,-129.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-113.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_derived_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge11" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_derived_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-104.25C148.13,-105.32 140.02,-106.42 132,-107.51"/>
+<polygon fill="#000000" stroke="#000000" points="131.7,-104.02 122.27,-108.83 132.65,-110.96 131.7,-104.02"/>
+</g>
+<!-- mpas_kind_types -->
+<g id="proc~~define_cam_grid~~UsesGraph_node13" class="node">
+<title>mpas_kind_types</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="111.27,-87.27 9,-87.27 9,-63 111.27,-63 111.27,-87.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-71.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_kind_types</text>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge12" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpas_kind_types</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M155.99,-88.02C145.14,-86.54 133.8,-85 122.9,-83.52"/>
+<polygon fill="#000000" stroke="#000000" points="123.61,-80.09 113.23,-82.21 122.67,-87.02 123.61,-80.09"/>
+</g>
+<!-- mpi -->
+<g id="proc~~define_cam_grid~~UsesGraph_node14" class="node">
+<title>mpi</title>
+<g id="a_proc~~define_cam_grid~~UsesGraph_node14"><a xlink:href="https://www.mpi-forum.org/docs/mpi-4.1/mpi41-report/node467.htm" xlink:title="mpi">
+<polygon fill="#337ab7" stroke="#337ab7" points="87.13,-45.27 33.13,-45.27 33.13,-21 87.13,-21 87.13,-45.27"/>
+<text xml:space="preserve" text-anchor="middle" x="60.13" y="-29.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpi</text>
+</a>
+</g>
+</g>
+<!-- module~dyn_mpas_subdriver&#45;&gt;mpi -->
+<g id="proc~~define_cam_grid~~UsesGraph_edge13" class="edge">
+<title>module~dyn_mpas_subdriver&#45;&gt;mpi</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M188.83,-83.65C169.82,-75.01 143.67,-63.42 120.27,-54.13 113.21,-51.33 105.61,-48.5 98.28,-45.86"/>
+<polygon fill="#000000" stroke="#000000" points="99.51,-42.58 88.91,-42.54 97.17,-49.18 99.51,-42.58"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#UsesGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="UsesGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="511pt" height="32pt"
+ viewBox="0.00 0.00 511.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 506.88,-28.27 506.88,4 -4,4"/>
+<!-- Module -->
+<g id="node1" class="node">
+<title>Module</title>
+<polygon fill="#337ab7" stroke="#337ab7" points="54,-24.27 0,-24.27 0,0 54,0 54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="27" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Module</text>
+</g>
+<!-- Submodule -->
+<g id="node2" class="node">
+<title>Submodule</title>
+<polygon fill="#5bc0de" stroke="#5bc0de" points="144.13,-24.27 71.87,-24.27 71.87,0 144.13,0 144.13,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="108" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Submodule</text>
+</g>
+<!-- Subroutine -->
+<g id="node3" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="231.63,-24.27 162.37,-24.27 162.37,0 231.63,0 231.63,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="197" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node4" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="306.26,-24.27 249.74,-24.27 249.74,0 306.26,0 306.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="278" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Program -->
+<g id="node5" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="381.26,-24.27 324.74,-24.27 324.74,0 381.26,0 381.26,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="353" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node6" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="502.88,-24.27 399.12,-24.27 399.12,0 502.88,0 502.88,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="451" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a submodule to the (sub)module which it is
+descended from. Dashed arrows point from a module or program unit to 
+modules which it uses.
+</p>
+ </div>
+            </div>
+          </div>
+        </div>
+            </li>
+        </ul>
+      </div>
+    </div>
+
+
+        <p>This subroutine defines and registers four variants of dynamics grids in terms of dynamics decomposition.
+Their names are listed in <code>dyn_grid_name</code> and their corresponding ids can be determined by calling <code>dyn_grid_id</code>.
+* "mpas_cell": Grid that is centered at MPAS "cell" points.
+* "cam_cell": Grid that is also centered at MPAS "cell" points but uses standard CAM-SIMA coordinate and dimension names.
+* "mpas_edge": Grid that is centered at MPAS "edge" points.
+* "mpas_vertex": Grid that is centered at MPAS "vertex" points.
+(KCW, 2024-03-28)</p>
+
+
+      <h3>Arguments</h3>
+        <em>None</em>
+        <br>
+        <br>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Calls</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~define_cam_grid~~CallsGraph Pages: 1 -->
+<svg id="procdefine_cam_gridCallsGraph" width="641pt" height="395pt"
+ viewBox="0.00 0.00 641.00 395.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~define_cam_grid~~CallsGraph" class="graph" transform="scale(0.478144 0.478144) rotate(0) translate(4 822.27)">
+<title>proc~~define_cam_grid~~CallsGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-822.27 1336.6,-822.27 1336.6,4 -4,4"/>
+<!-- proc~define_cam_grid -->
+<g id="proc~~define_cam_grid~~CallsGraph_node1" class="node">
+<title>proc~define_cam_grid</title>
+<polygon fill="none" stroke="black" points="100.02,-672.27 0,-672.27 0,-648 100.02,-648 100.02,-672.27"/>
+<text xml:space="preserve" text-anchor="middle" x="50.01" y="-656.53" font-family="Helvetica,sans-Serif" font-size="10.50">define_cam_grid</text>
+</g>
+<!-- cam_grid_attribute_register -->
+<g id="proc~~define_cam_grid~~CallsGraph_node2" class="node">
+<title>cam_grid_attribute_register</title>
+<polygon fill="#777777" stroke="#777777" points="353.79,-818.27 196.02,-818.27 196.02,-794 353.79,-794 353.79,-818.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-802.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_grid_attribute_register</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_grid_attribute_register -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge1" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_grid_attribute_register</title>
+<path fill="none" stroke="#000000" d="M55.51,-672.6C65.52,-698.41 92.28,-757.57 136.02,-785.13 150.47,-794.24 167.43,-799.93 184.41,-803.38"/>
+<polygon fill="#000000" stroke="#000000" points="183.61,-806.79 194.06,-805.08 184.82,-799.9 183.61,-806.79"/>
+</g>
+<!-- cam_grid_register -->
+<g id="proc~~define_cam_grid~~CallsGraph_node3" class="node">
+<title>cam_grid_register</title>
+<polygon fill="#777777" stroke="#777777" points="328.29,-776.27 221.52,-776.27 221.52,-752 328.29,-752 328.29,-776.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-760.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">cam_grid_register</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;cam_grid_register -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge2" class="edge">
+<title>proc~define_cam_grid&#45;&gt;cam_grid_register</title>
+<path fill="none" stroke="#000000" d="M59.79,-672.73C73.63,-691.5 102.42,-726.39 136.02,-743.13 158.66,-754.42 185.78,-759.99 209.96,-762.63"/>
+<polygon fill="#000000" stroke="#000000" points="209.4,-766.09 219.68,-763.54 210.05,-759.12 209.4,-766.09"/>
+</g>
+<!-- check_allocate -->
+<g id="proc~~define_cam_grid~~CallsGraph_node4" class="node">
+<title>check_allocate</title>
+<polygon fill="#777777" stroke="#777777" points="320.41,-734.27 229.39,-734.27 229.39,-710 320.41,-710 320.41,-734.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-718.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">check_allocate</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;check_allocate -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge3" class="edge">
+<title>proc~define_cam_grid&#45;&gt;check_allocate</title>
+<path fill="none" stroke="#000000" d="M72.3,-672.61C89.07,-681.89 113.32,-694.11 136.02,-701.13 162.3,-709.27 192.41,-714.32 217.77,-717.42"/>
+<polygon fill="#000000" stroke="#000000" points="217.22,-720.88 227.56,-718.54 218.02,-713.93 217.22,-720.88"/>
+</g>
+<!-- horiz_coord_create -->
+<g id="proc~~define_cam_grid~~CallsGraph_node5" class="node">
+<title>horiz_coord_create</title>
+<polygon fill="#777777" stroke="#777777" points="331.29,-692.27 218.52,-692.27 218.52,-668 331.29,-668 331.29,-692.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-676.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">horiz_coord_create</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;horiz_coord_create -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge4" class="edge">
+<title>proc~define_cam_grid&#45;&gt;horiz_coord_create</title>
+<path fill="none" stroke="#000000" d="M100.48,-664.57C131.82,-667.39 172.75,-671.06 206.98,-674.13"/>
+<polygon fill="#000000" stroke="#000000" points="206.53,-677.6 216.8,-675.01 207.15,-670.63 206.53,-677.6"/>
+</g>
+<!-- interface~dyn_debug_print -->
+<g id="proc~~define_cam_grid~~CallsGraph_node6" class="node">
+<title>interface~dyn_debug_print</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node6"><a xlink:href="../interface/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#a7506f" stroke="#a7506f" points="324.91,-612.27 224.89,-612.27 224.89,-588 324.91,-588 324.91,-612.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-596.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;interface~dyn_debug_print -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge5" class="edge">
+<title>proc~define_cam_grid&#45;&gt;interface~dyn_debug_print</title>
+<path fill="none" stroke="#000000" d="M78.48,-647.57C94.9,-640.46 116.33,-631.87 136.02,-626.13 160.96,-618.87 189.04,-613.15 213.32,-608.94"/>
+<polygon fill="#000000" stroke="#000000" points="213.77,-612.42 223.05,-607.31 212.61,-605.51 213.77,-612.42"/>
+</g>
+<!-- interface~dyn_grid_id -->
+<g id="proc~~define_cam_grid~~CallsGraph_node7" class="node">
+<title>interface~dyn_grid_id</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node7"><a xlink:href="../interface/dyn_grid_id.html" xlink:title="dyn_grid_id">
+<polygon fill="#a7506f" stroke="#a7506f" points="311.04,-570.27 238.77,-570.27 238.77,-546 311.04,-546 311.04,-570.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-554.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_grid_id</text>
+</a>
+</g>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;interface~dyn_grid_id -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge6" class="edge">
+<title>proc~define_cam_grid&#45;&gt;interface~dyn_grid_id</title>
+<path fill="none" stroke="#000000" d="M60.09,-647.54C74.12,-629.15 102.9,-595.39 136.02,-579.13 164.27,-565.27 199.36,-560.07 227.08,-558.31"/>
+<polygon fill="#000000" stroke="#000000" points="227.13,-561.81 236.95,-557.83 226.79,-554.82 227.13,-561.81"/>
+</g>
+<!-- none~get_variable_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_node8" class="node">
+<title>none~get_variable_pointer</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node8"><a xlink:href="../type/mpas_dynamical_core_type.html#boundprocedure-get_variable_pointer" xlink:title="mpas_dynamical_core_type%get_variable_pointer">
+<polygon fill="#a7506f" stroke="#a7506f" points="413.79,-297.27 136.02,-297.27 136.02,-273 413.79,-273 413.79,-297.27"/>
+<text xml:space="preserve" text-anchor="middle" x="274.9" y="-281.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%get_variable_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;none~get_variable_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge7" class="edge">
+<title>proc~define_cam_grid&#45;&gt;none~get_variable_pointer</title>
+<path fill="none" stroke="#000000" d="M58.43,-647.66C90.69,-593.38 219.05,-377.42 260.75,-307.27"/>
+<polygon fill="#000000" stroke="#000000" points="263.59,-309.34 265.69,-298.96 257.57,-305.77 263.59,-309.34"/>
+</g>
+<!-- stringify -->
+<g id="proc~~define_cam_grid~~CallsGraph_node9" class="node">
+<title>stringify</title>
+<polygon fill="#777777" stroke="#777777" points="1026.33,-632.27 972.06,-632.27 972.06,-608 1026.33,-608 1026.33,-632.27"/>
+<text xml:space="preserve" text-anchor="middle" x="999.19" y="-616.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">stringify</text>
+</g>
+<!-- proc~define_cam_grid&#45;&gt;stringify -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge8" class="edge">
+<title>proc~define_cam_grid&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M100.27,-658.05C267.57,-650.99 811.81,-628.01 960.41,-621.73"/>
+<polygon fill="#000000" stroke="#000000" points="960.24,-625.24 970.08,-621.32 959.94,-618.25 960.24,-625.24"/>
+</g>
+<!-- proc~dyn_debug_print -->
+<g id="proc~~define_cam_grid~~CallsGraph_node10" class="node">
+<title>proc~dyn_debug_print</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node10"><a xlink:href="../proc/dyn_debug_print.html" xlink:title="dyn_debug_print">
+<polygon fill="#d9534f" stroke="#d9534f" points="677.31,-612.27 577.29,-612.27 577.29,-588 677.31,-588 677.31,-612.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-596.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_debug_print</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge9" class="edge">
+<title>interface~dyn_debug_print&#45;&gt;proc~dyn_debug_print</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M325.36,-600.13C388.4,-600.13 497.35,-600.13 565.42,-600.13"/>
+<polygon fill="#000000" stroke="#000000" points="565.3,-603.64 575.3,-600.14 565.3,-596.64 565.3,-603.64"/>
+</g>
+<!-- proc~dyn_grid_id -->
+<g id="proc~~define_cam_grid~~CallsGraph_node11" class="node">
+<title>proc~dyn_grid_id</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node11"><a xlink:href="../proc/dyn_grid_id.html" xlink:title="dyn_grid_id">
+<polygon fill="#d94e8f" stroke="#d94e8f" points="663.43,-570.27 591.16,-570.27 591.16,-546 663.43,-546 663.43,-570.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-554.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">dyn_grid_id</text>
+</a>
+</g>
+</g>
+<!-- interface~dyn_grid_id&#45;&gt;proc~dyn_grid_id -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge10" class="edge">
+<title>interface~dyn_grid_id&#45;&gt;proc~dyn_grid_id</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M311.43,-558.13C375.05,-558.13 508.39,-558.13 579.42,-558.13"/>
+<polygon fill="#000000" stroke="#000000" points="579.17,-561.64 589.17,-558.14 579.17,-554.64 579.17,-561.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node12" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c0</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node12"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.81,-444.27 449.79,-444.27 449.79,-420 804.81,-420 804.81,-444.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-428.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge11" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M288.05,-297.47C314.62,-323.58 381.04,-384.25 449.79,-411.13 454.74,-413.07 459.82,-414.84 464.99,-416.46"/>
+<polygon fill="#000000" stroke="#000000" points="463.7,-419.73 474.28,-419.15 465.65,-413 463.7,-419.73"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node13" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_c1</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node13"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_c1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.81,-150.27 449.79,-150.27 449.79,-126 804.81,-126 804.81,-150.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-134.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_c1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge12" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_c1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M288.05,-272.8C314.62,-246.69 381.04,-186.02 449.79,-159.13 454.74,-157.2 459.82,-155.43 464.99,-153.81"/>
+<polygon fill="#000000" stroke="#000000" points="465.65,-157.27 474.28,-151.12 463.7,-150.54 465.65,-157.27"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node14" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i0</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node14"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-486.27 451.29,-486.27 451.29,-462 803.31,-462 803.31,-486.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-470.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge13" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M284.27,-297.61C306.68,-329.86 371.68,-416.05 449.79,-453.13 453.31,-454.81 456.92,-456.37 460.59,-457.82"/>
+<polygon fill="#000000" stroke="#000000" points="459.07,-460.99 469.66,-461.11 461.46,-454.41 459.07,-460.99"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node15" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i1</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node15"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-360.27 451.29,-360.27 451.29,-336 803.31,-336 803.31,-360.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-344.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge14" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M321.36,-297.68C356.26,-306.93 405.77,-319.23 449.79,-327.13 463.83,-329.66 478.55,-331.95 493.25,-334.02"/>
+<polygon fill="#000000" stroke="#000000" points="492.6,-337.46 502.98,-335.35 493.55,-330.53 492.6,-337.46"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node16" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i2</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node16"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-108.27 451.29,-108.27 451.29,-84 803.31,-84 803.31,-108.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-92.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge15" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M284.27,-272.66C306.68,-240.41 371.68,-154.22 449.79,-117.13 453.31,-115.46 456.92,-113.9 460.59,-112.45"/>
+<polygon fill="#000000" stroke="#000000" points="461.46,-115.86 469.66,-109.16 459.07,-109.28 461.46,-115.86"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node17" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_i3</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node17"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_i3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-66.27 451.29,-66.27 451.29,-42 803.31,-42 803.31,-66.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-50.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_i3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge16" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_i3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M281.87,-272.65C300.54,-235.12 361.88,-123.03 449.79,-75.13 452.34,-73.75 454.94,-72.43 457.58,-71.19"/>
+<polygon fill="#000000" stroke="#000000" points="458.78,-74.48 466.59,-67.32 456.02,-68.05 458.78,-74.48"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node18" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_l0</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node18"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_l0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0">
+<polygon fill="#d9534f" stroke="#d9534f" points="803.31,-528.27 451.29,-528.27 451.29,-504 803.31,-504 803.31,-528.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-512.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_l0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge17" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_l0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M281.87,-297.62C300.54,-335.15 361.88,-447.24 449.79,-495.13 452.34,-496.52 454.94,-497.84 457.58,-499.08"/>
+<polygon fill="#000000" stroke="#000000" points="456.02,-502.22 466.59,-502.95 458.78,-495.79 456.02,-502.22"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node19" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r0</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node19"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r0.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-402.27 450.54,-402.27 450.54,-378 804.06,-378 804.06,-402.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-386.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r0</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge18" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r0</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M296.15,-297.69C327.7,-316.59 391.06,-351.98 449.79,-369.13 457.53,-371.4 465.53,-373.41 473.65,-375.21"/>
+<polygon fill="#000000" stroke="#000000" points="472.81,-378.61 483.31,-377.23 474.23,-371.76 472.81,-378.61"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node20" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r1</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node20"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r1.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-24.27 450.54,-24.27 450.54,0 804.06,0 804.06,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r1</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge19" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r1</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M280.22,-272.65C295.53,-230.42 351.7,-92.28 449.79,-33.13 451.85,-31.89 453.96,-30.7 456.09,-29.57"/>
+<polygon fill="#000000" stroke="#000000" points="457.47,-32.79 464.97,-25.3 454.44,-26.48 457.47,-32.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node21" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r2</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node21"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r2.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-318.27 450.54,-318.27 450.54,-294 804.06,-294 804.06,-318.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-302.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r2</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge20" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r2</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M414.14,-293.42C422.3,-293.91 430.57,-294.4 438.88,-294.9"/>
+<polygon fill="#000000" stroke="#000000" points="438.52,-298.39 448.71,-295.49 438.94,-291.4 438.52,-298.39"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node22" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r3</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node22"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r3.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-276.27 450.54,-276.27 450.54,-252 804.06,-252 804.06,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r3</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge21" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r3</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M414.14,-276.85C422.3,-276.36 430.57,-275.87 438.88,-275.37"/>
+<polygon fill="#000000" stroke="#000000" points="438.94,-278.87 448.71,-274.78 438.52,-271.88 438.94,-278.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node23" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r4</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node23"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r4.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-234.27 450.54,-234.27 450.54,-210 804.06,-210 804.06,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r4</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge22" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r4</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M321.36,-272.59C356.26,-263.34 405.77,-251.04 449.79,-243.13 463.83,-240.61 478.55,-238.32 493.25,-236.25"/>
+<polygon fill="#000000" stroke="#000000" points="493.55,-239.74 502.98,-234.92 492.6,-232.81 493.55,-239.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~define_cam_grid~~CallsGraph_node24" class="node">
+<title>proc~dyn_mpas_get_variable_pointer_r5</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node24"><a xlink:href="../proc/dyn_mpas_get_variable_pointer_r5.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5">
+<polygon fill="#d9534f" stroke="#d9534f" points="804.06,-192.27 450.54,-192.27 450.54,-168 804.06,-168 804.06,-192.27"/>
+<text xml:space="preserve" text-anchor="middle" x="627.3" y="-176.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_variable_pointer_r5</text>
+</a>
+</g>
+</g>
+<!-- none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5 -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge23" class="edge">
+<title>none~get_variable_pointer&#45;&gt;proc~dyn_mpas_get_variable_pointer_r5</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M296.15,-272.58C327.7,-253.68 391.06,-218.29 449.79,-201.13 457.53,-198.87 465.53,-196.86 473.65,-195.06"/>
+<polygon fill="#000000" stroke="#000000" points="474.23,-198.51 483.31,-193.04 472.81,-191.66 474.23,-198.51"/>
+</g>
+<!-- proc~dyn_debug_print&#45;&gt;stringify -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge24" class="edge">
+<title>proc~dyn_debug_print&#45;&gt;stringify</title>
+<path fill="none" stroke="#000000" d="M677.8,-602.81C752.64,-606.86 892.99,-614.45 960.3,-618.09"/>
+<polygon fill="#000000" stroke="#000000" points="959.92,-621.57 970.09,-618.62 960.29,-614.58 959.92,-621.57"/>
+</g>
+<!-- mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_node25" class="node">
+<title>mpas_pool_get_array</title>
+<polygon fill="#777777" stroke="#777777" points="1061.95,-234.27 936.43,-234.27 936.43,-210 1061.95,-210 1061.95,-234.27"/>
+<text xml:space="preserve" text-anchor="middle" x="999.19" y="-218.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_array</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge25" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M793.97,-419.63C797.76,-417.08 801.39,-414.25 804.81,-411.13 861.25,-359.7 784.74,-294.97 840.81,-243.13 863.16,-222.48 895.5,-215.73 925.06,-214.74"/>
+<polygon fill="#000000" stroke="#000000" points="924.75,-218.24 934.71,-214.64 924.67,-211.24 924.75,-218.24"/>
+</g>
+<!-- mpas_pool_get_config -->
+<g id="proc~~define_cam_grid~~CallsGraph_node26" class="node">
+<title>mpas_pool_get_config</title>
+<polygon fill="#777777" stroke="#777777" points="1064.2,-465.27 934.18,-465.27 934.18,-441 1064.2,-441 1064.2,-465.27"/>
+<text xml:space="preserve" text-anchor="middle" x="999.19" y="-449.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_config</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge26" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M805.12,-442.17C846.51,-444.52 888.44,-446.9 922.6,-448.84"/>
+<polygon fill="#000000" stroke="#000000" points="922.18,-452.33 932.37,-449.4 922.58,-445.34 922.18,-452.33"/>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_node28" class="node">
+<title>proc~dyn_mpas_get_pool_pointer</title>
+<g id="a_proc~~define_cam_grid~~CallsGraph_node28"><a xlink:href="../proc/dyn_mpas_get_pool_pointer.html" xlink:title="mpas_dynamical_core_type%dyn_mpas_get_pool_pointer">
+<polygon fill="#d9534f" stroke="#d9534f" points="1157.58,-276.27 840.81,-276.27 840.81,-252 1157.58,-252 1157.58,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="999.19" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_dynamical_core_type%dyn_mpas_get_pool_pointer</text>
+</a>
+</g>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge27" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M789.89,-419.59C795.06,-417.09 800.05,-414.29 804.81,-411.13 831.7,-393.33 817.68,-370.61 840.81,-348.13 872.48,-317.37 917.69,-294.82 951.53,-280.87"/>
+<polygon fill="#000000" stroke="#000000" points="952.7,-284.17 960.69,-277.21 950.1,-277.68 952.7,-284.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge28" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M758.92,-150.74C774.46,-153.11 790.04,-155.88 804.81,-159.13 857.92,-170.83 917.13,-191.25 955.87,-205.67"/>
+<polygon fill="#000000" stroke="#000000" points="954.22,-208.79 964.81,-209.04 956.68,-202.24 954.22,-208.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge29" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_c1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M791.59,-150.65C796.19,-153.18 800.61,-155.99 804.81,-159.13 837.34,-183.46 808.46,-218.58 840.81,-243.13 841.98,-244.03 843.18,-244.89 844.39,-245.72"/>
+<polygon fill="#000000" stroke="#000000" points="842.36,-248.59 852.72,-250.82 846.01,-242.61 842.36,-248.59"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge30" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M794.51,-461.56C798.12,-459.02 801.57,-456.22 804.81,-453.13 873.47,-387.92 772.62,-308.84 840.81,-243.13 862.81,-221.93 895.27,-215.16 925,-214.28"/>
+<polygon fill="#000000" stroke="#000000" points="924.74,-217.79 934.72,-214.23 924.7,-210.79 924.74,-217.79"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge31" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M803.77,-464.17C845.51,-461.8 887.89,-459.4 922.38,-457.44"/>
+<polygon fill="#000000" stroke="#000000" points="922.47,-460.94 932.26,-456.88 922.08,-453.95 922.47,-460.94"/>
+</g>
+<!-- mpas_pool_get_dimension -->
+<g id="proc~~define_cam_grid~~CallsGraph_node27" class="node">
+<title>mpas_pool_get_dimension</title>
+<polygon fill="#777777" stroke="#777777" points="1075.45,-381.27 922.93,-381.27 922.93,-357 1075.45,-357 1075.45,-381.27"/>
+<text xml:space="preserve" text-anchor="middle" x="999.19" y="-365.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_dimension</text>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge32" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M774.32,-461.56C784.75,-459.2 795.01,-456.42 804.81,-453.13 822.37,-447.25 824.17,-440.27 840.81,-432.13 877.24,-414.34 920.04,-397.45 951.8,-385.65"/>
+<polygon fill="#000000" stroke="#000000" points="952.95,-388.96 961.12,-382.22 950.53,-382.39 952.95,-388.96"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge33" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M792.7,-461.55C796.92,-459.03 800.97,-456.24 804.81,-453.13 843.19,-422.14 808.82,-385.69 840.81,-348.13 868.35,-315.79 911.56,-293.99 945.74,-280.73"/>
+<polygon fill="#000000" stroke="#000000" points="946.92,-284.02 955.07,-277.24 944.48,-277.46 946.92,-284.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge34" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M791.59,-335.62C796.19,-333.09 800.61,-330.28 804.81,-327.13 837.34,-302.81 808.46,-267.69 840.81,-243.13 864.46,-225.18 896.07,-218.62 924.75,-217.04"/>
+<polygon fill="#000000" stroke="#000000" points="924.6,-220.55 934.48,-216.71 924.37,-213.55 924.6,-220.55"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge35" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;mpas_pool_get_dimension</title>
+<path fill="none" stroke="#000000" d="M803.77,-358.1C841.15,-360.22 879.05,-362.37 911.34,-364.2"/>
+<polygon fill="#000000" stroke="#000000" points="910.83,-367.68 921.01,-364.75 911.22,-360.69 910.83,-367.68"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge36" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M758.92,-335.53C774.46,-333.16 790.04,-330.39 804.81,-327.13 857.92,-315.44 917.13,-295.02 955.87,-280.6"/>
+<polygon fill="#000000" stroke="#000000" points="956.68,-284.03 964.81,-277.23 954.22,-277.48 956.68,-284.03"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge37" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M772.8,-108.75C783.74,-111.09 794.52,-113.86 804.81,-117.13 868.37,-137.35 935.18,-178.83 971.24,-203.16"/>
+<polygon fill="#000000" stroke="#000000" points="969.09,-205.93 979.32,-208.69 973.04,-200.15 969.09,-205.93"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge38" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M793.31,-108.7C797.32,-111.23 801.17,-114.03 804.81,-117.13 849.15,-154.9 796.74,-205.06 840.81,-243.13 841.61,-243.82 842.42,-244.5 843.24,-245.16"/>
+<polygon fill="#000000" stroke="#000000" points="840.99,-247.86 851.18,-250.76 845.03,-242.13 840.99,-247.86"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge39" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M779.87,-66.73C788.43,-69.11 796.8,-71.9 804.81,-75.13 877.31,-104.44 946.24,-168.42 978.74,-201.46"/>
+<polygon fill="#000000" stroke="#000000" points="976.03,-203.7 985.5,-208.45 981.06,-198.83 976.03,-203.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge40" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_i3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M793.97,-66.64C797.76,-69.19 801.39,-72.02 804.81,-75.13 861.25,-126.57 784.74,-191.3 840.81,-243.13 841.46,-243.73 842.11,-244.32 842.77,-244.89"/>
+<polygon fill="#000000" stroke="#000000" points="840.5,-247.56 850.59,-250.81 844.73,-241.98 840.5,-247.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge41" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M747.68,-503.5C766.83,-501.02 786.4,-498.22 804.81,-495.13 848.91,-487.74 898.15,-477.01 935.91,-468.24"/>
+<polygon fill="#000000" stroke="#000000" points="936.33,-471.74 945.27,-466.06 934.74,-464.93 936.33,-471.74"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge42" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_l0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M793.46,-503.75C797.43,-501.17 801.23,-498.31 804.81,-495.13 855.18,-450.55 799.55,-401.26 840.81,-348.13 866.55,-314.99 909.13,-293.4 943.51,-280.42"/>
+<polygon fill="#000000" stroke="#000000" points="944.25,-283.87 952.47,-277.18 941.87,-277.29 944.25,-283.87"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge43" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M793.31,-377.57C797.32,-375.04 801.17,-372.24 804.81,-369.13 849.15,-331.37 796.74,-281.21 840.81,-243.13 863.55,-223.49 895.47,-216.76 924.62,-215.52"/>
+<polygon fill="#000000" stroke="#000000" points="924.61,-219.02 934.54,-215.33 924.48,-212.03 924.61,-219.02"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge44" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;mpas_pool_get_config</title>
+<path fill="none" stroke="#000000" d="M747.68,-402.77C766.83,-405.25 786.4,-408.05 804.81,-411.13 848.91,-418.53 898.15,-429.26 935.91,-438.03"/>
+<polygon fill="#000000" stroke="#000000" points="934.74,-441.34 945.27,-440.21 936.33,-434.53 934.74,-441.34"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge45" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r0&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M774.32,-377.56C784.75,-375.2 795.01,-372.42 804.81,-369.13 822.37,-363.25 824.64,-357.16 840.81,-348.13 882.84,-324.67 931.85,-298.73 963.87,-281.98"/>
+<polygon fill="#000000" stroke="#000000" points="965.46,-285.1 972.7,-277.36 962.22,-278.89 965.46,-285.1"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge46" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M783.98,-24.74C791.15,-27.16 798.13,-29.94 804.81,-33.13 886.41,-72.17 954.72,-159.5 983.53,-200.33"/>
+<polygon fill="#000000" stroke="#000000" points="980.55,-202.17 989.12,-208.4 986.3,-198.19 980.55,-202.17"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge47" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r1&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M794.51,-24.71C798.12,-27.25 801.57,-30.05 804.81,-33.13 873.47,-98.35 772.62,-177.43 840.81,-243.13 841.32,-243.63 841.84,-244.11 842.36,-244.59"/>
+<polygon fill="#000000" stroke="#000000" points="840.09,-247.26 850.1,-250.73 844.44,-241.77 840.09,-247.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge48" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M786.11,-293.59C792.56,-291.13 798.82,-288.33 804.81,-285.13 826.5,-273.56 819.2,-254.87 840.81,-243.13 866.15,-229.38 897.05,-223.36 924.74,-221.05"/>
+<polygon fill="#000000" stroke="#000000" points="924.73,-224.56 934.48,-220.39 924.26,-217.57 924.73,-224.56"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge49" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r2&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M739.53,-293.51C782.49,-288.63 831.8,-283.03 875.76,-278.04"/>
+<polygon fill="#000000" stroke="#000000" points="876.07,-281.52 885.61,-276.92 875.28,-274.57 876.07,-281.52"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge50" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M739.53,-251.51C799.49,-244.7 871.81,-236.49 924.72,-230.48"/>
+<polygon fill="#000000" stroke="#000000" points="925,-233.97 934.54,-229.36 924.21,-227.01 925,-233.97"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge51" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r3&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M804.31,-264.13C812.63,-264.13 820.98,-264.13 829.28,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="829.06,-267.64 839.06,-264.14 829.06,-260.64 829.06,-267.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge52" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M804.31,-222.13C846.81,-222.13 889.94,-222.13 924.7,-222.13"/>
+<polygon fill="#000000" stroke="#000000" points="924.64,-225.64 934.64,-222.14 924.64,-218.64 924.64,-225.64"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge53" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r4&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M739.53,-234.76C782.49,-239.64 831.8,-245.24 875.76,-250.23"/>
+<polygon fill="#000000" stroke="#000000" points="875.28,-253.7 885.61,-251.35 876.07,-246.75 875.28,-253.7"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge54" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;mpas_pool_get_array</title>
+<path fill="none" stroke="#000000" d="M739.53,-192.76C799.49,-199.57 871.81,-207.78 924.72,-213.79"/>
+<polygon fill="#000000" stroke="#000000" points="924.21,-217.26 934.54,-214.91 925,-210.3 924.21,-217.26"/>
+</g>
+<!-- proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge55" class="edge">
+<title>proc~dyn_mpas_get_variable_pointer_r5&#45;&gt;proc~dyn_mpas_get_pool_pointer</title>
+<path fill="none" stroke="#000000" d="M786.11,-192.68C792.56,-195.14 798.82,-197.94 804.81,-201.13 826.5,-212.71 819.2,-231.4 840.81,-243.13 843.5,-244.6 846.25,-245.97 849.06,-247.26"/>
+<polygon fill="#000000" stroke="#000000" points="847.45,-250.38 858.02,-251 850.14,-243.92 847.45,-250.38"/>
+</g>
+<!-- mpas_pool_get_subpool -->
+<g id="proc~~define_cam_grid~~CallsGraph_node29" class="node">
+<title>mpas_pool_get_subpool</title>
+<polygon fill="#777777" stroke="#777777" points="1332.6,-276.27 1193.58,-276.27 1193.58,-252 1332.6,-252 1332.6,-276.27"/>
+<text xml:space="preserve" text-anchor="middle" x="1263.09" y="-260.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">mpas_pool_get_subpool</text>
+</g>
+<!-- proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool -->
+<g id="proc~~define_cam_grid~~CallsGraph_edge56" class="edge">
+<title>proc~dyn_mpas_get_pool_pointer&#45;&gt;mpas_pool_get_subpool</title>
+<path fill="none" stroke="#000000" d="M1157.83,-264.13C1165.96,-264.13 1173.94,-264.13 1181.65,-264.13"/>
+<polygon fill="#000000" stroke="#000000" points="1181.61,-267.64 1191.61,-264.14 1181.61,-260.64 1181.61,-267.64"/>
+</g>
+</g>
+</svg>
+</div>                <script>
+                  var panprocdefine_cam_gridCallsGraph = svgPanZoom('#procdefine_cam_gridCallsGraph',
+                    {zoomEnabled: true, controlIconsEnabled: true, fit: true, center: true,}
+                  );
+                </script>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CallsGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CallsGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <h3 class="card-title">Called by</h3>
+          </div>
+          <div class="card-body"><div class="depgraph"><?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: proc~~define_cam_grid~~CalledByGraph Pages: 1 -->
+<svg id="procdefine_cam_gridCalledByGraph" width="367pt" height="32pt"
+ viewBox="0.00 0.00 367.00 32.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="proc~~define_cam_grid~~CalledByGraph" class="graph" transform="scale(1 1) rotate(0) translate(4 28.27)">
+<title>proc~~define_cam_grid~~CalledByGraph</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 362.56,-28.27 362.56,4 -4,4"/>
+<!-- proc~define_cam_grid -->
+<g id="proc~~define_cam_grid~~CalledByGraph_node1" class="node">
+<title>proc~define_cam_grid</title>
+<polygon fill="none" stroke="black" points="358.56,-24.27 258.54,-24.27 258.54,0 358.56,0 358.56,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="308.55" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">define_cam_grid</text>
+</g>
+<!-- proc~model_grid_init -->
+<g id="proc~~define_cam_grid~~CalledByGraph_node2" class="node">
+<title>proc~model_grid_init</title>
+<g id="a_proc~~define_cam_grid~~CalledByGraph_node2"><a xlink:href="../proc/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#d9534f" stroke="#d9534f" points="222.54,-24.27 129.27,-24.27 129.27,0 222.54,0 222.54,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="175.9" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- proc~model_grid_init&#45;&gt;proc~define_cam_grid -->
+<g id="proc~~define_cam_grid~~CalledByGraph_edge1" class="edge">
+<title>proc~model_grid_init&#45;&gt;proc~define_cam_grid</title>
+<path fill="none" stroke="#000000" d="M222.97,-12.13C230.76,-12.13 238.95,-12.13 247.04,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="246.85,-15.64 256.85,-12.14 246.85,-8.64 246.85,-15.64"/>
+</g>
+<!-- interface~model_grid_init -->
+<g id="proc~~define_cam_grid~~CalledByGraph_node3" class="node">
+<title>interface~model_grid_init</title>
+<g id="a_proc~~define_cam_grid~~CalledByGraph_node3"><a xlink:href="../interface/model_grid_init.html" xlink:title="model_grid_init">
+<polygon fill="#a7506f" stroke="#a7506f" points="93.27,-24.27 0,-24.27 0,0 93.27,0 93.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="46.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">model_grid_init</text>
+</a>
+</g>
+</g>
+<!-- interface~model_grid_init&#45;&gt;proc~model_grid_init -->
+<g id="proc~~define_cam_grid~~CalledByGraph_edge2" class="edge">
+<title>interface~model_grid_init&#45;&gt;proc~model_grid_init</title>
+<path fill="none" stroke="#000000" stroke-dasharray="5,2" d="M93.58,-12.13C101.42,-12.13 109.65,-12.13 117.74,-12.13"/>
+<polygon fill="#000000" stroke="#000000" points="117.51,-15.64 127.51,-12.14 117.51,-8.64 117.51,-15.64"/>
+</g>
+</g>
+</svg>
+</div>          <div>
+            <a type="button" class="graph-help" data-bs-toggle="modal" href="#CalledByGraph-help-text">Help</a>
+          </div>
+          <div class="modal fade" id="CalledByGraph-help-text" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" id="-graph-help-label">Graph Key</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+<p>Nodes of different colours represent the following: </p>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 14.1.0 (20251207.0913)
+ -->
+<!-- Title: Graph Key Pages: 1 -->
+<svg width="641pt" height="28pt"
+ viewBox="0.00 0.00 641.00 28.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(0.873868 0.873868) rotate(0) translate(4 28.27)">
+<title>Graph Key</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-28.27 729.52,-28.27 729.52,4 -4,4"/>
+<!-- Subroutine -->
+<g id="node1" class="node">
+<title>Subroutine</title>
+<polygon fill="#d9534f" stroke="#d9534f" points="69.27,-24.27 0,-24.27 0,0 69.27,0 69.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="34.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Subroutine</text>
+</g>
+<!-- Function -->
+<g id="node2" class="node">
+<title>Function</title>
+<polygon fill="#d94e8f" stroke="#d94e8f" points="143.89,-24.27 87.38,-24.27 87.38,0 143.89,0 143.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="115.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Function</text>
+</g>
+<!-- Interface -->
+<g id="node3" class="node">
+<title>Interface</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="221.39,-24.27 161.88,-24.27 161.88,0 221.39,0 221.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="191.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Interface</text>
+</g>
+<!-- Type Bound Procedure -->
+<g id="node4" class="node">
+<title>Type Bound Procedure</title>
+<polygon fill="#a7506f" stroke="#a7506f" points="368.27,-24.27 239,-24.27 239,0 368.27,0 368.27,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="303.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Type Bound Procedure</text>
+</g>
+<!-- Unknown Procedure Type -->
+<g id="node5" class="node">
+<title>Unknown Procedure Type</title>
+<polygon fill="#777777" stroke="#777777" points="529.39,-24.27 385.88,-24.27 385.88,0 529.39,0 529.39,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="457.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Unknown Procedure Type</text>
+</g>
+<!-- Program -->
+<g id="node6" class="node">
+<title>Program</title>
+<polygon fill="#f0ad4e" stroke="#f0ad4e" points="603.89,-24.27 547.38,-24.27 547.38,0 603.89,0 603.89,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="575.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50" fill="white">Program</text>
+</g>
+<!-- This Page&#39;s Entity -->
+<g id="node7" class="node">
+<title>This Page&#39;s Entity</title>
+<polygon fill="none" stroke="black" points="725.52,-24.27 621.75,-24.27 621.75,0 725.52,0 725.52,-24.27"/>
+<text xml:space="preserve" text-anchor="middle" x="673.63" y="-8.53" font-family="Helvetica,sans-Serif" font-size="10.50">This Page&#39;s Entity</text>
+</g>
+</g>
+</svg>
+
+<p>Solid arrows point from a procedure to one which it calls. Dashed 
+arrows point from an interface to procedures which implement that interface.
+This could include the module procedures in a generic interface or the
+implementation in a submodule of an interface in a parent module.
+</p>
+ </div>
+            </div>
+          </div>
+        </div></div>
+        </div>
+      <br>
+
+
+        <section>
+          <h2>Variables</h2>
+            <table class="table table-striped varlist">
+    <thead>
+      <tr>
+        <th scope="col">Type</th>
+<th scope="col">Visibility</th>        <th scope="col">Attributes</th>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+<th></th><th scope="col">Initial</th>        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-areacell~2"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>areacell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cell_area"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>cell_area</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cell_weight"></span>
+              real(kind=kind_r8),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>cell_weight</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-cerr~3"></span>
+              character(len=len_cx),
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>cerr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-global_grid_index"></span>
+              integer(kind=kind_imap),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>global_grid_index</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-global_grid_map"></span>
+              integer(kind=kind_imap),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>global_grid_map</strong>(:,:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-i~2"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>i</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-ierr~3"></span>
+              integer,
+            </td>
+              <td>private</td>
+            <td>
+              
+            </td>
+            <td>::</td>
+            <td><strong>ierr</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-indextocellid~2"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>indextocellid</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-indextoedgeid"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>indextoedgeid</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-indextovertexid"></span>
+              integer,
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>indextovertexid</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-lat_coord"></span>
+              type(horiz_coord_t),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>lat_coord</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-latcell~2"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>latcell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-latedge"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>latedge</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-latvertex"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>latvertex</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-lon_coord"></span>
+              type(horiz_coord_t),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>lon_coord</strong></td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-loncell~2"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>loncell</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-lonedge"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>lonedge</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-lonvertex"></span>
+              real(kind=kind_dyn_mpas),
+            </td>
+              <td>private,</td>
+            <td>
+              pointer
+            </td>
+            <td>::</td>
+            <td><strong>lonvertex</strong>(:)</td>
+                <td></td>
+                <td></td>
+            <td>
+                
+            </td>
+        </tr>
+        <tr>
+            <td>
+              <span class="anchor" id="variable-subname~5"></span>
+              character(len=*),
+            </td>
+              <td>private,</td>
+            <td>
+parameter               
+            </td>
+            <td>::</td>
+            <td><strong>subname</strong></td>
+<td> =</td>
+                <td>&#39;dyn_grid::define_cam_grid&#39;</td>
+            <td>
+                
+            </td>
+        </tr>
+    </tbody>
+  </table>
+
+        </section>
+        <br>
+
+
+
+
+
+
+
+
+        <section>
+          <h2><span class="anchor" id="src"></span>Source Code</h2>
+          <div class="hl codehilite"><pre><span></span><span class="w">    </span><span class="k">subroutine </span><span class="n">define_cam_grid</span><span class="p">()</span>
+<span class="w">        </span><span class="c">! Module(s) from CAM-SIMA.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_abortutils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">check_allocate</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_grid_support</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">cam_grid_attribute_register</span><span class="p">,</span><span class="w"> </span><span class="n">cam_grid_register</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                    </span><span class="n">horiz_coord_create</span><span class="p">,</span><span class="w"> </span><span class="n">horiz_coord_t</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_logfile</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">debugout_verbose</span>
+<span class="w">        </span><span class="k">use </span><span class="n">cam_map_utils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_imap</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">imap</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dyn_comp</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">dyn_debug_print</span><span class="p">,</span><span class="w"> </span><span class="n">mpas_dynamical_core</span>
+<span class="w">        </span><span class="k">use </span><span class="n">dynconst</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">constant_pi</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">pi</span><span class="p">,</span><span class="w"> </span><span class="n">rad_to_deg</span>
+<span class="w">        </span><span class="k">use </span><span class="n">string_utils</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">stringify</span>
+<span class="w">        </span><span class="c">! Module(s) from CESM Share.</span>
+<span class="w">        </span><span class="k">use </span><span class="n">shr_kind_mod</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="n">kind_r8</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_r8</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">                                </span><span class="n">len_cx</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">shr_kind_cx</span>
+
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="o">*</span><span class="p">),</span><span class="w"> </span><span class="k">parameter</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;dyn_grid::define_cam_grid&#39;</span>
+<span class="w">        </span><span class="kt">character</span><span class="p">(</span><span class="n">len_cx</span><span class="p">)</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cerr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">i</span>
+<span class="w">        </span><span class="kt">integer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">ierr</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indextocellid</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Global indexes of cell centers.</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indextoedgeid</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Global indexes of edge nodes.</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">,</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">indextovertexid</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Global indexes of vertex nodes.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">areacell</span><span class="p">(:)</span><span class="w">  </span><span class="c">! Cell areas (m2).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">latcell</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Cell center latitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">latedge</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Edge node latitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">latvertex</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Vertex node latitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">loncell</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Cell center longitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">lonedge</span><span class="p">(:)</span><span class="w">   </span><span class="c">! Edge node longitudes (rad).</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_dyn_mpas</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">lonvertex</span><span class="p">(:)</span><span class="w"> </span><span class="c">! Vertex node longitudes (rad).</span>
+
+<span class="w">        </span><span class="c">! Global grid indexes. CAN be safely deallocated because its values are copied internally by</span>
+<span class="w">        </span><span class="c">! `cam_grid_attribute_register` and `horiz_coord_create`.</span>
+<span class="w">        </span><span class="c">! `kind_imap` is an integer kind of `PIO_OFFSET_KIND`.</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">(</span><span class="n">kind_imap</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">global_grid_index</span><span class="p">(:)</span>
+<span class="w">        </span><span class="c">! Global grid maps. CANNOT be safely deallocated because `cam_grid_register`</span>
+<span class="w">        </span><span class="c">! just uses pointers to point at it internally.</span>
+<span class="w">        </span><span class="c">! `kind_imap` is an integer kind of `PIO_OFFSET_KIND`.</span>
+<span class="w">        </span><span class="kt">integer</span><span class="p">(</span><span class="n">kind_imap</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">(:,</span><span class="w"> </span><span class="p">:)</span>
+<span class="w">        </span><span class="c">! Cell areas (m2). CANNOT be safely deallocated because `cam_grid_attribute_register`</span>
+<span class="w">        </span><span class="c">! just uses pointers to point at it internally.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cell_area</span><span class="p">(:)</span>
+<span class="w">        </span><span class="c">! Cell weights normalized to unity. CANNOT be safely deallocated because `cam_grid_attribute_register`</span>
+<span class="w">        </span><span class="c">! just uses pointers to point at it internally.</span>
+<span class="w">        </span><span class="kt">real</span><span class="p">(</span><span class="n">kind_r8</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">cell_weight</span><span class="p">(:)</span>
+<span class="w">        </span><span class="c">! Latitude coordinates. CANNOT be safely deallocated because `cam_grid_register`</span>
+<span class="w">        </span><span class="c">! just uses pointers to point at it internally.</span>
+<span class="w">        </span><span class="k">type</span><span class="p">(</span><span class="n">horiz_coord_t</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">lat_coord</span>
+<span class="w">        </span><span class="c">! Longitude coordinates. CANNOT be safely deallocated because `cam_grid_register`</span>
+<span class="w">        </span><span class="c">! just uses pointers to point at it internally.</span>
+<span class="w">        </span><span class="k">type</span><span class="p">(</span><span class="n">horiz_coord_t</span><span class="p">),</span><span class="w"> </span><span class="k">pointer</span><span class="w"> </span><span class="kd">::</span><span class="w"> </span><span class="n">lon_coord</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; entered&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">,</span><span class="w"> </span><span class="n">indextoedgeid</span><span class="p">,</span><span class="w"> </span><span class="n">indextovertexid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="n">loncell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latedge</span><span class="p">,</span><span class="w"> </span><span class="n">lonedge</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latvertex</span><span class="p">,</span><span class="w"> </span><span class="n">lonvertex</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">cell_area</span><span class="p">,</span><span class="w"> </span><span class="n">cell_weight</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Construct coordinate and grid objects for cell center grid (i.e., &quot;mpas_cell&quot;).</span>
+<span class="w">        </span><span class="c">! Standard MPAS coordinate and dimension names are used.</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">areacell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;areaCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;indexToCellID&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latCell&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">loncell</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lonCell&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_index(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="n">global_grid_index</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">lat_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;latCell&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nCells&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_north&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="n">lon_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;lonCell&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nCells&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_east&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">loncell</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">cell_area</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cell_area(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">cell_weight</span><span class="p">(</span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cell_weight(ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_map(3, ncells_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span>
+<span class="w">            </span><span class="n">cell_area</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">areacell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span>
+<span class="w">            </span><span class="n">cell_weight</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">areacell</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="mf">4.0_kind_r8</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">constant_pi</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">sphere_radius</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="k">        call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Registering dynamics grid &quot;mpas_cell&quot; with id &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">stringify</span><span class="p">([</span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">)]))</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_register</span><span class="p">(</span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">unstruct</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="n">block_indexed</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_attribute_register</span><span class="p">(</span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cell_area&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MPAS cell area&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nCells&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">cell_area</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_attribute_register</span><span class="p">(</span><span class="s1">&#39;mpas_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;cell_weight&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;MPAS cell weight&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nCells&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">cell_weight</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">areacell</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">cell_area</span><span class="p">,</span><span class="w"> </span><span class="n">cell_weight</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Construct coordinate and grid objects for cell center grid (i.e., &quot;cam_cell&quot;).</span>
+<span class="w">        </span><span class="c">! Standard CAM-SIMA coordinate and dimension names are used.</span>
+
+<span class="w">        </span><span class="n">lat_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;lat&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_north&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="n">lon_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;ncol&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_east&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">ncells_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">loncell</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Registering dynamics grid &quot;cam_cell&quot; with id &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">stringify</span><span class="p">([</span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;cam_cell&#39;</span><span class="p">)]))</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_register</span><span class="p">(</span><span class="s1">&#39;cam_cell&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;cam_cell&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">unstruct</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="n">block_indexed</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextocellid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latcell</span><span class="p">,</span><span class="w"> </span><span class="n">loncell</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">deallocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Construct coordinate and grid objects for edge node grid (i.e., &quot;mpas_edge&quot;).</span>
+<span class="w">        </span><span class="c">! Standard MPAS coordinate and dimension names are used.</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">indextoedgeid</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;indexToEdgeID&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">latedge</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latEdge&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">lonedge</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lonEdge&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">nedges_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_index(nedges_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="n">global_grid_index</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">indextoedgeid</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">nedges_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">lat_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;latEdge&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nEdges&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_north&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">latedge</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="n">lon_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;lonEdge&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nEdges&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_east&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">lonedge</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_map(3, nedges_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nedges_solve</span>
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">            </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="k">        call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Registering dynamics grid &quot;mpas_edge&quot; with id &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">stringify</span><span class="p">([</span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_edge&#39;</span><span class="p">)]))</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_register</span><span class="p">(</span><span class="s1">&#39;mpas_edge&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_edge&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">unstruct</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="n">block_indexed</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextoedgeid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latedge</span><span class="p">,</span><span class="w"> </span><span class="n">lonedge</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">deallocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">)</span>
+
+<span class="w">        </span><span class="c">! Construct coordinate and grid objects for vertex node grid (i.e., &quot;mpas_vertex&quot;).</span>
+<span class="w">        </span><span class="c">! Standard MPAS coordinate and dimension names are used.</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">indextovertexid</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;indexToVertexID&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">latvertex</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latVertex&#39;</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">mpas_dynamical_core</span><span class="w"> </span><span class="p">%</span><span class="w"> </span><span class="n">get_variable_pointer</span><span class="p">(</span><span class="n">lonvertex</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;mesh&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;lonVertex&#39;</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">nvertices_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_index(nvertices_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="n">global_grid_index</span><span class="p">(:)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">indextovertexid</span><span class="p">(</span><span class="mi">1</span><span class="p">:</span><span class="n">nvertices_solve</span><span class="p">),</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+
+<span class="w">        </span><span class="n">lat_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;latVertex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nVertices&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_north&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">latvertex</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="n">lon_coord</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">horiz_coord_create</span><span class="p">(</span><span class="s1">&#39;lonVertex&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;nVertices&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_global</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;degrees_east&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span><span class="p">,</span><span class="w"> </span><span class="kt">real</span><span class="p">(</span><span class="n">lonvertex</span><span class="p">,</span><span class="w"> </span><span class="n">kind_r8</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rad_to_deg</span><span class="p">,</span><span class="w"> </span><span class="n">map</span><span class="o">=</span><span class="n">global_grid_index</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">allocate</span><span class="p">(</span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span><span class="p">),</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="n">cerr</span><span class="p">,</span><span class="w"> </span><span class="nb">stat</span><span class="o">=</span><span class="n">ierr</span><span class="p">)</span>
+<span class="w">        </span><span class="k">call </span><span class="n">check_allocate</span><span class="p">(</span><span class="n">ierr</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;global_grid_map(3, nvertices_solve)&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="k">file</span><span class="o">=</span><span class="s1">&#39;dyn_grid&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">line</span><span class="o">=</span><span class="err">__</span><span class="n">LINE__</span><span class="p">,</span><span class="w"> </span><span class="n">errmsg</span><span class="o">=</span><span class="nb">trim</span><span class="p">(</span><span class="nb">adjustl</span><span class="p">(</span><span class="n">cerr</span><span class="p">)))</span>
+
+<span class="w">        </span><span class="k">do </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">nvertices_solve</span>
+<span class="w">           </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">           </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">int</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">kind_imap</span><span class="p">)</span>
+<span class="w">           </span><span class="n">global_grid_map</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">global_grid_index</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="w">        </span><span class="k">end do</span>
+
+<span class="k">        call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_verbose</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;Registering dynamics grid &quot;mpas_vertex&quot; with id &#39;</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">stringify</span><span class="p">([</span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_vertex&#39;</span><span class="p">)]))</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">cam_grid_register</span><span class="p">(</span><span class="s1">&#39;mpas_vertex&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">dyn_grid_id</span><span class="p">(</span><span class="s1">&#39;mpas_vertex&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">,</span><span class="w"> </span><span class="p">&amp;</span>
+<span class="w">            </span><span class="n">unstruct</span><span class="o">=</span><span class="p">.</span><span class="n">true</span><span class="p">.,</span><span class="w"> </span><span class="n">block_indexed</span><span class="o">=</span><span class="p">.</span><span class="n">false</span><span class="p">.)</span>
+
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">indextovertexid</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">latvertex</span><span class="p">,</span><span class="w"> </span><span class="n">lonvertex</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">deallocate</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">global_grid_index</span><span class="p">,</span><span class="w"> </span><span class="n">global_grid_map</span><span class="p">)</span>
+<span class="w">        </span><span class="k">nullify</span><span class="p">(</span><span class="n">lat_coord</span><span class="p">,</span><span class="w"> </span><span class="n">lon_coord</span><span class="p">)</span>
+
+<span class="w">        </span><span class="k">call </span><span class="n">dyn_debug_print</span><span class="p">(</span><span class="n">debugout_debug</span><span class="p">,</span><span class="w"> </span><span class="n">subname</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="s1">&#39; completed&#39;</span><span class="p">)</span>
+<span class="w">    </span><span class="k">end subroutine </span><span class="n">define_cam_grid</span>
+</pre></div>
+
+        </section>
+        <br>
+    </div>
+  </div>
+      <hr>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col">
+            <p>
+              MPAS Dynamical Core
+was developed by CAM-SIMA & MPAS Developers<br>              © 2025 
+            </p>
+          </div>
+          <div class="col">
+            <p class="text-end">
+              Documentation generated by
+              <a href="https://github.com/Fortran-FOSS-Programmers/ford">FORD</a>
+            </p>
+          </div>
+        </div>
+        <br>
+      </div>
+    </footer>
+  </body>
+</html>
