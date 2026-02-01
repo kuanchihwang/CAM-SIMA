@@ -249,7 +249,11 @@ jobs:
           - 'mpich-4'
           - 'open-mpi-4'
           - 'open-mpi-5'
-          - 'intel-mpi'
+        include:
+          - compiler: 'intel-2024'
+            mpi: 'intel-mpi'
+          - compiler: 'intel-2025'
+            mpi: 'intel-mpi'
     runs-on: ubuntu-24.04
     needs: conditional-check
     if: ${{ needs.conditional-check.outputs.should-run == 'true' }}
@@ -268,14 +272,34 @@ jobs:
         run: |
           mkdir -p "build"
           chmod 0777 "build"
-          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          case "${{ matrix.compiler }}" in
+            gcc-*)
+              export CC="gcc"
+              export CXX="g++"
+              export FC="gfortran"
+              ;;
+            intel-2024)
+              export CC="icx"
+              export CXX="icpx"
+              export FC="ifort"
+              ;;
+            intel-2025)
+              export CC="icx"
+              export CXX="icpx"
+              export FC="ifx"
+              ;;
+            *)
+              exit 1
+              ;;
+          esac
+          docker run --rm -e CC="$CC" -e CXX="$CXX" -e FC="$FC" -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
           "cmake -D CMAKE_BUILD_TYPE=\"$UNIT_TESTS_BUILD_TYPE\" -D CMAKE_PREFIX_PATH=\"/opt/hpc/mpi/${{ matrix.compiler }}/${{ matrix.mpi }}/pfunit\" -B \"build\" -S \"/mnt/src/dynamics/mpas\""
-          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          docker run --rm -e CC="$CC" -e CXX="$CXX" -e FC="$FC" -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
           "cmake --build \"build\" --config \"$UNIT_TESTS_BUILD_TYPE\""
 
       - name: Run unit tests
         run: |
-          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          docker run --rm -e CC="$CC" -e CXX="$CXX" -e FC="$FC" -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
           "ctest --build-config \"$UNIT_TESTS_BUILD_TYPE\" --output-log \"build/unit-tests.log\" --output-on-failure --test-dir \"build\" --verbose"
 
       - name: Upload unit tests log
