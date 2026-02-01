@@ -240,16 +240,16 @@ jobs:
       matrix:
         compiler:
           - 'gcc-11'
-          # - 'gcc-12'
-          # - 'gcc-13'
-          # - 'gcc-14'
-          # - 'intel-2024'
-          # - 'intel-2025'
+          - 'gcc-12'
+          - 'gcc-13'
+          - 'gcc-14'
+          - 'intel-2024'
+          - 'intel-2025'
         mpi:
           - 'mpich-4'
-          # - 'open-mpi-4'
-          # - 'open-mpi-5'
-          # - 'intel-mpi'
+          - 'open-mpi-4'
+          - 'open-mpi-5'
+          - 'intel-mpi'
     runs-on: ubuntu-24.04
     needs: conditional-check
     if: ${{ needs.conditional-check.outputs.should-run == 'true' }}
