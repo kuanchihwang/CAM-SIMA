@@ -233,70 +233,56 @@ jobs:
           path: ${{ env.SOURCE_CODE_PATH }}/source-code-linting.log
           retention-days: 7
   unit-tests:
-    name: Build and run unit tests (GCC ${{ matrix.gcc-version }})
+    name: "Build and run unit tests (Compiler: ${{ matrix.compiler }}, MPI: ${{ matrix.mpi }})"
     timeout-minutes: 10
     strategy:
       fail-fast: false
       matrix:
-        gcc-version:
-          - '12'
-          - '13'
-          - '14'
+        compiler:
+          - 'gcc-11'
+          # - 'gcc-12'
+          # - 'gcc-13'
+          # - 'gcc-14'
+          # - 'intel-2024'
+          # - 'intel-2025'
+        mpi:
+          - 'mpich-4'
+          # - 'open-mpi-4'
+          # - 'open-mpi-5'
+          # - 'intel-mpi'
     runs-on: ubuntu-24.04
     needs: conditional-check
     if: ${{ needs.conditional-check.outputs.should-run == 'true' }}
     env:
-      CC: gcc-${{ matrix.gcc-version }}
-      CXX: g++-${{ matrix.gcc-version }}
-      FC: gfortran-${{ matrix.gcc-version }}
-      PFUNIT_BUILD_TYPE: Release
-      PFUNIT_PATH: ${{ github.workspace }}/pFUnit
-      PFUNIT_REFERENCE: 'v4.13.0'
       UNIT_TESTS_BUILD_TYPE: Debug
       UNIT_TESTS_PATH: ${{ github.workspace }}/src/dynamics/mpas
     steps:
       - name: Checkout CAM-SIMA
         uses: actions/checkout@v5
 
-      # pFUnit takes a while to build. Cache it if possible to save time on consecutive workflow runs.
-      - name: Cache pFUnit
-        id: cache-pfunit
-        uses: actions/cache@v4
-        with:
-          key: cache-pfunit-${{ env.PFUNIT_REFERENCE }}-gcc-v${{ matrix.gcc-version }}-mpas
-          path: ${{ env.PFUNIT_PATH }}/install
-
-      # If there is a cache hit, just use the cached pFUnit and skip this step.
-      - name: Checkout pFUnit
-        if: ${{ steps.cache-pfunit.outputs.cache-hit != 'true' }}
-        uses: actions/checkout@v5
-        with:
-          repository: Goddard-Fortran-Ecosystem/pFUnit
-          ref: ${{ env.PFUNIT_REFERENCE }}
-          path: pFUnit
-
-      # If there is a cache hit, just use the cached pFUnit and skip this step.
-      - name: Build pFUnit
-        if: ${{ steps.cache-pfunit.outputs.cache-hit != 'true' }}
+      - name: Pull container image
         run: |
-          cmake -D CMAKE_BUILD_TYPE="$PFUNIT_BUILD_TYPE" -D CMAKE_INSTALL_PREFIX="$PFUNIT_PATH/install" -B "$PFUNIT_PATH/build" -S "$PFUNIT_PATH"
-          cmake --build "$PFUNIT_PATH/build" --config "$PFUNIT_BUILD_TYPE"
-          cmake --install "$PFUNIT_PATH/build" --config "$PFUNIT_BUILD_TYPE" --prefix "$PFUNIT_PATH/install"
+          docker pull "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}"
 
       - name: Build unit tests
         run: |
-          cmake -D CMAKE_BUILD_TYPE="$UNIT_TESTS_BUILD_TYPE" -D CMAKE_PREFIX_PATH="$PFUNIT_PATH/install" -B "$UNIT_TESTS_PATH/build" -S "$UNIT_TESTS_PATH"
-          cmake --build "$UNIT_TESTS_PATH/build" --config "$UNIT_TESTS_BUILD_TYPE"
+          mkdir -p "build"
+          chmod 0777 "build"
+          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          "cmake -D CMAKE_BUILD_TYPE=\"$UNIT_TESTS_BUILD_TYPE\" -D CMAKE_PREFIX_PATH=\"/opt/hpc/mpi/${{ matrix.compiler }}/${{ matrix.mpi }}/pfunit\" -B \"build\" -S \"/mnt/src/dynamics/mpas\""
+          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          "cmake --build \"build\" --config \"$UNIT_TESTS_BUILD_TYPE\""
 
       - name: Run unit tests
         run: |
-          ctest --build-config "$UNIT_TESTS_BUILD_TYPE" --output-log "$UNIT_TESTS_PATH/build/unit-tests.log" --output-on-failure --test-dir "$UNIT_TESTS_PATH/build" --verbose
+          docker run --rm -v "$UNIT_TESTS_PATH":"/mnt/src/dynamics/mpas" -v "${{ github.workspace }}/build":"/home/tester/build" "docker.io/kuanchihwang/atm-sci-container:testing_2_${{ matrix.compiler }}_${{ matrix.mpi }}" bash -c \
+          "ctest --build-config \"$UNIT_TESTS_BUILD_TYPE\" --output-log \"build/unit-tests.log\" --output-on-failure --test-dir \"build\" --verbose"
 
       - name: Upload unit tests log
         if: ${{ always() }}
         uses: actions/upload-artifact@v4
         with:
           if-no-files-found: ignore
-          name: unit-tests-log-gcc-v${{ matrix.gcc-version }}
-          path: ${{ env.UNIT_TESTS_PATH }}/build/unit-tests.log
+          name: unit-tests-log-${{ matrix.compiler }}-${{ matrix.mpi }}
+          path: ${{ github.workspace }}/build/unit-tests.log
           retention-days: 7
