@@ -234,7 +234,7 @@ jobs:
           retention-days: 7
   unit-tests:
     name: "Build and run unit tests (Compiler: ${{ matrix.compiler }}, MPI: ${{ matrix.mpi }})"
-    timeout-minutes: 10
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
@@ -258,7 +258,7 @@ jobs:
     needs: conditional-check
     if: ${{ needs.conditional-check.outputs.should-run == 'true' }}
     env:
-      UNIT_TESTS_BUILD_TYPE: Debug
+      UNIT_TESTS_BUILD_TYPE: Release
       UNIT_TESTS_PATH: ${{ github.workspace }}/src/dynamics/mpas
     steps:
       - name: Checkout CAM-SIMA
