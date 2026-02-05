@@ -25,6 +25,8 @@ derecho/intel/aux_sima:
 
 derecho/gnu/aux_sima:
 
+derecho/nvhpc/aux_sima:
+
 If this changes climate describe any run(s) done to evaluate the new
 climate in enough detail that it(they) could be reproduced:
 
