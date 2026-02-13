@@ -240,20 +240,20 @@ jobs:
       matrix:
         compiler:
           - 'gcc-11'
-          # - 'gcc-12'
-          # - 'gcc-13'
-          # - 'gcc-14'
-          # - 'intel-2024'
-          # - 'intel-2025'
+          - 'gcc-12'
+          - 'gcc-13'
+          - 'gcc-14'
+          - 'intel-2024'
+          - 'intel-2025'
         mpi:
           - 'mpich-4'
-        #   - 'open-mpi-4'
-        #   - 'open-mpi-5'
-        # include:
-        #   - compiler: 'intel-2024'
-        #     mpi: 'intel-mpi'
-        #   - compiler: 'intel-2025'
-        #     mpi: 'intel-mpi'
+          - 'open-mpi-4'
+          - 'open-mpi-5'
+        include:
+          - compiler: 'intel-2024'
+            mpi: 'intel-mpi'
+          - compiler: 'intel-2025'
+            mpi: 'intel-mpi'
     runs-on: ubuntu-24.04
     container:
       image: 'docker.io/kuanchihwang/atm-sci-container:2026-02-13_${{ matrix.compiler }}_${{ matrix.mpi }}'
